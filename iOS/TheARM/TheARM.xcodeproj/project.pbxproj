@@ -15,6 +15,7 @@
 		C09CE4C21BE6227A0073D715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C11BE6227A0073D715 /* Assets.xcassets */; };
 		C09CE4C51BE6227A0073D715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */; };
 		C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4D01BE62A1C0073D715 /* LoginViewController.m */; };
+		C09CE4D41BE650AC0073D715 /* RestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4D31BE650AC0073D715 /* RestManager.m */; };
 		F497D3091BE6321600B9C820 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3081BE6321600B9C820 /* EventsTableViewController.m */; };
 		F497D30C1BE63B4800B9C820 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D30B1BE63B4800B9C820 /* Event.m */; };
 		F497D30F1BE647FD00B9C820 /* Resorce.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D30E1BE647FD00B9C820 /* Resorce.m */; };
@@ -37,6 +38,8 @@
 		C09CE4C61BE6227A0073D715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C09CE4D01BE62A1C0073D715 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C09CE4D21BE650AC0073D715 /* RestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestManager.h; sourceTree = "<group>"; };
+		C09CE4D31BE650AC0073D715 /* RestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestManager.m; sourceTree = "<group>"; };
 		F497D3071BE6321600B9C820 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
 		F497D3081BE6321600B9C820 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
 		F497D30A1BE63B4800B9C820 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 			children = (
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
+				C09CE4D21BE650AC0073D715 /* RestManager.h */,
+				C09CE4D31BE650AC0073D715 /* RestManager.m */,
 				C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */,
 				C09CE4D01BE62A1C0073D715 /* LoginViewController.m */,
 				C09CE4BE1BE6227A0073D715 /* Main.storyboard */,
@@ -261,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F497D3121BE6492600B9C820 /* User.m in Sources */,
+				C09CE4D41BE650AC0073D715 /* RestManager.m in Sources */,
 				C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */,
 				F497D30C1BE63B4800B9C820 /* Event.m in Sources */,
 				F497D30F1BE647FD00B9C820 /* Resorce.m in Sources */,
