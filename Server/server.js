@@ -3,11 +3,10 @@
  */
 var express = require("express");
 var parser = require("body-parser");
-var serverContext = require("./models/server-context");
-var userController = require("Controllers/usercontroller.js");
-var companiesController = require("Controllers/companiescontroller.js");
-var eventsController = require("Controllers/eventcontroller.js");
-var resourcesController = require("Controllers/resourcecontroller.js");
+var userController = require("Controllers/users-controller.js");
+var companiesController = require("Controllers/companies-controller.js");
+var eventsController = require("Controllers/events-controller.js");
+var resourcesController = require("Controllers/resources-controller.js");
 
 var app = express();
 
@@ -23,9 +22,12 @@ app.post('/api/login', function (request, response)
     var password = request.body.password;
     var token = request.body.token;
 
-    var returnData = userController.LoginUser(username, password, token);
+    console.log("Login atempt from user: " + username);
 
-    response.end(returnData);
+    userController.loginUser(username, password, token, function (loginResult)
+    {
+        response.end(loginResult);
+    });
 });
 
 app.post('/api/register', function (request, response) {
@@ -33,10 +35,15 @@ app.post('/api/register', function (request, response) {
     var password = request.body.password;
     var token = request.body.token;
     var displayName = request.body.displayname;
+    var email = request.body.email;
+    var os = request.body.os;
 
-    var returnData = userController.RegisterUser(username, password, token, displayName);
+    console.log("Registration attempt from user " + username);
 
-    response.end(returnData);
+    var returnData = userController.registerUser(username, password, token, displayName, email, os, function (registerData)
+    {
+        response.end(registerData);
+    });
 });
 
 app.get('/api/companies', function (request, response)
