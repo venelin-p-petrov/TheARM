@@ -40,6 +40,7 @@
 		C09CE5221BE659BF0073D715 /* TKCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5121BE659BF0073D715 /* TKCalendarDayView.m */; };
 		C09CE5231BE659BF0073D715 /* TKCalendarDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5141BE659BF0073D715 /* TKCalendarDayViewController.m */; };
 		C09CE5241BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */; };
+		C09CE5271BE65C500073D715 /* EventCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5261BE65C500073D715 /* EventCellView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,8 @@
 		C09CE5141BE659BF0073D715 /* TKCalendarDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKCalendarDayViewController.m; sourceTree = "<group>"; };
 		C09CE5151BE659BF0073D715 /* UIDevice+TKCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+TKCategory.h"; sourceTree = "<group>"; };
 		C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+TKCategory.m"; sourceTree = "<group>"; };
+		C09CE5251BE65C500073D715 /* EventCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCellView.h; sourceTree = "<group>"; };
+		C09CE5261BE65C500073D715 /* EventCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCellView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,8 @@
 				C09CE4E31BE659360073D715 /* RestManager.m */,
 				C09CE4D71BE659130073D715 /* Models */,
 				C09CE4BE1BE6227A0073D715 /* Main.storyboard */,
+				C09CE5251BE65C500073D715 /* EventCellView.h */,
+				C09CE5261BE65C500073D715 /* EventCellView.m */,
 				C09CE4C11BE6227A0073D715 /* Assets.xcassets */,
 				C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */,
 				C09CE4C61BE6227A0073D715 /* Info.plist */,
@@ -389,6 +394,7 @@
 				C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */,
 				C09CE5221BE659BF0073D715 /* TKCalendarDayView.m in Sources */,
 				C09CE51B1BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */,
+				C09CE5271BE65C500073D715 /* EventCellView.m in Sources */,
 				C09CE4EB1BE659360073D715 /* EventsTableViewController.m in Sources */,
 				C09CE51E1BE659BF0073D715 /* UILabel+TKCategory.m in Sources */,
 				C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */,
