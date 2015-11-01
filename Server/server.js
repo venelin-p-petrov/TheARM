@@ -3,6 +3,7 @@
  */
 var express = require("express");
 var parser = require("body-parser");
+var Error = require("./models/error");
 var userController = require("Controllers/users_controller.js");
 var companiesController = require("Controllers/companies_controller.js");
 var eventsController = require("Controllers/events_controller.js");
@@ -43,45 +44,69 @@ app.post('/api/register', function (request, response) {
 
 app.get('/api/companies', function (request, response)
 {
-    response.end();
+    console.log("--- in GET/api/companies");
+
+    companiesController.getAll()
+        .then(function (companies) {
+            response.end(JSON.stringify(companies));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error getting companies", error)));
+        });
 });
 
-app.get('/api/:companyName/resources', function (request, response)
+app.get('/api/:companyId/resources', function (request, response)
+{
+    var companyId = request.params.companyId;
+    console.log("--- in GET/api/:companyId/resources - " + companyId);
+
+    companiesController.getResourcesByCompany(companyId)
+        .then(function (resources) {
+            response.end(JSON.stringify(resources));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error getting company resources", error)));
+        });
+});
+
+app.get('/api/:companyId/resources/:resourceId', function (request, response)
+{
+    var companyId = request.params.companyId;
+    var resourceId = request.params.resourceId;
+    console.log("--- in GET/api/:companyId/resources/:resourceId - " + companyId + ", " + resourceId);
+
+    companiesController.getResourceDataByCompany(companyId, resourceId)
+        .then(function (resources) {
+            response.end(JSON.stringify(resources));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error getting resource data for company", error)));
+        });
+});
+
+app.get('/api/:companyId/events', function (request, response)
 {
 
 });
 
-app.get('/api/:companyName/resources/:resourceId', function (request, response)
+app.get('/api/:companyId/events/:eventid', function (request, response)
 {
 
 });
 
-app.get('/api/:companyName/events', function (request, response)
+app.post('/api/:companyId/events', function (request, response)
 {
 
 });
 
-app.get('/api/:companyName/events/:eventid', function (request, response)
+app.post('/api/:companyId/events/join', function (request, response)
 {
 
 });
 
-app.post('/api/:companyName/events', function (request, response)
+app.post('/api/:companyId/events/leave', function (request, response)
 {
 
 });
 
-app.post('/api/:companyName/events/join', function (request, response)
-{
-
-});
-
-app.post('/api/:companyName/events/leave', function (request, response)
-{
-
-});
-
-app.delete('/api/:companyName/events/delete/:eventid/:userid', function (request, response)
+app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, response)
 {
 
 });
