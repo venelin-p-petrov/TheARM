@@ -7,12 +7,12 @@
 //
 
 #import "LoginViewController.h"
+#import "RestManager.h"
 
 @interface LoginViewController ()
     @property (weak, nonatomic) IBOutlet UITextField *username;
     @property (weak, nonatomic) IBOutlet UITextField *pasword;
     @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
 @end
 
 @implementation LoginViewController
@@ -27,8 +27,10 @@
 - (IBAction)clickLogin:(id)sender {
     NSLog(@"Username %@", self.username.text);
     NSLog(@"Password %@", self.pasword.text);
-    
-    
-    
+
+    [RestManager doLogin:self.username.text password:self.pasword.text andToken:@"asd" onSuccess:^(NSObject *responseObject) {
+        NSLog(@"dasdasdasdas");
+    }];
+
 }
 @end

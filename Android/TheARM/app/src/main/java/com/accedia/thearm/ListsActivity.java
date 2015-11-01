@@ -1,5 +1,8 @@
 package com.accedia.thearm;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,13 +12,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+
+import com.accedia.thearm.adapters.EventListAdapter;
+import com.accedia.thearm.adapters.ResourceListAdapter;
+import com.accedia.thearm.helpers.ApiHelper;
+import com.accedia.thearm.models.Event;
+import com.accedia.thearm.models.Resource;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ListsActivity extends AppCompatActivity {
 
@@ -34,6 +55,10 @@ public class ListsActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private static FloatingActionButton fabNewEvent;
+
+    private static List<Resource> resources = new ArrayList<Resource>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,44 +73,71 @@ public class ListsActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    fabNewEvent.setVisibility(View.GONE);
+                } else if (position == 1) {
+                    fabNewEvent.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        fabNewEvent = (FloatingActionButton) findViewById(R.id.fab_new_event);
+        fabNewEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO
+                Intent intent = new Intent(ListsActivity.this, CreateEventActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        fabNewEvent.setVisibility(View.GONE);
 
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lists, menu);
-        return true;
-    }
+    protected void onResume() {
+        super.onResume();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        try {
+            String result = ApiHelper.getCompanies();
+            JSONArray companiesArr = new JSONArray(result);
+            resources.clear();
+            for (int i = 0; i<= companiesArr.length(); i++){
+                String companyId = companiesArr.getJSONObject(i).getString("companyId");
+                String resourcesRes = ApiHelper.getCompanyResources(companyId);
+                JSONArray resourcesArr = new JSONArray();
+                for (int j = 0; j <= resourcesArr.length(); j++) {
+                    JSONObject obj = resourcesArr.getJSONObject(j);
+                    Resource res = new Resource();
+                    res.setName(obj.getString("name"));
+                    resources.add(res);
+                }
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -153,15 +205,32 @@ public class ListsActivity extends AppCompatActivity {
             int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
 
             View rootView = null;
-            if (sectionNumber == 1){
+            if (sectionNumber == 1) {
                 rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
                 // TODO resources view create
-            }
-            else if (sectionNumber == 2){
+                ListView listResources = (ListView) rootView.findViewById(R.id.list_resources);
+                BaseAdapter adapter = new ResourceListAdapter(getContext(), resources);
+                listResources.setAdapter(adapter);
+                listResources.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getContext(), CalendarActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } else if (sectionNumber == 2) {
                 rootView = inflater.inflate(R.layout.fragment_events, container, false);
 
                 // TODO events view create
+                ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
+                List<Event> events = new ArrayList<Event>();
+                Event evnt = new Event();
+                evnt.setDescription("Test Event 1");
+                evnt.setDate(new Date());
+                events.add(evnt);
+                BaseAdapter adapter = new EventListAdapter(getContext(), events);
+                listEvents.setAdapter(adapter);
             }
             return rootView;
         }

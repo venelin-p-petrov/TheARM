@@ -17,18 +17,37 @@
 
     <EditText
         android:id="@+id/edit_password"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_username"
         android:layout_margin="10dp"
         android:hint="Password" />
 
-    <Button
-        android:id="@+id/button_submit"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_password"
         android:layout_centerHorizontal="true"
-        android:text="@string/button_login" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_password"
+            android:layout_margin="20dp"
+            android:layout_toLeftOf="@+id/button_register"
+            android:text="@string/button_login" />
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_password"
+            android:text="Register" />
+    </LinearLayout>
+
 
 </RelativeLayout>

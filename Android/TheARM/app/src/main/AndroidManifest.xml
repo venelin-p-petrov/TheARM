@@ -26,6 +26,8 @@
             android:label="@string/title_activity_lists"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity android:name=".CalendarActivity" >
+        </activity>
         <activity android:name=".CreateEventActivity" >
         </activity>
     </application>
