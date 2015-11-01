@@ -28,5 +28,7 @@
     NSLog(@"Username %@", self.username.text);
     NSLog(@"Password %@", self.pasword.text);
     
+    
+    
 }
 @end
