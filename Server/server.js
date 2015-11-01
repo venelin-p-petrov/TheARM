@@ -3,7 +3,7 @@
  */
 var express = require("express");
 var parser = require("body-parser");
-var serverContext = require("./models/serverContext");
+var serverContext = require("./models/server-context");
 var userController = require("Controllers/usercontroller.js");
 var companiesController = require("Controllers/companiescontroller.js");
 var eventsController = require("Controllers/eventcontroller.js");
