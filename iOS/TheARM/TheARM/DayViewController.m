@@ -19,7 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
     mutArrEvents = [NSMutableArray arrayWithObjects:
                     @[@"Meeting with CEO, MD and COO", @"Paresh Navadiya Paresh Navadiya", @2, @0, @2, @15],
                     @[@"Call with HCA Client, Call with HCA Client, Call with HCA Client", @"Paresh Navadiya", @7, @0, @7, @45],
@@ -30,8 +32,8 @@
     
     
     CGRect frame = self.view.bounds;
-    frame.origin.y = 20;
-    frame.size.height -= 20;
+    frame.origin.y = 64;
+    frame.size.height -= 64;
     
     self.dayView.frame = frame;
     
