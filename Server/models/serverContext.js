@@ -3,8 +3,13 @@
 */
 var orm = require("orm");
 var Q = require("Q");
-var user = require("./user");
 var constants = require("../constants");
+
+// include models
+var user = require("./user");
+var resource = require("./resource");
+var event = require("./event");
+var rule = require("./rule");
 
 module.exports = function () {
     var deferred = Q.defer();
@@ -14,7 +19,16 @@ module.exports = function () {
             deferred.reject(err);
         }
 
-        var Users = db.define("user", user);
+        // define tables
+        var User = db.define("user", user);
+        var Resource = db.define("resource", resource);
+        var Event = db.define("event", event);
+        var Rule = db.define("rule", rule);
+
+        // define relationships
+        Event.hasOne("resource", Resource, { reverse: "events" });
+        User.hasMany("events", Event, {}, { reverse: "users", key: true });
+        Rule.hasMany("resources", Resource, {}, { reverse: "rules", key: true });
 
         db.sync(function (err) {
             if (err) {
