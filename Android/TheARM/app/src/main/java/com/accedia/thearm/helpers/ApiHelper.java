@@ -16,13 +16,8 @@ public class ApiHelper {
 
     private final static String URL_ENDPOINT = "http://vm-hackathon2.westeurope.cloudapp.azure.com:8080/api/";
 
-    public static String login(String username, String password, String token) throws ExecutionException, InterruptedException {
+    public static boolean login(String username, String password, String token) throws ExecutionException, InterruptedException {
         String url = URL_ENDPOINT + "login";
-
-//        List<Pair<String, String>> params = new ArrayList<Pair<String, String>>();
-//        params.add(new Pair<String, String>("username", username));
-//        params.add(new Pair<String, String>("password", password));
-//        params.add(new Pair<String, String>("token", token));
 
         Uri.Builder builder = new Uri.Builder()
             .appendQueryParameter("username", username)
@@ -31,10 +26,13 @@ public class ApiHelper {
 
         String params = builder.build().getEncodedQuery();
         String result = new RequestTask(POST.value()).execute(url, params).get();
-        return result;
+        if (!"ok".equals(result)){
+            return false;
+        }
+        return true;
     }
 
-    public static String register(String username, String password, String display_name, String token) throws ExecutionException, InterruptedException {
+    public static boolean register(String username, String password, String display_name, String token) throws ExecutionException, InterruptedException {
 
         String url = URL_ENDPOINT + "register";
 
@@ -46,7 +44,10 @@ public class ApiHelper {
 
         String params = builder.build().getEncodedQuery();
         String result = new RequestTask(POST.value()).execute(url, params).get();
-        return result;
+        if (!"ok".equals(result)){
+            return false;
+        }
+        return true;
     }
 
     public static String getCompanies() throws ExecutionException, InterruptedException {
