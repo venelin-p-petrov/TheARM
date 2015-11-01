@@ -15,6 +15,11 @@
 		C09CE4C21BE6227A0073D715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C11BE6227A0073D715 /* Assets.xcassets */; };
 		C09CE4C51BE6227A0073D715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */; };
 		C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4D01BE62A1C0073D715 /* LoginViewController.m */; };
+		F497D3091BE6321600B9C820 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3081BE6321600B9C820 /* EventsTableViewController.m */; };
+		F497D30C1BE63B4800B9C820 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D30B1BE63B4800B9C820 /* Event.m */; };
+		F497D30F1BE647FD00B9C820 /* Resorce.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D30E1BE647FD00B9C820 /* Resorce.m */; };
+		F497D3121BE6492600B9C820 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3111BE6492600B9C820 /* User.m */; };
+		F497D3151BE64A1F00B9C820 /* Rule.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3141BE64A1F00B9C820 /* Rule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,16 @@
 		C09CE4C61BE6227A0073D715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C09CE4D01BE62A1C0073D715 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		F497D3071BE6321600B9C820 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
+		F497D3081BE6321600B9C820 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
+		F497D30A1BE63B4800B9C820 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		F497D30B1BE63B4800B9C820 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		F497D30D1BE647FD00B9C820 /* Resorce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resorce.h; sourceTree = "<group>"; };
+		F497D30E1BE647FD00B9C820 /* Resorce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resorce.m; sourceTree = "<group>"; };
+		F497D3101BE6492600B9C820 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		F497D3111BE6492600B9C820 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		F497D3131BE64A1F00B9C820 /* Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rule.h; sourceTree = "<group>"; };
+		F497D3141BE64A1F00B9C820 /* Rule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +109,9 @@
 				C09CE4C61BE6227A0073D715 /* Info.plist */,
 				C09CE4B51BE6227A0073D715 /* TheARM.xcdatamodeld */,
 				C09CE4AF1BE6227A0073D715 /* Supporting Files */,
+				F497D3071BE6321600B9C820 /* EventsTableViewController.h */,
+				F497D3081BE6321600B9C820 /* EventsTableViewController.m */,
+				F497D3161BE64C7B00B9C820 /* Models */,
 			);
 			path = TheARM;
 			sourceTree = "<group>";
@@ -104,6 +122,21 @@
 				C09CE4B01BE6227A0073D715 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F497D3161BE64C7B00B9C820 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F497D30A1BE63B4800B9C820 /* Event.h */,
+				F497D30B1BE63B4800B9C820 /* Event.m */,
+				F497D30D1BE647FD00B9C820 /* Resorce.h */,
+				F497D30E1BE647FD00B9C820 /* Resorce.m */,
+				F497D3101BE6492600B9C820 /* User.h */,
+				F497D3111BE6492600B9C820 /* User.m */,
+				F497D3131BE64A1F00B9C820 /* Rule.h */,
+				F497D3141BE64A1F00B9C820 /* Rule.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,10 +260,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F497D3121BE6492600B9C820 /* User.m in Sources */,
 				C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */,
+				F497D30C1BE63B4800B9C820 /* Event.m in Sources */,
+				F497D30F1BE647FD00B9C820 /* Resorce.m in Sources */,
 				C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */,
 				C09CE4B11BE6227A0073D715 /* main.m in Sources */,
+				F497D3091BE6321600B9C820 /* EventsTableViewController.m in Sources */,
 				C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */,
+				F497D3151BE64A1F00B9C820 /* Rule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
