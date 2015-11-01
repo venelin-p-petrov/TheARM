@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    tableData = [NSArray arrayWithObjects:@"Array", "Element2", nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {

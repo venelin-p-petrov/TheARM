@@ -10,10 +10,10 @@
 
 @implementation Event
 
-+(Event*) deserialiseFromJson: (NSJSONSerialization*) json{
-    NSDictionary *jsonDict = []
-    Event *event = [[Event alloc] init];
-    event.eventName = [jsonDict valueForKey:@"startDate"];
-}
+//+(Event*) deserialiseFromJson: (NSJSONSerialization*) json{
+//    NSDictionary *jsonDict = []
+//    Event *event = [[Event alloc] init];
+//    event.eventName = [jsonDict valueForKey:@"startDate"];
+//}
 
 @end
