@@ -28,28 +28,32 @@ app.post('/api/login', function (request, response)
 
     console.log("Login atempt from user: " + username);
 
-	serverContext().then(function(models){
+    var userControllerInstance = userController.loginUser(username, password, token);
 
-	}, function(error) {
-		
-	});
-    response.end(returnData);
+    userControllerInstance.then(function (loginResult) {
+        response.end(loginResult);
+    });
 });
 
 app.post('/api/register', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
     var token = request.body.token;
-    var displayName = request.body.displayname;
     var email = request.body.email;
     var os = request.body.os;
 
     console.log("Registration attempt from user " + username);
 
-    var returnData = userController.registerUser(username, password, token, displayName, email, os, function (registerData)
-    {
+    var userControllerInstance = userController.registerUser(username, password, token, email, os);
+
+    userControllerInstance.then(function (registerData) {
         response.end(registerData);
     });
+});
+
+app.get('/api/ping', function (request, response)
+{
+    response.end("Alive");
 });
 
 app.get('/api/companies', function (request, response)
