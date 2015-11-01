@@ -17,16 +17,16 @@ app.use(parser.urlencoded(
 
 app.use(parser.json());
 
-app.post('/api/login', function (request, response)
-{
+app.post('/api/login', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
     var token = request.body.token;
 
     console.log("Login atempt from user: " + username);
 
-    userController.loginUser(username, password, token, function (loginResult)
-    {
+    var userControllerInstance = userController.loginUser(username, password, token);
+
+    userControllerInstance.then(function (loginResult) {
         response.end(loginResult);
     });
 });
@@ -35,16 +35,21 @@ app.post('/api/register', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
     var token = request.body.token;
-    var displayName = request.body.displayname;
     var email = request.body.email;
     var os = request.body.os;
 
     console.log("Registration attempt from user " + username);
 
-    var returnData = userController.registerUser(username, password, token, displayName, email, os, function (registerData)
-    {
+    var userControllerInstance = userController.registerUser(username, password, token, email, os);
+
+    userControllerInstance.then(function (registerData) {
         response.end(registerData);
     });
+});
+
+app.get('/api/ping', function (request, response)
+{
+    response.end("Alive");
 });
 
 app.get('/api/companies', function (request, response)

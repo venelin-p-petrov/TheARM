@@ -2,7 +2,7 @@
  * Used to get models from the db
 */
 var orm = require("orm");
-var Q = require("Q");
+var Q = require("q");
 var constants = require("../constants");
 
 // include models
