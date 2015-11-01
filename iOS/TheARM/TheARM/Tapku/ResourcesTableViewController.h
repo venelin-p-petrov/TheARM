@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResourcesTableViewController : UITableViewController
+@interface ResourcesTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
+{
+    NSMutableArray *resourcesArray;
+}
 
 @end

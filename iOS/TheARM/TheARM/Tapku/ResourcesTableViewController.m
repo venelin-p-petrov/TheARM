@@ -7,21 +7,34 @@
 //
 
 #import "ResourcesTableViewController.h"
+#import "ResourceViewCell.h"
+#import "AFNetWorking.h"
 
 @interface ResourcesTableViewController ()
 
 @end
 
-@implementation ResourcesTableViewController
+@implementation ResourcesTableViewController{
+    NSArray *tableData;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self loadEvents];
+}
+
+-(void) loadEvents{
+    resourcesArray = [NSMutableArray arrayWithObjects:
+                      @{@"image": @"http://assets.vg247.com/current//2015/10/xbox-one2.jpg",
+                        @"name": @"XBox One"},
+  @{@"image": @"http://www.fittodo.com/images/Sports%20Photos/Sports%20Photos/Ping%20Pong.jpg",
+    @"name": @"Tennis Table"}, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,13 +45,26 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [resourcesArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ResourceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ResourceViewCell" forIndexPath:indexPath];
+    NSDictionary *dictionary = [resourcesArray objectAtIndex:indexPath.row];
+    
+    cell.name.text = [dictionary objectForKey:@"name"];
+//    [cell.imageUrl setImageWithURLRequest:[dictionary objectForKey:@"image"] placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+//        cell.imageUrl.image = image;
+//    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+//        NSLog(@"Error %@", error.description);
+//    }];
+    [cell.imageUrl setImage:[UIImage imageNamed: @"xbox-one2.jpg"]];
+    cell.tag = indexPath.row;
+    return cell;
 }
 
 /*
@@ -94,5 +120,14 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    NSInteger row = ((ResourceViewCell *)sender).tag;
+    NSDictionary *dictionary = [resourcesArray objectAtIndex:row];
+    NSLog(@"Selected row %ld %@", (long)row, dictionary );
+    segue.destinationViewController
+    
+    
+}
 
 @end

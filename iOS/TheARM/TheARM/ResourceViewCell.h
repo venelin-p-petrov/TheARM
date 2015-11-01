@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AFNetWorking/UIImageView+AFNetworking.h>
 
 @interface ResourceViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UIImageView *imageUrl;
 
 @end

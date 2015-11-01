@@ -41,6 +41,9 @@
 		C09CE5231BE659BF0073D715 /* TKCalendarDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5141BE659BF0073D715 /* TKCalendarDayViewController.m */; };
 		C09CE5241BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */; };
 		C09CE5271BE65C500073D715 /* EventCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5261BE65C500073D715 /* EventCellView.m */; };
+		F497D3191BE66E3400B9C820 /* ResourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */; };
+		F497D31D1BE672DF00B9C820 /* ResourceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D31C1BE672DF00B9C820 /* ResourceViewCell.m */; };
+		F497D3201BE6828700B9C820 /* xbox-one2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F497D31F1BE6828700B9C820 /* xbox-one2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +109,11 @@
 		C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+TKCategory.m"; sourceTree = "<group>"; };
 		C09CE5251BE65C500073D715 /* EventCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCellView.h; sourceTree = "<group>"; };
 		C09CE5261BE65C500073D715 /* EventCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCellView.m; sourceTree = "<group>"; };
+		F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesTableViewController.h; path = Tapku/ResourcesTableViewController.h; sourceTree = "<group>"; };
+		F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesTableViewController.m; path = Tapku/ResourcesTableViewController.m; sourceTree = "<group>"; };
+		F497D31B1BE672DF00B9C820 /* ResourceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceViewCell.h; sourceTree = "<group>"; };
+		F497D31C1BE672DF00B9C820 /* ResourceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceViewCell.m; sourceTree = "<group>"; };
+		F497D31F1BE6828700B9C820 /* xbox-one2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "xbox-one2.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +174,7 @@
 		C09CE4AE1BE6227A0073D715 /* TheARM */ = {
 			isa = PBXGroup;
 			children = (
+				F497D31E1BE6820C00B9C820 /* Resources */,
 				C09CE4F81BE659BF0073D715 /* Tapku */,
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
@@ -177,10 +186,11 @@
 				C09CE4DF1BE659360073D715 /* EventsTableViewController.m */,
 				C09CE4E21BE659360073D715 /* RestManager.h */,
 				C09CE4E31BE659360073D715 /* RestManager.m */,
+				F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */,
+				F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */,
 				C09CE4D71BE659130073D715 /* Models */,
 				C09CE4BE1BE6227A0073D715 /* Main.storyboard */,
-				C09CE5251BE65C500073D715 /* EventCellView.h */,
-				C09CE5261BE65C500073D715 /* EventCellView.m */,
+				F497D31A1BE6729600B9C820 /* CellViews */,
 				C09CE4C11BE6227A0073D715 /* Assets.xcassets */,
 				C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */,
 				C09CE4C61BE6227A0073D715 /* Info.plist */,
@@ -264,6 +274,25 @@
 			path = Day;
 			sourceTree = "<group>";
 		};
+		F497D31A1BE6729600B9C820 /* CellViews */ = {
+			isa = PBXGroup;
+			children = (
+				C09CE5251BE65C500073D715 /* EventCellView.h */,
+				C09CE5261BE65C500073D715 /* EventCellView.m */,
+				F497D31B1BE672DF00B9C820 /* ResourceViewCell.h */,
+				F497D31C1BE672DF00B9C820 /* ResourceViewCell.m */,
+			);
+			name = CellViews;
+			sourceTree = "<group>";
+		};
+		F497D31E1BE6820C00B9C820 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F497D31F1BE6828700B9C820 /* xbox-one2.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -326,6 +355,7 @@
 			files = (
 				C09CE4C51BE6227A0073D715 /* LaunchScreen.storyboard in Resources */,
 				C09CE4C21BE6227A0073D715 /* Assets.xcassets in Resources */,
+				F497D3201BE6828700B9C820 /* xbox-one2.jpg in Resources */,
 				C09CE4C01BE6227A0073D715 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F497D31D1BE672DF00B9C820 /* ResourceViewCell.m in Sources */,
 				C09CE51C1BE659BF0073D715 /* UIImage+TKCategory.m in Sources */,
 				C09CE51A1BE659BF0073D715 /* UIColor+TKCategory.m in Sources */,
 				C09CE4E91BE659360073D715 /* Event.m in Sources */,
@@ -395,6 +426,7 @@
 				C09CE5221BE659BF0073D715 /* TKCalendarDayView.m in Sources */,
 				C09CE51B1BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */,
 				C09CE5271BE65C500073D715 /* EventCellView.m in Sources */,
+				F497D3191BE66E3400B9C820 /* ResourcesTableViewController.m in Sources */,
 				C09CE4EB1BE659360073D715 /* EventsTableViewController.m in Sources */,
 				C09CE51E1BE659BF0073D715 /* UILabel+TKCategory.m in Sources */,
 				C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */,
@@ -475,6 +507,20 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -512,6 +558,20 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -526,6 +586,34 @@
 				INFOPLIST_FILE = TheARM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.accedia.TheARM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -539,6 +627,34 @@
 				INFOPLIST_FILE = TheARM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.accedia.TheARM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
