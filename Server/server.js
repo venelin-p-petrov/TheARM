@@ -4,6 +4,9 @@
 var express = require("express");
 var parser = require("body-parser");
 var userController = require("Controllers/usercontroller.js");
+var companiesController = requre("Controllers/companiescontroller.js");
+var eventsController = requre("Controllers/eventcontroller.js");
+var resourcesController = requre("Controllers/resourcecontroller.js");
 
 var app = express();
 
@@ -21,7 +24,7 @@ app.post('/api/login', function (request, response)
 
     var returnData = userController.LoginUser(username, password, token);
 
-    request.end(returnData);
+    response.end(returnData);
 });
 
 app.post('/api/register', function (request, response) {
@@ -32,7 +35,52 @@ app.post('/api/register', function (request, response) {
 
     var returnData = userController.RegisterUser(username, password, token, displayName);
 
-    request.end(returnData);
+    response.end(returnData);
+});
+
+app.get('/api/companies', function (request, response)
+{
+    response.end();
+});
+
+app.get('/api/:companyName/resources', function (request, response)
+{
+
+});
+
+app.get('/api/:companyName/resources/:resourceId', function (request, response)
+{
+
+});
+
+app.get('/api/:companyName/events', function (request, response)
+{
+
+});
+
+app.get('/api/:companyName/events/:eventid', function (request, response)
+{
+
+});
+
+app.post('/api/:companyName/events', function (request, response)
+{
+
+});
+
+app.post('/api/:companyName/events/join', function (request, response)
+{
+
+});
+
+app.post('/api/:companyName/events/leave', function (request, response)
+{
+
+});
+
+app.delete('/api/:companyName/events/delete/:eventid/:userid', function (request, response)
+{
+
 });
 
 app.listen(8080, function () {
