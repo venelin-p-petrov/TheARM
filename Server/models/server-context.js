@@ -40,7 +40,7 @@ module.exports = function () {
             }
         });
 
-        deferred.resolve(db.models);
+        deferred.resolve(db);
     });
 
     return deferred.promise;
