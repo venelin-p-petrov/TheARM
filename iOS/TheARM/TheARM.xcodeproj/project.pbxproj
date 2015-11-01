@@ -10,11 +10,10 @@
 		C09CE4B11BE6227A0073D715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B01BE6227A0073D715 /* main.m */; };
 		C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B31BE6227A0073D715 /* AppDelegate.m */; };
 		C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B51BE6227A0073D715 /* TheARM.xcdatamodeld */; };
-		C09CE4BA1BE6227A0073D715 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B91BE6227A0073D715 /* MasterViewController.m */; };
-		C09CE4BD1BE6227A0073D715 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4BC1BE6227A0073D715 /* DetailViewController.m */; };
 		C09CE4C01BE6227A0073D715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4BE1BE6227A0073D715 /* Main.storyboard */; };
 		C09CE4C21BE6227A0073D715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C11BE6227A0073D715 /* Assets.xcassets */; };
 		C09CE4C51BE6227A0073D715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */; };
+		C09CE4CE1BE625720073D715 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4CD1BE625720073D715 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,14 +22,12 @@
 		C09CE4B21BE6227A0073D715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C09CE4B31BE6227A0073D715 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C09CE4B61BE6227A0073D715 /* TheARM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TheARM.xcdatamodel; sourceTree = "<group>"; };
-		C09CE4B81BE6227A0073D715 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		C09CE4B91BE6227A0073D715 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		C09CE4BB1BE6227A0073D715 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		C09CE4BC1BE6227A0073D715 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		C09CE4BF1BE6227A0073D715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C09CE4C11BE6227A0073D715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C09CE4C41BE6227A0073D715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C09CE4C61BE6227A0073D715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C09CE4CC1BE625720073D715 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../../../../../../TheARM/TheARM/TheARM/LoginViewController.h; sourceTree = "<group>"; };
+		C09CE4CD1BE625720073D715 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../../../../../../TheARM/TheARM/TheARM/LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,10 +62,8 @@
 			children = (
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
-				C09CE4B81BE6227A0073D715 /* MasterViewController.h */,
-				C09CE4B91BE6227A0073D715 /* MasterViewController.m */,
-				C09CE4BB1BE6227A0073D715 /* DetailViewController.h */,
-				C09CE4BC1BE6227A0073D715 /* DetailViewController.m */,
+				C09CE4CC1BE625720073D715 /* LoginViewController.h */,
+				C09CE4CD1BE625720073D715 /* LoginViewController.m */,
 				C09CE4BE1BE6227A0073D715 /* Main.storyboard */,
 				C09CE4C11BE6227A0073D715 /* Assets.xcassets */,
 				C09CE4C31BE6227A0073D715 /* LaunchScreen.storyboard */,
@@ -157,8 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C09CE4BD1BE6227A0073D715 /* DetailViewController.m in Sources */,
-				C09CE4BA1BE6227A0073D715 /* MasterViewController.m in Sources */,
+				C09CE4CE1BE625720073D715 /* LoginViewController.m in Sources */,
 				C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */,
 				C09CE4B11BE6227A0073D715 /* main.m in Sources */,
 				C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */,
