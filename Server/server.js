@@ -9,8 +9,6 @@ var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
 
-
-
 var app = express();
 
 app.use(parser.urlencoded(
