@@ -4,6 +4,7 @@
 var express = require("express");
 var parser = require("body-parser");
 var userController = require("Controllers/usercontroller.js");
+var serverContext = require("./models/serverContext");
 
 var app = express();
 
@@ -21,6 +22,11 @@ app.post('/api/login', function (request, response)
 
     var returnData = userController.LoginUser(username, password, token);
 
+	serverContext().then(function(models){
+		
+	}, function(error) {
+		
+	});
     request.end(returnData);
 });
 
