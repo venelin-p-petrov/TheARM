@@ -9,30 +9,6 @@ var companiesController = require("Controllers/companiescontroller.js");
 var eventsController = require("Controllers/eventcontroller.js");
 var resourcesController = require("Controllers/resourcecontroller.js");
 
-serverContext()
-    .then(function (models) {
-        console.log("Created db!");
-        models.user.create([{
-                userId: 0,
-                email: "user",
-                password: "test",
-                os: "os",
-                displayName: "d",
-                token: "sda",
-        }, {
-            userId: 0,
-            email: "user",
-            password: "test",
-            os: "os",
-            displayName: "d",
-            token: "sda",
-        }], function (err, items) {
-            console.log("error: " + err);
-        });
-    }, function (err) {
-        console.log("Error: " + err);
-    });
-
 var app = express();
 
 app.use(parser.urlencoded(
