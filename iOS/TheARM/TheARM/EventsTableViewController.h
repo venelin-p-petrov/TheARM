@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EventsTableViewController : UITableViewController
+@interface EventsTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
+{
+    NSMutableArray *eventsArray;
+}
 
 
 @end

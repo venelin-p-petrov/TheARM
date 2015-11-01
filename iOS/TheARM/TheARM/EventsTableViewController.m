@@ -7,6 +7,7 @@
 //
 
 #import "EventsTableViewController.h"
+#import "EventCellView.h"
 
 @interface EventsTableViewController ()
 
@@ -20,7 +21,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars=NO;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     
+    [self loadEvents];
+}
+
+
+-(void)loadEvents{
+    eventsArray = [NSMutableArray arrayWithObjects:
+                    @{@"description": @"CS ARM", @"date": @"14:21", @"numberOfPeople":@"1/4"},
+                   @{@"description": @"Fifa ", @"date": @"15:30", @"numberOfPeople":@"1/2"},
+                   @{@"description": @"Tenis masa", @"date": @"12:01", @"numberOfPeople":@"1/10"}, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,24 +45,27 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    
+    return [eventsArray count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    EventCellView *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell" forIndexPath:indexPath];
+    NSDictionary *dictionary = [eventsArray objectAtIndex:indexPath.row];
+    cell.descriptionLabel.text = [dictionary objectForKey:@"description"];
+        cell.dateLabel.text = [dictionary objectForKey:@"date"];
+        cell.numberOfPeople.text = [dictionary objectForKey:@"numberOfPeople"];
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
