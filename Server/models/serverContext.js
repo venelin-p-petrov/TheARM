@@ -14,6 +14,8 @@ module.exports = function () {
             deferred.reject(err);
         }
 
+        var Users = db.define("user", user);
+
         db.sync(function (err) {
             if (err) {
                 deferred.reject(err);
