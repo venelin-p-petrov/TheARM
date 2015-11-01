@@ -91,7 +91,7 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
         });
 });
 
-app.post('/api/:companyName/events/create', function(request, response){
+app.post('/api/:companyId/events/create', function (request, response) {
 	var newEvent = request.body.event;
 	var companyName = request.params.companyName;
 	console.log("START");
@@ -102,7 +102,7 @@ app.post('/api/:companyName/events/create', function(request, response){
 	response.end(returnData);
 });
 
-app.get('/api/:companyName/events', function (request, response)
+app.get('/api/:companyId/events', function (request, response)
 {
     var companyId = request.params.companyId;
     console.log("--- in GET/api/:companyId/events - " + companyId);
@@ -129,24 +129,46 @@ app.get('/api/:companyId/events/:eventid', function (request, response)
         });
 });
 
-app.post('/api/:companyId/events', function (request, response)
-{
-
-});
-
 app.post('/api/:companyId/events/join', function (request, response)
 {
+    var username = request.body.username;
+    var eventId = request.body.eventId;
+    console.log("--- in POST/api/:companyId/events/join " + username + ", " + eventId);
 
+    eventsController.joinEvent(username, eventId)
+        .then(function () {
+            response.end("ok");
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error joining event", error)));
+        });
 });
 
 app.post('/api/:companyId/events/leave', function (request, response)
 {
+    var username = request.body.username;
+    var eventId = request.body.eventId;
+    console.log("--- in POST/api/:companyId/events/leave " + username + ", " + eventId);
 
+    eventsController.leaveEvent(username, eventId)
+        .then(function () {
+            response.end("ok");
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error leaving event", error)));
+        });
 });
 
 app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, response)
 {
+    var userId = request.params.userid;
+    var eventId = request.params.eventid;
+    console.log("--- in DELETE/api/:companyId/events/delete/:eventid/:userid " + userId + ", " + eventId);
 
+    eventsController.deleteEvent(eventId)
+        .then(function () {
+            response.end("ok");
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error deleting event", error)));
+        });
 });
 
 app.listen(8080, function () {
