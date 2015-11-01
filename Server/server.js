@@ -4,10 +4,11 @@
 var express = require("express");
 var parser = require("body-parser");
 
-var userController = require("Controllers/usercontroller.js");
-var companiesController = require("Controllers/companiescontroller.js");
-var eventsController = require("Controllers/eventcontroller.js");
-var resourcesController = require("Controllers/resourcecontroller.js");
+var userController = require("Controllers/users-controller.js");
+var companiesController = require("Controllers/companies-controller.js");
+var eventsController = require("Controllers/events-controller.js");
+var resourcesController = require("Controllers/resources-controller.js");
+
 
 
 var app = express();
@@ -24,23 +25,10 @@ app.post('/api/login', function (request, response)
     var password = request.body.password;
     var token = request.body.token;
 
-    var returnData = userController.LoginUser(username, password, token);
+    console.log("Login atempt from user: " + username);
 
 	serverContext().then(function(models){
-	//	console.log(models);
-		//console.log("----------------------------------");
-		//console.log(models.user);
-		models.user.create([{
-			userId: 12,
-			email: "a",
-			password: "pass",
-			os:  "os",
-			displayName: "name",
-			token: "token",
-		}], function (err, items) {
-			console.log(items);
-			console.log(err);
-		});
+
 	}, function(error) {
 		
 	});
@@ -52,10 +40,15 @@ app.post('/api/register', function (request, response) {
     var password = request.body.password;
     var token = request.body.token;
     var displayName = request.body.displayname;
+    var email = request.body.email;
+    var os = request.body.os;
 
-    var returnData = userController.RegisterUser(username, password, token, displayName);
+    console.log("Registration attempt from user " + username);
 
-    response.end(returnData);
+    var returnData = userController.registerUser(username, password, token, displayName, email, os, function (registerData)
+    {
+        response.end(registerData);
+    });
 });
 
 app.get('/api/companies', function (request, response)
@@ -74,7 +67,13 @@ app.get('/api/:companyName/resources/:resourceId', function (request, response)
 });
 
 app.post('/api/:companyName/events/create', function(request, response){
-	var returnData = eventsController.CreateEvent(request.event, companyName);
+	var newEvent = request.body.event;
+	var companyName = request.params.companyName;
+	console.log("START");
+	console.log(newEvent + "      " + companyName);
+	
+	console.log("START12");
+	var returnData = eventsController.createEvent(newEvent, companyName);
 	response.end(returnData);
 });
 
