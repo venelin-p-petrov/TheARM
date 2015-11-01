@@ -88,12 +88,29 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 
 app.get('/api/:companyId/events', function (request, response)
 {
+    var companyId = request.params.companyId;
+    console.log("--- in GET/api/:companyId/events - " + companyId);
 
+    companiesController.getEventsByCompany(companyId)
+        .then(function (resources) {
+            response.end(JSON.stringify(resources));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error getting events for company", error)));
+        });
 });
 
 app.get('/api/:companyId/events/:eventid', function (request, response)
 {
+    var companyId = request.params.companyId;
+    var eventId = request.params.eventid;
+    console.log("--- in GET/api/:companyId/events/:eventid - " + companyId + ", " + eventId);
 
+    companiesController.getEventDataByCompany(companyId, eventId)
+        .then(function (resources) {
+            response.end(JSON.stringify(resources));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error getting event data for company", error)));
+        });
 });
 
 app.post('/api/:companyId/events', function (request, response)
