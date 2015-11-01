@@ -3,7 +3,11 @@ package com.accedia.thearm.helpers;
 import android.net.Uri;
 import android.util.Pair;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -25,9 +29,9 @@ public class ApiHelper {
 //        params.add(new Pair<String, String>("token", token));
 
         Uri.Builder builder = new Uri.Builder()
-            .appendQueryParameter("username", username)
-            .appendQueryParameter("password", password)
-            .appendQueryParameter("token", token);
+                .appendQueryParameter("username", username)
+                .appendQueryParameter("password", password)
+                .appendQueryParameter("token", token);
 
         String params = builder.build().getEncodedQuery();
         String result = new RequestTask(POST.value()).execute(url, params).get();
@@ -56,17 +60,54 @@ public class ApiHelper {
         return result;
     }
 
-    public static String getCompanyResources(String companyId) throws ExecutionException, InterruptedException {
+    public static String getResources(String companyId) throws ExecutionException, InterruptedException {
 
         String url = URL_ENDPOINT + companyId + "/resources";
         String result = new RequestTask(GET.value()).execute(url).get();
         return result;
     }
 
-    public static String getCompanyResources(String companyId, String resourceId) throws ExecutionException, InterruptedException {
+    public static String getResource(String companyId, String resourceId) throws ExecutionException, InterruptedException {
 
         String url = URL_ENDPOINT + companyId + "/resources/" + resourceId;
         String result = new RequestTask(GET.value()).execute(url).get();
+        return result;
+    }
+
+    public static String getEvents(String companyId) throws ExecutionException, InterruptedException {
+
+        String url = URL_ENDPOINT + companyId + "/events";
+        String result = new RequestTask(GET.value()).execute(url).get();
+        return result;
+    }
+
+    public static String createEvent(String companyId, String description, int requiredUsers, Date startDate, Date endDate ) throws ExecutionException, InterruptedException {
+
+        String url = URL_ENDPOINT + companyId + "/events";
+
+        JSONObject event = new JSONObject();
+        try {
+            event.put("description", description);
+            event.put("minUsers", requiredUsers);
+            event.put("maxUsers", requiredUsers);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("event", event.toString());
+        String result = new RequestTask(POST.value()).execute(url).get();
+        return result;
+    }
+
+    public static String assignEvent(String username, String companyId, String eventId) throws ExecutionException, InterruptedException {
+
+        String url = URL_ENDPOINT + companyId + "/events/join";
+        Uri.Builder builder = new Uri.Builder()
+                .appendQueryParameter("username", username)
+                .appendQueryParameter("eventId", eventId);
+
+        String result = new RequestTask(POST.value()).execute(url).get();
         return result;
     }
 }
