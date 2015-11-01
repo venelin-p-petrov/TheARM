@@ -2,24 +2,39 @@
  * Copyright Accedia 2015
  */
 var express = require("express");
+var parser = require("body-parser");
+var userController = require("Controllers/usercontroller.js");
+
 var app = express();
-var constantsModule = require("./constants");
-var orm = require("orm");
-var userModule = require("./models/user");
-var serverContext = require("./models/serverContext");
 
-serverContext()
-    .then(function (models) {
+app.use(parser.urlencoded(
+{
+    extended : true
+}));
+app.use(parser.json());
 
-    }, function (error) {
-        console.log("Error: " + JSON.stringify(error));
+app.post('/api/login', function (request, response)
+{
+    var username = request.body.username;
+    var password = request.body.password;
+    var token = request.body.token;
+
+    var returnData = userController.LoginUser(username, password, token);
+
+    request.end(returnData);
 });
 
-app.get("/", function (request, response) {
-    response.write("" + JSON.stringify(constantsModule.mySqlUrl()));
-    response.end();
+app.post('/api/register', function (request, response) {
+    var username = request.body.username;
+    var password = request.body.password;
+    var token = request.body.token;
+    var displayName = request.body.displayname;
+
+    var returnData = userController.RegisterUser(username, password, token, displayName);
+
+    request.end(returnData);
 });
 
 app.listen(8080, function () {
-    // code here
+    console.log("Service running...");
 });
