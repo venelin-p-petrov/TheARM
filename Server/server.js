@@ -3,10 +3,10 @@
  */
 var express = require("express");
 var parser = require("body-parser");
-var userController = require("Controllers/usercontroller.js");
-var companiesController = requre("Controllers/companiescontroller.js");
-var eventsController = requre("Controllers/eventcontroller.js");
-var resourcesController = requre("Controllers/resourcecontroller.js");
+var userController = require("Controllers/users_controller.js");
+var companiesController = require("Controllers/companies_controller.js");
+var eventsController = require("Controllers/events_controller.js");
+var resourcesController = require("Controllers/resources_controller.js");
 
 var app = express();
 
@@ -22,9 +22,12 @@ app.post('/api/login', function (request, response)
     var password = request.body.password;
     var token = request.body.token;
 
-    var returnData = userController.LoginUser(username, password, token);
+    console.log("Login atempt from user: " + username);
 
-    response.end(returnData);
+    userController.loginUser(username, password, token, function (loginResult)
+    {
+        response.end(loginResult);
+    });
 });
 
 app.post('/api/register', function (request, response) {
@@ -33,7 +36,7 @@ app.post('/api/register', function (request, response) {
     var token = request.body.token;
     var displayName = request.body.displayname;
 
-    var returnData = userController.RegisterUser(username, password, token, displayName);
+    var returnData = userController.registerUser(username, password, token, displayName);
 
     response.end(returnData);
 });
