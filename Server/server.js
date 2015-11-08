@@ -95,13 +95,15 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 
 app.post('/api/:companyId/events/create', function (request, response) {
 	var newEvent = request.body.event;
-	var companyName = request.params.companyName;
-	console.log("START");
-	console.log(newEvent + "      " + companyName);
-	
-	console.log("START12");
-	var returnData = eventsController.createEvent(newEvent, companyName);
-	response.end(returnData);
+	var companyId = request.params.companyId;
+	console.log("--- in POST/api/:companyId/events/create - " + companyId + ", " + JSON.stringify(newEvent));
+    
+    eventsController.createEvent(newEvent)
+        .then(function (event) {
+            response.end(JSON.stringify(event));
+        }, function (error) {
+            response.end(JSON.stringify(new Error("Error creating event", error)));
+    });
 });
 
 app.get('/api/:companyId/events', function (request, response)
