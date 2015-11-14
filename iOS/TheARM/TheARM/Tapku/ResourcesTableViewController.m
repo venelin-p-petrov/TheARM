@@ -66,6 +66,13 @@
     cell.tag = indexPath.row;
     return cell;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 100;
+}
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,8 +132,6 @@
     NSInteger row = ((ResourceViewCell *)sender).tag;
     NSDictionary *dictionary = [resourcesArray objectAtIndex:row];
     NSLog(@"Selected row %ld %@", (long)row, dictionary );
-    segue.destinationViewController
-    
     
 }
 

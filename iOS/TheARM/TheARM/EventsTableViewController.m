@@ -24,10 +24,15 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
-    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
+//    if ([[NSProcessInfo processInfo] operatingSystemVersion]](@"7.0")) {
+//        [self setEdgesForExtendedLayout:UIRectEdgeNone];
+//    }
+//    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     
     [self loadEvents];
 }
+
+
 
 
 -(void)loadEvents{
@@ -53,6 +58,7 @@
     
     return [eventsArray count];
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
