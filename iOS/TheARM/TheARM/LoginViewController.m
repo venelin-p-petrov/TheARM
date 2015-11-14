@@ -17,11 +17,8 @@
 
 @implementation LoginViewController
 
-
-
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    
+    [super viewDidLoad];    
 }
 
 - (IBAction)clickLogin:(id)sender {
@@ -29,7 +26,10 @@
     NSLog(@"Password %@", self.pasword.text);
 
     [RestManager doLogin:self.username.text password:self.pasword.text andToken:@"asd" onSuccess:^(NSObject *responseObject) {
-        NSLog(@"dasdasdasdas");
+        NSLog(@"Success");
+        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+    } onError:^(NSError *error) {
+        NSLog(@"ERROR --- ");
     }];
 
 }
