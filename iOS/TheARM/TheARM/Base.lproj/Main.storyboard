@@ -186,7 +186,7 @@
         <scene sceneID="M41-jm-3Yr">
             <objects>
                 <tableViewController id="k1m-K2-PaJ" customClass="EventsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nMh-Ko-Nj1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="nMh-Ko-Nj1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -294,11 +294,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQl-m1-AST">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQl-m1-AST">
                                             <rect key="frame" x="42" y="22" width="370" height="54"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="Lmb-CQ-suY"/>
+                                                <constraint firstAttribute="height" constant="54" id="San-Wg-cKE"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -314,13 +315,13 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rsg-z2-8QO">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rsg-z2-8QO">
                                             <rect key="frame" x="446" y="4" width="105" height="91"/>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="7jk-9E-abB"/>
-                                                <constraint firstAttribute="width" constant="105" id="W0c-m1-5Ur"/>
+                                                <constraint firstAttribute="height" constant="91" id="TE6-lY-sws"/>
+                                                <constraint firstAttribute="width" constant="105" id="VZ9-ep-7EI"/>
                                                 <constraint firstAttribute="height" constant="80" id="daj-I7-oCb"/>
                                                 <constraint firstAttribute="width" constant="105" id="mhg-uo-a73"/>
                                             </constraints>
@@ -332,8 +333,6 @@
                                             </variation>
                                             <variation key="widthClass=compact">
                                                 <mask key="constraints">
-                                                    <exclude reference="7jk-9E-abB"/>
-                                                    <exclude reference="W0c-m1-5Ur"/>
                                                     <include reference="daj-I7-oCb"/>
                                                     <include reference="mhg-uo-a73"/>
                                                 </mask>
@@ -343,14 +342,19 @@
                                     <animations/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Rsg-z2-8QO" secondAttribute="trailing" constant="41" id="1at-dK-O1e"/>
                                         <constraint firstItem="cQl-m1-AST" firstAttribute="leading" secondItem="M6Z-CD-tE2" secondAttribute="leadingMargin" constant="20" id="42p-xs-hTp"/>
+                                        <constraint firstItem="Rsg-z2-8QO" firstAttribute="leading" secondItem="cQl-m1-AST" secondAttribute="trailing" constant="34" id="BIY-wt-dfk"/>
+                                        <constraint firstItem="cQl-m1-AST" firstAttribute="top" secondItem="M6Z-CD-tE2" secondAttribute="topMargin" constant="14" id="EnK-Qh-T9H"/>
+                                        <constraint firstItem="cQl-m1-AST" firstAttribute="leading" secondItem="M6Z-CD-tE2" secondAttribute="leadingMargin" constant="34" id="IHm-5O-748"/>
                                         <constraint firstItem="cQl-m1-AST" firstAttribute="top" secondItem="M6Z-CD-tE2" secondAttribute="topMargin" constant="12" id="Iy1-4u-VA5"/>
                                         <constraint firstItem="Rsg-z2-8QO" firstAttribute="top" secondItem="M6Z-CD-tE2" secondAttribute="topMargin" constant="2" id="KPP-a4-RMJ"/>
+                                        <constraint firstItem="Rsg-z2-8QO" firstAttribute="top" secondItem="M6Z-CD-tE2" secondAttribute="topMargin" constant="-4" id="cTK-Py-ux8"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="cQl-m1-AST" secondAttribute="bottom" constant="11.5" id="dNx-yF-GzX"/>
                                         <constraint firstItem="Rsg-z2-8QO" firstAttribute="leading" secondItem="cQl-m1-AST" secondAttribute="trailing" constant="20" id="doc-jE-gxg"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Rsg-z2-8QO" secondAttribute="trailing" constant="20" id="fIr-22-lVx"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Rsg-z2-8QO" secondAttribute="trailing" constant="8" id="gAS-Yv-sTs"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Rsg-z2-8QO" secondAttribute="bottom" constant="-3" id="mbL-sD-a2t"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Rsg-z2-8QO" secondAttribute="bottom" constant="-3" id="nY9-Zb-DJv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="cQl-m1-AST" secondAttribute="bottom" constant="16" id="pgs-te-bW8"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Rsg-z2-8QO" secondAttribute="bottom" constant="1.5" id="s3x-JH-ZqI"/>
                                     </constraints>
                                     <variation key="default">
@@ -372,8 +376,6 @@
                                             <include reference="KPP-a4-RMJ"/>
                                             <include reference="doc-jE-gxg"/>
                                             <include reference="fIr-22-lVx"/>
-                                            <exclude reference="gAS-Yv-sTs"/>
-                                            <exclude reference="mbL-sD-a2t"/>
                                             <include reference="s3x-JH-ZqI"/>
                                         </mask>
                                     </variation>
