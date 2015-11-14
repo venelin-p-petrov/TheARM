@@ -24,7 +24,7 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
-    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
+    //self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     
     [self loadEvents];
 }
