@@ -27,10 +27,21 @@
 
     [RestManager doLogin:self.username.text password:self.pasword.text andToken:@"asd" onSuccess:^(NSObject *responseObject) {
         NSLog(@"Success");
-        [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        if ([@"ok" isEqualToString:(NSString *)responseObject]){
+            [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+        } else {
+            [self showAlerWithString:@"Wrong username or password"];
+        }
     } onError:^(NSError *error) {
         NSLog(@"ERROR --- ");
+         [self showAlerWithString:[error description]];
     }];
 
 }
+
+-(void) showAlerWithString:(NSString *) alertMessage{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Problem" message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alertView show];
+}
+
 @end

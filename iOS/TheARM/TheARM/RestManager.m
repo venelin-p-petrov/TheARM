@@ -13,8 +13,10 @@
 
 static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azure.com:8080";
 
+static NSString *token1 = @"1";
+
 + (void)doLogin:(NSString *) username password:(NSString *) password andToken:(NSString *) token onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
-    NSDictionary *parameters = @{@"username": username, @"password": password, @"token":token};
+    NSDictionary *parameters = @{@"username": username, @"password": password, @"token":token1};
     NSString *url = [NSString stringWithFormat:@"%@/api/login", apiURL];
     
     [RestManager doPostRequest:url parameters:parameters onSuccess:success onError:error];
@@ -40,9 +42,13 @@ static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azur
 + (void)doPostRequest:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock) errorBlock{
     AFHTTPRequestOperationManager *manager = [RestManager createManager];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+       manager.responseSerializer = [AFCompoundResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+ 
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@", responseObject);
-        success(responseObject);
+        NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        success(responseString);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         errorBlock(error);
