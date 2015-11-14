@@ -9,6 +9,7 @@
 #import "ResourcesTableViewController.h"
 #import "ResourceViewCell.h"
 #import "AFNetWorking.h"
+#import "RestManager.h"
 
 @interface ResourcesTableViewController ()
 
@@ -25,16 +26,19 @@
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
     //self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
-    
+    resourcesArray = [NSArray new];
     [self loadEvents];
 }
 
 -(void) loadEvents{
-    resourcesArray = [NSMutableArray arrayWithObjects:
-                      @{@"image": @"http://assets.vg247.com/current//2015/10/xbox-one2.jpg",
-                        @"name": @"XBox One"},
-  @{@"image": @"http://www.fittodo.com/images/Sports%20Photos/Sports%20Photos/Ping%20Pong.jpg",
-    @"name": @"Tennis Table"}, nil];
+    
+    [RestManager getResources:@"1" onSuccess:^(NSObject *responseObject) {
+       resourcesArray = (NSArray*) responseObject;
+        [self.tableView reloadData];
+        
+    } onError:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

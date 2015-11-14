@@ -10,7 +10,7 @@
 
 @interface ResourcesTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableArray *resourcesArray;
+    NSArray *resourcesArray;
 }
 
 @end

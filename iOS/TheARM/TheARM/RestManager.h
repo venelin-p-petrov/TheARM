@@ -15,4 +15,6 @@ typedef void (^ARMErrorBlock)(NSError *error);
 
 + (void)doLogin:(NSString *) username password:(NSString *) password andToken:(NSString *) token onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
++ (void)getResources:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
+
 @end
