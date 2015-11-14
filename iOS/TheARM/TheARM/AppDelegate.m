@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "RestManager.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -30,9 +31,12 @@
 
 // Delegation methods
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-    const void *devTokenBytes = [devToken bytes];
-//    self.registered = YES;
-//    [self sendProviderDeviceToken:devTokenBytes]; // custom method
+    
+    NSString *newToken = [devToken description];
+    newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [RestManager setToken:newToken];
+    
     NSLog(@"dev TOken %@", devToken);
 }
 

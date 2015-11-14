@@ -17,5 +17,6 @@ typedef void (^ARMErrorBlock)(NSError *error);
 
 + (void)getResources:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 + (void)getEvents:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void) setToken: (NSString *)token;
 
 @end

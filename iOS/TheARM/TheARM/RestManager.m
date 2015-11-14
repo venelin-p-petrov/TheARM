@@ -11,6 +11,8 @@
 
 @implementation RestManager
 
+
+
 static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azure.com:8080";
 
 static NSString *token1 = @"1";
@@ -18,8 +20,13 @@ static NSString *token1 = @"1";
 + (void)doLogin:(NSString *) username password:(NSString *) password andToken:(NSString *) token onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSDictionary *parameters = @{@"username": username, @"password": password, @"token":token1};
     NSString *url = [NSString stringWithFormat:@"%@/api/login", apiURL];
+    NSLog(@"toekennnnn ----> %@", token1);
     
     [RestManager doPostRequest:url parameters:parameters onSuccess:success onError:error];
+}
+
++ (void)doRegister:(NSString *) username password:(NSString *) password andEmail:(NSString *) email{
+    
 }
 
 + (void)getResources:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
@@ -78,6 +85,10 @@ static NSString *token1 = @"1";
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     return manager;
+}
+
++ (void) setToken:(NSString *)token{
+    token1 = token;
 }
 
 @end
