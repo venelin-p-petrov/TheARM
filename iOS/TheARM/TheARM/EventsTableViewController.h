@@ -10,7 +10,7 @@
 
 @interface EventsTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableArray *eventsArray;
+    NSArray *eventsArray;
 }
 
 

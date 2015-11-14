@@ -8,6 +8,7 @@
 
 #import "EventsTableViewController.h"
 #import "EventCellView.h"
+#import "RestManager.h"
 
 @interface EventsTableViewController ()
 
@@ -24,11 +25,8 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
-//    if ([[NSProcessInfo processInfo] operatingSystemVersion]](@"7.0")) {
-//        [self setEdgesForExtendedLayout:UIRectEdgeNone];
-//    }
-//    self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     
+    eventsArray = [NSArray new];
     [self loadEvents];
 }
 
@@ -36,10 +34,12 @@
 
 
 -(void)loadEvents{
-    eventsArray = [NSMutableArray arrayWithObjects:
-                    @{@"description": @"CS ARM", @"date": @"14:21", @"numberOfPeople":@"1/4"},
-                   @{@"description": @"Fifa ", @"date": @"15:30", @"numberOfPeople":@"1/2"},
-                   @{@"description": @"Tenis masa", @"date": @"12:01", @"numberOfPeople":@"1/10"}, nil];
+    [RestManager getEvents:@"1" onSuccess:^(NSObject *responseObject) {
+        eventsArray = (NSArray*) responseObject;
+        [self.tableView reloadData];
+    } onError:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

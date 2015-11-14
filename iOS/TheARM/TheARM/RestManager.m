@@ -27,6 +27,12 @@ static NSString *token1 = @"1";
     [RestManager doGetRequest:url parameters:nil onSuccess:success];
 }
 
++ (void)getEvents:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
+    NSString *url = [NSString stringWithFormat:@"%@/api/%@/events", apiURL,companyId];
+    [RestManager doGetRequest:url parameters:nil onSuccess:success];
+}
+
+
 + (void)doGetRequest:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -38,7 +44,6 @@ static NSString *token1 = @"1";
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"Success: %@", responseObject);
-         NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSError *e;
         NSArray *array = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&e];
     
