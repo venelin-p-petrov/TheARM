@@ -58,14 +58,14 @@
 		C09CE4C11BE6227A0073D715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C09CE4C41BE6227A0073D715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C09CE4C61BE6227A0073D715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		C09CE4D01BE62A1C0073D715 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		C09CE4D81BE659360073D715 /* DayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayViewController.h; sourceTree = "<group>"; };
-		C09CE4D91BE659360073D715 /* DayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayViewController.m; sourceTree = "<group>"; };
+		C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ../LoginViewController.h; sourceTree = "<group>"; };
+		C09CE4D01BE62A1C0073D715 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ../LoginViewController.m; sourceTree = "<group>"; };
+		C09CE4D81BE659360073D715 /* DayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DayViewController.h; path = ../DayViewController.h; sourceTree = "<group>"; };
+		C09CE4D91BE659360073D715 /* DayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DayViewController.m; path = ../DayViewController.m; sourceTree = "<group>"; };
 		C09CE4DA1BE659360073D715 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		C09CE4DB1BE659360073D715 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		C09CE4DE1BE659360073D715 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
-		C09CE4DF1BE659360073D715 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
+		C09CE4DE1BE659360073D715 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsTableViewController.h; path = ../EventsTableViewController.h; sourceTree = "<group>"; };
+		C09CE4DF1BE659360073D715 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsTableViewController.m; path = ../EventsTableViewController.m; sourceTree = "<group>"; };
 		C09CE4E01BE659360073D715 /* Resorce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resorce.h; sourceTree = "<group>"; };
 		C09CE4E11BE659360073D715 /* Resorce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resorce.m; sourceTree = "<group>"; };
 		C09CE4E21BE659360073D715 /* RestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestManager.h; sourceTree = "<group>"; };
@@ -108,8 +108,8 @@
 		C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+TKCategory.m"; sourceTree = "<group>"; };
 		C09CE5251BE65C500073D715 /* EventCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCellView.h; sourceTree = "<group>"; };
 		C09CE5261BE65C500073D715 /* EventCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCellView.m; sourceTree = "<group>"; };
-		F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcesTableViewController.h; path = Tapku/ResourcesTableViewController.h; sourceTree = "<group>"; };
-		F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResourcesTableViewController.m; path = Tapku/ResourcesTableViewController.m; sourceTree = "<group>"; };
+		F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesTableViewController.h; sourceTree = "<group>"; };
+		F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourcesTableViewController.m; sourceTree = "<group>"; };
 		F497D31B1BE672DF00B9C820 /* ResourceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceViewCell.h; sourceTree = "<group>"; };
 		F497D31C1BE672DF00B9C820 /* ResourceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,18 +174,11 @@
 			children = (
 				F497D31E1BE6820C00B9C820 /* Resources */,
 				C09CE4F81BE659BF0073D715 /* Tapku */,
+				C09CE5281BF77D7D0073D715 /* Controllers */,
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
-				C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */,
-				C09CE4D01BE62A1C0073D715 /* LoginViewController.m */,
-				C09CE4D81BE659360073D715 /* DayViewController.h */,
-				C09CE4D91BE659360073D715 /* DayViewController.m */,
-				C09CE4DE1BE659360073D715 /* EventsTableViewController.h */,
-				C09CE4DF1BE659360073D715 /* EventsTableViewController.m */,
 				C09CE4E21BE659360073D715 /* RestManager.h */,
 				C09CE4E31BE659360073D715 /* RestManager.m */,
-				F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */,
-				F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */,
 				C09CE4D71BE659130073D715 /* Models */,
 				C09CE4BE1BE6227A0073D715 /* Main.storyboard */,
 				F497D31A1BE6729600B9C820 /* CellViews */,
@@ -270,6 +263,22 @@
 				C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */,
 			);
 			path = Day;
+			sourceTree = "<group>";
+		};
+		C09CE5281BF77D7D0073D715 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C09CE4CF1BE62A1C0073D715 /* LoginViewController.h */,
+				C09CE4D01BE62A1C0073D715 /* LoginViewController.m */,
+				C09CE4D81BE659360073D715 /* DayViewController.h */,
+				C09CE4D91BE659360073D715 /* DayViewController.m */,
+				C09CE4DE1BE659360073D715 /* EventsTableViewController.h */,
+				C09CE4DF1BE659360073D715 /* EventsTableViewController.m */,
+				F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */,
+				F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */,
+			);
+			name = Controllers;
+			path = Tapku;
 			sourceTree = "<group>";
 		};
 		F497D31A1BE6729600B9C820 /* CellViews */ = {
