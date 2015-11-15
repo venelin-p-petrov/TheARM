@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "RestManager.h"
 
 @interface RegisterViewController ()
 
@@ -35,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +44,26 @@
 }
 
 - (IBAction)registerButtonClicked:(id)sender {
-    //TODO insert logic
+    [RestManager doRegisterUsername:self.usernameTextField.text password:self.passwordTextField.text andEmail:self.emailTextField.text onSuccess:^(NSObject *reponseObject){
+
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful registration"
+                                                        message:@"Registration was successful."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }onError:^(NSError *error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration fail"
+                                                        message:@"Registration was unseccessful."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)emailEditingChanged:(id)sender {
