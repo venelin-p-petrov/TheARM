@@ -17,7 +17,7 @@ static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azur
 
 static NSString *_token = @"1";
 
-+ (void)doLoginWithUrl:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)doLoginWithUsername:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSDictionary *parameters = @{@"username": username, @"password": password, @"token":_token};
     NSString *url = [NSString stringWithFormat:@"%@/api/login", apiURL];
     
