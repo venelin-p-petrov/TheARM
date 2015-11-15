@@ -11,12 +11,12 @@
 @interface Event : NSObject
 
 @property (strong, nonatomic) NSString *eventName;
-@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSString *eventDescription;
 @property int totalSeats;
 @property int currentlyTakenSeats;
 @property (strong, nonatomic) NSDate *startDate;
 @property (strong, nonatomic) NSDate *endDate;
 
-+(Event*) deserialiseFromJson: (NSJSONSerialization*) json;
+//+(Event*) deserialiseFromJson: (NSJSONSerialization*) json;
 
 @end

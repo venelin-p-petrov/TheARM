@@ -15,12 +15,12 @@
 
 static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azure.com:8080";
 
-static NSString *token1 = @"1";
+static NSString *_token = @"1";
 
-+ (void)doLogin:(NSString *) username password:(NSString *) password andToken:(NSString *) token onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
-    NSDictionary *parameters = @{@"username": username, @"password": password, @"token":token1};
++ (void)doLogin:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
+    NSDictionary *parameters = @{@"username": username, @"password": password, @"token":_token};
     NSString *url = [NSString stringWithFormat:@"%@/api/login", apiURL];
-    NSLog(@"toekennnnn ----> %@", token1);
+    NSLog(@"toekennnnn ----> %@", _token);
     
     [RestManager doPostRequest:url parameters:parameters onSuccess:success onError:error];
 }
@@ -38,6 +38,7 @@ static NSString *token1 = @"1";
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/events", apiURL,companyId];
     [RestManager doGetRequest:url parameters:nil onSuccess:success];
 }
+
 
 
 + (void)doGetRequest:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success {
@@ -88,7 +89,7 @@ static NSString *token1 = @"1";
 }
 
 + (void) setToken:(NSString *)token{
-    token1 = token;
+    _token = token;
 }
 
 @end

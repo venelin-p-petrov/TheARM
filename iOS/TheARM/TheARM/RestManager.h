@@ -13,7 +13,7 @@ typedef void (^ARMErrorBlock)(NSError *error);
 
 @interface RestManager : NSObject
 
-+ (void)doLogin:(NSString *) username password:(NSString *) password andToken:(NSString *) token onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void)doLogin:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
 + (void)getResources:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 + (void)getEvents:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
