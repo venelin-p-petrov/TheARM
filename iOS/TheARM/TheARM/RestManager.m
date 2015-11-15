@@ -33,12 +33,12 @@ static NSString *_token = @"1";
     [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
 }
 
-+ (void)getResourcesWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)getResourcesWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/resources", apiURL,companyId];
     [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
 }
 
-+ (void)getEventsWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)getEventsWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/events", apiURL,companyId];
     [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
 }
