@@ -9,6 +9,10 @@
 #import "DayViewController.h"
 
 #import "NSDate+TKCategory.h"
+#import "TKCalendarDayEventView.h"
+#import "TKCalendarDayView.h"
+#import "TKCalendarDayViewController.h"
+#import "RestManager.h"
 
 @interface DayViewController ()
 
@@ -24,6 +28,7 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
+    
     mutArrEvents = [NSMutableArray arrayWithObjects:
                     @[@"Meeting with CEO, MD and COO", @"Paresh Navadiya Paresh Navadiya", @2, @0, @2, @15],
                     @[@"Call with HCA Client, Call with HCA Client, Call with HCA Client", @"Paresh Navadiya", @7, @0, @7, @45],
@@ -31,17 +36,23 @@
                     @[@"Break for 1 hour and 30 minutes", @"Paresh Navadiya", @15, @0, @16, @30],
                     @[@"Reports for product managment", @"Paresh Navadiya", @5, @30, @6, @0],
                     @[@"QC Task needed to be done", @"Paresh Navadiya", @19, @30, @24, @0], nil];
-    
+    [self loadEvents];
     
     CGRect frame = self.view.bounds;
-    frame.origin.y = 64;
-    frame.size.height -= 64;
     
     self.dayView.frame = frame;
     
     //paresh
     NSDateComponents *compNow = [NSDate componentsOfCurrentDate];
     [self performSelector:@selector(updateToCurrentTime) withObject:self afterDelay:60.0f-compNow.second];
+}
+
+- (void) loadEvents{
+    [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
+        mutArrEvents = (NSArray *) responseObject;
+    }onError:^(NSError *error){
+        
+    }];
 }
 
 -(void)updateToCurrentTime

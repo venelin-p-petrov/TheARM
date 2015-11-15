@@ -17,8 +17,8 @@ typedef void (^ARMErrorBlock)(NSError *error);
 + (void)doRegisterUsername:(NSString *) username password:(NSString *) password andEmail:(NSString *) email
          onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
-+ (void)getResourcesWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
-+ (void)getEventsWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void)getResourcesWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void)getEventsWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
 + (void) setToken: (NSString *)token;
 

@@ -31,10 +31,8 @@
 }
 
 
-
-
 -(void)loadEvents{
-    [RestManager getEventsWithUrl:@"1" onSuccess:^(NSObject *responseObject) {
+    [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
         eventsArray = (NSArray*) responseObject;
         [self.tableView reloadData];
     } onError:^(NSError *error) {
