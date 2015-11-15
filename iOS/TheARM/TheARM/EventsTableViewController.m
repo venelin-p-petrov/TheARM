@@ -9,6 +9,7 @@
 #import "EventsTableViewController.h"
 #import "EventCellView.h"
 #import "RestManager.h"
+#import "EventViewController.h"
 
 @interface EventsTableViewController ()
 
@@ -16,6 +17,7 @@
 
 @implementation EventsTableViewController{
     NSArray *tableData;
+    NSDictionary *lastSelectedEvent;
 }
 
 
@@ -81,7 +83,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-       [self performSegueWithIdentifier:@"ShowEventSegue" sender:self];
+    lastSelectedEvent = [eventsArray objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"ShowEventSegue" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([@"ShowEventSegue" isEqualToString:segue.identifier]){
+        EventViewController *destinationController = (EventViewController *)segue.destinationViewController;
+        [destinationController setCurrentEvent:lastSelectedEvent];
+    }
 }
 
 @end

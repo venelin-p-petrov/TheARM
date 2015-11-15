@@ -10,4 +10,6 @@
 
 @interface EventViewController : UIViewController<UIPickerViewDelegate>
 
+@property(strong, atomic) NSDictionary *currentEvent;
+
 @end
