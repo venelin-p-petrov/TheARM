@@ -30,6 +30,7 @@
     [self changeTextFieldStyles:self.passwordTextField isValid:NO];
     [self changeTextFieldStyles:self.confirmPasswordTextField isValid:NO];
     [self changeTextFieldStyles:self.emailTextField isValid:NO];
+    self.registerButton.enabled = NO;
 }
 
 - (void)viewDidLoad {
@@ -43,6 +44,7 @@
 }
 
 - (IBAction)registerButtonClicked:(id)sender {
+    //TODO insert logic
 }
 
 - (IBAction)emailEditingChanged:(id)sender {
@@ -70,13 +72,12 @@
     }
 }
 
-- (BOOL)areTextFieldsValid {
-    if(self.usernameTextField.text.length > 6 && self.passwordTextField.text.length > 6 &&
-       self.confirmPasswordTextField.text.length >6 && self.confirmPasswordTextField.text == self.passwordTextField.text &&
-       [self validateEmail:self.emailTextField.text]){
-        return YES;
-    } else {
-        return NO;
+- (IBAction)registerButtonEnableTextFieldsEditingChanged:(id)sender {
+    if([self areTextFieldsValid]){
+        self.registerButton.enabled = YES;
+    }
+    else{
+        self.registerButton.enabled = NO;
     }
 }
 
@@ -85,6 +86,16 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     
     return [emailTest evaluateWithObject:candidate];
+}
+
+- (BOOL)areTextFieldsValid {
+    if(self.usernameTextField.text.length > 6 && self.passwordTextField.text.length > 6 &&
+       self.confirmPasswordTextField.text.length >6 && self.confirmPasswordTextField.text == self.passwordTextField.text &&
+       [self validateEmail:self.emailTextField.text]){
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 /*
