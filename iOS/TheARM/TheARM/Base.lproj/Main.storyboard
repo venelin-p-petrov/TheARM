@@ -210,6 +210,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="fextFieldsMinLenghtEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="Lbc-TO-Lgs"/>
+                                    <action selector="registerButtonEnableTextFieldsEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="Lzo-nK-H9N"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="35I-CN-gcW">
@@ -222,6 +223,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="fextFieldsMinLenghtEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="B9p-dM-AEi"/>
+                                    <action selector="registerButtonEnableTextFieldsEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="3MG-df-AJC"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nA3-Jh-4Ae">
@@ -234,6 +236,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="confirmPasswordNotMatchEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="veL-a9-10H"/>
+                                    <action selector="registerButtonEnableTextFieldsEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="fw7-sN-a19"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSC-Jd-TNy">
@@ -246,6 +249,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="emailEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="2pI-pW-f6C"/>
+                                    <action selector="registerButtonEnableTextFieldsEditingChanged:" destination="7Z0-Wm-DWF" eventType="editingChanged" id="B5v-xG-Qas"/>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-Pb-wxP">
