@@ -17,31 +17,35 @@ static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azur
 
 static NSString *_token = @"1";
 
-+ (void)doLogin:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)doLoginWithUrl:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSDictionary *parameters = @{@"username": username, @"password": password, @"token":_token};
     NSString *url = [NSString stringWithFormat:@"%@/api/login", apiURL];
-    NSLog(@"toekennnnn ----> %@", _token);
     
-    [RestManager doPostRequest:url parameters:parameters onSuccess:success onError:error];
+    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
 }
 
-+ (void)doRegister:(NSString *) username password:(NSString *) password andEmail:(NSString *) email{
++ (void)doRegisterUsername:(NSString *) username password:(NSString *) password andEmail:(NSString *) email
+         onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
+    NSString *osVersion = [NSString stringWithFormat: @"iOS-%f", [[[UIDevice currentDevice] systemVersion] floatValue]] ;
+    NSDictionary *parameters = @{@"username": username, @"password": password, @"token": _token, @"email": email, @"os": osVersion};
+    NSString *url = [NSString stringWithFormat:@"%@/api/register", apiURL];
     
+    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
 }
 
-+ (void)getResources:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)getResourcesWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/resources", apiURL,companyId];
-    [RestManager doGetRequest:url parameters:nil onSuccess:success];
+    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
 }
 
-+ (void)getEvents:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
++ (void)getEventsWithUrl:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/events", apiURL,companyId];
-    [RestManager doGetRequest:url parameters:nil onSuccess:success];
+    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
 }
 
 
 
-+ (void)doGetRequest:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success {
++ (void)doGetRequestWithUrl:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFCompoundResponseSerializer serializer];
@@ -61,7 +65,7 @@ static NSString *_token = @"1";
     }];
 }
 
-+ (void)doPostRequest:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock) errorBlock{
++ (void)doPostRequestWithUrl:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock) errorBlock{
     AFHTTPRequestOperationManager *manager = [RestManager createManager];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
        manager.responseSerializer = [AFCompoundResponseSerializer serializer];

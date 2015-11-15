@@ -25,7 +25,7 @@
     NSLog(@"Username %@", self.username.text);
     NSLog(@"Password %@", self.pasword.text);
 
-    [RestManager doLogin:self.username.text password:self.pasword.text onSuccess:^(NSObject *responseObject) {
+    [RestManager doLoginWithUsername:self.username.text password:self.pasword.text onSuccess:^(NSObject *responseObject) {
         NSLog(@"Success");
         if ([@"ok" isEqualToString:(NSString *)responseObject]){
             [self performSegueWithIdentifier:@"LoginSegue" sender:self];

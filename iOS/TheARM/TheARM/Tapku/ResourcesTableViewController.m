@@ -32,7 +32,7 @@
 
 -(void) loadEvents{
     
-    [RestManager getResources:@"1" onSuccess:^(NSObject *responseObject) {
+    [RestManager getResourcesWithUrl:@"1" onSuccess:^(NSObject *responseObject) {
        resourcesArray = (NSArray*) responseObject;
         [self.tableView reloadData];
         
