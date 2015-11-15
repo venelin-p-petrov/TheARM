@@ -501,10 +501,10 @@
             </objects>
             <point key="canvasLocation" x="2336" y="-911"/>
         </scene>
-        <!--View Controller-->
+        <!--Event View Controller-->
         <scene sceneID="LVu-Qh-f7C">
             <objects>
-                <viewController id="FJc-qv-gWM" sceneMemberID="viewController">
+                <viewController id="FJc-qv-gWM" customClass="EventViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rdl-Cr-BX0"/>
                         <viewControllerLayoutGuide type="bottom" id="V9M-BB-s0Z"/>
@@ -647,6 +647,9 @@
                                 <date key="date" timeIntervalSinceReferenceDate="469289194.77995902">
                                     <!--2015-11-15 14:06:34 +0000-->
                                 </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-31582800">
+                                    <!--2000-01-01 11:00:00 +0000-->
+                                </date>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="raT-Wf-PIJ"/>
@@ -776,6 +779,14 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="HyW-D7-iA4" id="5NB-Sf-GRS"/>
+                        <outlet property="descriptionTexrView" destination="FZC-oU-GpS" id="pVU-BU-pvX"/>
+                        <outlet property="fromButton" destination="RWV-og-VF3" id="jSw-Nh-hSF"/>
+                        <outlet property="participientsTextView" destination="Ycg-Re-2Ij" id="e5e-69-hNd"/>
+                        <outlet property="titleLabel" destination="tMf-gG-QHd" id="NqJ-JS-fOc"/>
+                        <outlet property="toButton" destination="Ahq-GL-Xmf" id="cv0-p2-KbG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HG3-0c-0mG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
