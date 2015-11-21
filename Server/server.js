@@ -94,11 +94,12 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 });
 
 app.post('/api/:companyId/events/create', function (request, response) {
-	var newEvent = request.body.event;
+    var newEvent = request.body.event;
+    var ownerId = request.body.ownerId;
 	var companyId = request.params.companyId;
 	console.log("--- in POST/api/:companyId/events/create - " + companyId + ", " + JSON.stringify(newEvent));
     
-    eventsController.createEvent(newEvent)
+    eventsController.createEvent(newEvent, ownerId)
         .then(function (event) {
             response.end(JSON.stringify(event));
         }, function (error) {
