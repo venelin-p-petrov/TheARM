@@ -23,13 +23,13 @@ app.use(parser.json());
 //Set content type for all get reuests
 app.get('/*', function (request, response, next)
 {
-    response.setHeader('content-type', 'text/json');
+    response.setHeader('content-type', 'application/json');
     next();
 });
 
 //Set content type for all post reuqets
 app.post('/*', function (request, response, next) {
-    response.setHeader('content-type', 'text/json');
+    response.setHeader('content-type', 'application/json');
     next();
 });
 
