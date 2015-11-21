@@ -8,6 +8,7 @@ var userController = require("Controllers/users-controller.js");
 var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
+var jsonBuilder = require("./utils/jsonBuilder.js");
 
 var app = express();
 
@@ -17,6 +18,19 @@ app.use(parser.urlencoded(
 }));
 
 app.use(parser.json());
+
+//Set content type for all get reuests
+app.get('/*', function (request, response, next)
+{
+    response.setHeader('content-type', 'text/json');
+    next();
+});
+
+//Set content type for all post reuqets
+app.post('/*', function (request, response, next) {
+    response.setHeader('content-type', 'text/json');
+    next();
+});
 
 app.post('/api/login', function (request, response)
 {
@@ -29,7 +43,7 @@ app.post('/api/login', function (request, response)
     var userControllerInstance = userController.loginUser(username, password, token);
 
     userControllerInstance.then(function (loginResult) {
-        response.end(loginResult);
+        response.end(JSON.stringify(loginResult));
     });
 });
 
@@ -45,13 +59,14 @@ app.post('/api/register', function (request, response) {
     var userControllerInstance = userController.registerUser(username, password, token, email, os);
 
     userControllerInstance.then(function (registerData) {
-        response.end(registerData);
+        response.end(JSON.stringify(registerData));
     });
 });
 
 app.get('/api/ping', function (request, response)
 {
-    response.end("Alive");
+    var jsonObject = jsonBuilder.buildJsonObject("status", "alive");
+    response.end(JSON.stringify(jsonObject));
 });
 
 app.get('/api/companies', function (request, response)
