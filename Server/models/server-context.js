@@ -34,6 +34,7 @@ module.exports = function () {
         User.hasMany("events", Event, {}, { reverse: "users", key: true });
         User.hasMany("companies", Company, {}, { reverse: "users" });
         Rule.hasMany("resources", Resource, {}, { reverse: "rules", key: true });
+        Rule.hasMany("events", Event, { }, { reverse: "rules", key: true });
 
         db.sync(function (err) {
             if (err) {
