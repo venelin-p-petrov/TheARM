@@ -25,7 +25,7 @@ app.use(parser.json());
 //Set content type for all get reuests
 app.get('/api/*', function (request, response, next)
 {
-    response.setHeader('content-type', 'image/png');
+    response.setHeader('content-type', 'application/json');
     next();
 });
 
@@ -112,7 +112,13 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 });
 
 app.post('/api/:companyId/events/create', function (request, response) {
-    var newEvent = request.body.event;
+    var newEvent = {};
+    newEvent["description"] = request.body.description;
+    newEvent["minUsers"] = request.body.minUsers;
+    newEvent["maxUsers"] = request.body.maxUsers;
+    newEvent["startTime"] = request.body.startTime;
+    newEvent["endTime"] = request.body.endTime;
+    newEvent["resource_resourceId"] = request.body.resourceId;
     var ownerId = request.body.ownerId;
 	var companyId = request.params.companyId;
 	console.log("--- in POST/api/:companyId/events/create - " + companyId + ", " + JSON.stringify(newEvent));
@@ -160,9 +166,12 @@ app.post('/api/:companyId/events/join', function (request, response)
 
     eventsController.joinEvent(username, eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error joining event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
 });
 
@@ -174,9 +183,12 @@ app.post('/api/:companyId/events/leave', function (request, response)
 
     eventsController.leaveEvent(username, eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error leaving event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
 });
 
@@ -188,20 +200,13 @@ app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, 
 
     eventsController.deleteEvent(eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error deleting event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
-});
-
-app.get('/api/images/:imageId', function (request, response) {
-    var imageId = request.params.imageId;
-    console.log("--- in GET/images/:imageName " + imageId);
-    
-    var options = {
-        root: "./" + constants.imagesFolder + "/"
-    };
-    response.sendFile(imageId, options);
 });
 
 app.listen(8080, function () {
