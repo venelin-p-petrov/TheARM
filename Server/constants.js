@@ -10,5 +10,6 @@ module.exports = {
     dbPort: "3306",
     mySqlUrl: function () {
         return this.mySql + this.username + ":" + this.password + "@" + this.baseUrl + ":" + this.dbPort + "/" + this.database;
-    }
+    },
+    imagesFolder: "images"
 };

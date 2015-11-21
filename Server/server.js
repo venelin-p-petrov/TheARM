@@ -8,6 +8,7 @@ var userController = require("Controllers/users-controller.js");
 var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
+var constants = require("./constants");
 
 var app = express();
 
@@ -174,6 +175,16 @@ app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, 
         }, function (error) {
             response.end(JSON.stringify(new Error("Error deleting event", error)));
         });
+});
+
+app.get('/api/images/:imageId', function (request, response) {
+    var imageId = request.params.imageId;
+    console.log("--- in GET/images/:imageName " + imageId);
+    
+    var options = {
+        root: "./" + constants.imagesFolder + "/"
+    };
+    response.sendFile(imageId, options);
 });
 
 app.listen(8080, function () {
