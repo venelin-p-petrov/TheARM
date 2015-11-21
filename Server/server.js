@@ -13,6 +13,8 @@ var constants = require("./constants");
 
 var app = express();
 
+app.use(express.static('public'));
+
 app.use(parser.urlencoded(
 {
     extended : true
@@ -21,14 +23,14 @@ app.use(parser.urlencoded(
 app.use(parser.json());
 
 //Set content type for all get reuests
-app.get('/*', function (request, response, next)
+app.get('/api/*', function (request, response, next)
 {
-    response.setHeader('content-type', 'application/json');
+    response.setHeader('content-type', 'image/png');
     next();
 });
 
 //Set content type for all post reuqets
-app.post('/*', function (request, response, next) {
+app.post('/api/*', function (request, response, next) {
     response.setHeader('content-type', 'application/json');
     next();
 });
