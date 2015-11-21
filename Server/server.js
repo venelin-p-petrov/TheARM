@@ -9,6 +9,7 @@ var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
 var jsonBuilder = require("./utils/jsonBuilder.js");
+var constants = require("./constants");
 
 var app = express();
 
@@ -109,11 +110,12 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 });
 
 app.post('/api/:companyId/events/create', function (request, response) {
-	var newEvent = request.body.event;
+    var newEvent = request.body.event;
+    var ownerId = request.body.ownerId;
 	var companyId = request.params.companyId;
 	console.log("--- in POST/api/:companyId/events/create - " + companyId + ", " + JSON.stringify(newEvent));
     
-    eventsController.createEvent(newEvent)
+    eventsController.createEvent(newEvent, ownerId)
         .then(function (event) {
             response.end(JSON.stringify(event));
         }, function (error) {
@@ -188,6 +190,16 @@ app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, 
         }, function (error) {
             response.end(JSON.stringify(new Error("Error deleting event", error)));
         });
+});
+
+app.get('/api/images/:imageId', function (request, response) {
+    var imageId = request.params.imageId;
+    console.log("--- in GET/images/:imageName " + imageId);
+    
+    var options = {
+        root: "./" + constants.imagesFolder + "/"
+    };
+    response.sendFile(imageId, options);
 });
 
 app.listen(8080, function () {
