@@ -35,6 +35,13 @@ app.post('/api/*', function (request, response, next) {
     next();
 });
 
+//Set content type for all delete reuqets
+app.delete('/api/*', function (request, response, next) {
+    response.setHeader('content-type', 'application/json');
+    next();
+});
+
+
 app.post('/api/login', function (request, response)
 {
     var username = request.body.username;
