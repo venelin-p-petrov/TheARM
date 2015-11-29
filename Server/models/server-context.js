@@ -29,18 +29,21 @@ module.exports = function () {
 
         // define relationships
         Event.hasOne("resource", Resource, { reverse: "events" });
+        Event.hasOne("owner", User, { reverse: "createdEvents" });
         Resource.hasOne("company", Company, { reverse: "resources" });
         User.hasMany("events", Event, {}, { reverse: "users", key: true });
         User.hasMany("companies", Company, {}, { reverse: "users" });
         Rule.hasMany("resources", Resource, {}, { reverse: "rules", key: true });
+        Rule.hasMany("events", Event, { }, { reverse: "rules", key: true });
 
         db.sync(function (err) {
             if (err) {
                 deferred.reject(err);
             }
+            
+            deferred.resolve(db);
         });
 
-        deferred.resolve(db);
     });
 
     return deferred.promise;

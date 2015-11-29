@@ -8,8 +8,12 @@ var userController = require("Controllers/users-controller.js");
 var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
+var jsonBuilder = require("./utils/jsonBuilder.js");
+var constants = require("./constants");
 
 var app = express();
+
+app.use(express.static('public'));
 
 app.use(parser.urlencoded(
 {
@@ -17,6 +21,26 @@ app.use(parser.urlencoded(
 }));
 
 app.use(parser.json());
+
+//Set content type for all get reuests
+app.get('/api/*', function (request, response, next)
+{
+    response.setHeader('content-type', 'application/json');
+    next();
+});
+
+//Set content type for all post reuqets
+app.post('/api/*', function (request, response, next) {
+    response.setHeader('content-type', 'application/json');
+    next();
+});
+
+//Set content type for all delete reuqets
+app.delete('/api/*', function (request, response, next) {
+    response.setHeader('content-type', 'application/json');
+    next();
+});
+
 
 app.post('/api/login', function (request, response)
 {
@@ -29,7 +53,7 @@ app.post('/api/login', function (request, response)
     var userControllerInstance = userController.loginUser(username, password, token);
 
     userControllerInstance.then(function (loginResult) {
-        response.end(loginResult);
+        response.end(JSON.stringify(loginResult));
     });
 });
 
@@ -45,13 +69,14 @@ app.post('/api/register', function (request, response) {
     var userControllerInstance = userController.registerUser(username, password, token, email, os);
 
     userControllerInstance.then(function (registerData) {
-        response.end(registerData);
+        response.end(JSON.stringify(registerData));
     });
 });
 
 app.get('/api/ping', function (request, response)
 {
-    response.end("Alive");
+    var jsonObject = jsonBuilder.buildJsonObject("status", "alive");
+    response.end(JSON.stringify(jsonObject));
 });
 
 app.get('/api/companies', function (request, response)
@@ -94,11 +119,18 @@ app.get('/api/:companyId/resources/:resourceId', function (request, response)
 });
 
 app.post('/api/:companyId/events/create', function (request, response) {
-	var newEvent = request.body.event;
+    var newEvent = {};
+    newEvent["description"] = request.body.description;
+    newEvent["minUsers"] = request.body.minUsers;
+    newEvent["maxUsers"] = request.body.maxUsers;
+    newEvent["startTime"] = request.body.startTime;
+    newEvent["endTime"] = request.body.endTime;
+    newEvent["resource_resourceId"] = request.body.resourceId;
+    var ownerId = request.body.ownerId;
 	var companyId = request.params.companyId;
 	console.log("--- in POST/api/:companyId/events/create - " + companyId + ", " + JSON.stringify(newEvent));
     
-    eventsController.createEvent(newEvent)
+    eventsController.createEvent(newEvent, ownerId)
         .then(function (event) {
             response.end(JSON.stringify(event));
         }, function (error) {
@@ -141,9 +173,12 @@ app.post('/api/:companyId/events/join', function (request, response)
 
     eventsController.joinEvent(username, eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error joining event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
 });
 
@@ -155,9 +190,12 @@ app.post('/api/:companyId/events/leave', function (request, response)
 
     eventsController.leaveEvent(username, eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error leaving event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
 });
 
@@ -169,9 +207,12 @@ app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, 
 
     eventsController.deleteEvent(eventId)
         .then(function () {
-            response.end("ok");
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "success");
+            response.end(JSON.stringify(jsonResponse));
         }, function (error) {
-            response.end(JSON.stringify(new Error("Error deleting event", error)));
+            var jsonResponse = jsonBuilder.buildJsonObject("status", "fail");
+            jsonBuilder.addJsonValue(jsonResponse, "error", error);
+            response.end(JSON.stringify(jsonResponse));
         });
 });
 
