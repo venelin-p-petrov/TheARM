@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum EventViewState{
+    VIEW,
+    EDIT,
+    CREATE
+} EventViewState;
+
 @interface EventViewController : UIViewController<UIPickerViewDelegate>
 
 @property(strong, atomic) NSDictionary *currentEvent;
+@property (nonatomic, assign) EventViewState eventViewState;
 
 @end

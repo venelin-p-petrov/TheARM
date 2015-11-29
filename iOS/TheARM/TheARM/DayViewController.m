@@ -13,6 +13,7 @@
 #import "TKCalendarDayView.h"
 #import "TKCalendarDayViewController.h"
 #import "RestManager.h"
+#import "DateHelper.h"
 
 @interface DayViewController ()
 
@@ -29,17 +30,17 @@
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
     
-    mutArrEvents = [NSMutableArray arrayWithObjects:
-                    @[@"Meeting with CEO, MD and COO", @"Paresh Navadiya Paresh Navadiya", @2, @0, @2, @15],
-                    @[@"Call with HCA Client, Call with HCA Client, Call with HCA Client", @"Paresh Navadiya", @7, @0, @7, @45],
-                    @[@"Break for 1 hour", @"Paresh Navadiya", @15, @0, @16, @00],
-                    @[@"Break for 1 hour and 30 minutes", @"Paresh Navadiya", @15, @0, @16, @30],
-                    @[@"Reports for product managment", @"Paresh Navadiya", @5, @30, @6, @0],
-                    @[@"QC Task needed to be done", @"Paresh Navadiya", @19, @30, @24, @0], nil];
+//    mutArrEvents = [NSMutableArray arrayWithObjects:
+//                    @[@"Meeting with CEO, MD and COO", @"Paresh Navadiya Paresh Navadiya", @2, @0, @2, @15],
+//                    @[@"Call with HCA Client, Call with HCA Client, Call with HCA Client", @"Paresh Navadiya", @7, @0, @7, @45],
+//                    @[@"Break for 1 hour", @"Paresh Navadiya", @15, @0, @16, @00],
+//                    @[@"Break for 1 hour and 30 minutes", @"Paresh Navadiya", @15, @0, @16, @30],
+//                    @[@"Reports for product managment", @"Paresh Navadiya", @5, @30, @6, @0],
+//                    @[@"QC Task needed to be done", @"Paresh Navadiya", @19, @30, @24, @0], nil];
     [self loadEvents];
     
     CGRect frame = self.view.bounds;
-    
+    mutArrEvents = [NSArray new];
     self.dayView.frame = frame;
     
     //paresh
@@ -50,6 +51,7 @@
 - (void) loadEvents{
     [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
         mutArrEvents = (NSArray *) responseObject;
+        [self.dayView reloadData];
     }onError:^(NSError *error){
         
     }];
@@ -79,30 +81,11 @@
     if([eventDate compare:[NSDate dateWithTimeIntervalSinceNow:24*60*60]] == NSOrderedDescending)
         return @[];
     
-    NSDateComponents *info = [[NSDate date] dateComponentsWithTimeZone:calendarDayTimeline.calendar.timeZone];
-    info.second = 0;
     NSMutableArray *ret = [NSMutableArray array];
     
-    for(NSArray *ar in mutArrEvents){
+    for(NSDictionary *eventDictionary in mutArrEvents){
         
-        TKCalendarDayEventView *event = [calendarDayTimeline dequeueReusableEventView];
-        if(event == nil) event = [TKCalendarDayEventView eventView];
-        
-        NSInteger col = arc4random_uniform(3);
-        [event setColorType:col];
-        
-        event.identifier = nil;
-        event.titleLabel.text = ar[0];
-        event.locationLabel.text = ar[1];
-        
-        info.hour = [ar[2] intValue];
-        info.minute = [ar[3] intValue];
-        event.startDate = [NSDate dateWithDateComponents:info];
-        
-        info.hour = [ar[4] intValue];
-        info.minute = [ar[5] intValue];
-        event.endDate = [NSDate dateWithDateComponents:info];
-        
+        TKCalendarDayEventView *event = [self generateEvenetFromDict:eventDictionary forCalendat:calendarDayTimeline];
         [ret addObject:event];
         
     }
@@ -110,6 +93,25 @@
     
     
 }
+
+-(TKCalendarDayEventView *) generateEvenetFromDict:(NSDictionary *) eventDictionary forCalendat:(TKCalendarDayView*)calendarDayTimeline {
+    TKCalendarDayEventView *event = [calendarDayTimeline dequeueReusableEventView];
+    if(event == nil) event = [TKCalendarDayEventView eventView];
+    
+    NSInteger col = arc4random_uniform(3);
+    [event setColorType:col];
+    event.identifier = nil;
+    event.titleLabel.text = [eventDictionary objectForKey:@"description"];
+    event.locationLabel.text = [eventDictionary objectForKey:@"name"];
+    
+    NSString *startDateString = [eventDictionary objectForKey:@"startTime"];
+    event.startDate = [DateHelper convertDateFromString:startDateString];
+
+    NSString *endDateString = [eventDictionary objectForKey:@"endTime"];
+    event.endDate = [DateHelper convertDateFromString:endDateString];
+    return event;
+}
+
 - (void) calendarDayTimelineView:(TKCalendarDayView*)calendarDayTimeline eventViewWasSelected:(TKCalendarDayEventView *)eventView{
     NSLog(@"%@",eventView.titleLabel.text);
 }

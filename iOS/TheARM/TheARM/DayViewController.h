@@ -11,7 +11,7 @@
 
 @interface DayViewController : TKCalendarDayViewController
 {
-    NSMutableArray *mutArrEvents;
+    NSArray *mutArrEvents;
 }
 
 

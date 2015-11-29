@@ -7,6 +7,7 @@
 //
 
 #import "EventViewController.h"
+#import "DateHelper.h"
 
 @interface EventViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -21,22 +22,30 @@
 
 @implementation EventViewController
 
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.titleLabel.text = [self.currentEvent objectForKey:@"name"];
     self.descriptionTexrView.text = [self.currentEvent objectForKey:@"description"];
-    NSDateFormatter *formatter       =   [[NSDateFormatter alloc] init];
+    for (NSDictionary *user in[self.currentEvent objectForKey:@"users"]){
+        NSString *name = [user objectForKey:@"displayName"];
+        self.participientsTextView.text = [NSString stringWithFormat:@"%@\n%@,", self.participientsTextView.text, name];
+    }
+    self.datePicker.backgroundColor = [UIColor lightGrayColor];
+//    [self.datePicker set	]
+    [self.participientsTextView setEditable:NO];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"HH:mm"];
-    NSDateFormatter *stringToDateFormater = [[NSDateFormatter alloc] init];
-    NSString *startDateString = [self.currentEvent objectForKey:@"startTime"];
-    NSDate *date = [stringToDateFormater dateFromString:startDateString];
+    NSDate *date = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"startTime"]];
     NSString *stratTime = [formatter stringFromDate:date];
-    self.fromButton.titleLabel.text = stratTime;
     
-    
-    date = [stringToDateFormater dateFromString:[self.currentEvent objectForKey:@"endTime"]];
+    [self.fromButton setTitle:stratTime forState:UIControlStateNormal];
+    date = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"endTime"]];
     NSString *endTime = [formatter stringFromDate:date];
-    self.toButton.titleLabel.text = endTime;
+    [self.toButton setTitle:endTime forState:UIControlStateNormal];
 }
 
 -(void)dealloc{

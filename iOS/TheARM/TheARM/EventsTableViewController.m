@@ -60,7 +60,6 @@
 }
 
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     EventCellView *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell" forIndexPath:indexPath];
     NSDictionary *dictionary = [eventsArray objectAtIndex:indexPath.row];
@@ -68,7 +67,7 @@
         cell.dateLabel.text = [dictionary objectForKey:@"date"];
         cell.numberOfPeople.text = [dictionary objectForKey:@"numberOfPeople"];
     // Configure the cell...
-    
+    //Miai e bot xaxa
     return cell;
 }
 

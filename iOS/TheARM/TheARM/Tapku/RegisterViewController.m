@@ -38,12 +38,14 @@
     [super viewDidLoad];
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)registerButtonClicked:(id)sender {
+    [self.registerButton setEnabled:NO];
     [RestManager doRegisterUsername:self.usernameTextField.text password:self.passwordTextField.text andEmail:self.emailTextField.text onSuccess:^(NSObject *reponseObject){
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful registration"
@@ -53,6 +55,7 @@
                                               otherButtonTitles:nil];
         [alert show];
     }onError:^(NSError *error) {
+        [self.registerButton setEnabled:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration fail"
                                                         message:@"Registration was unseccessful."
                                                        delegate:nil
@@ -75,7 +78,7 @@
 }
 
 - (IBAction)confirmPasswordNotMatchEditingChanged:(id)sender {
-    [self changeTextFieldStyles: (UITextField *)sender isValid: (self.passwordTextField.text == self.confirmPasswordTextField.text && self.confirmPasswordTextField.text.length > 6)];
+    [self changeTextFieldStyles: (UITextField *)sender isValid: ([self.passwordTextField.text isEqualToString: self.confirmPasswordTextField.text] && self.confirmPasswordTextField.text.length > 6)];
 }
 
 
@@ -109,12 +112,17 @@
 
 - (BOOL)areTextFieldsValid {
     if(self.usernameTextField.text.length > 6 && self.passwordTextField.text.length > 6 &&
-       self.confirmPasswordTextField.text.length >6 && self.confirmPasswordTextField.text == self.passwordTextField.text &&
+       self.confirmPasswordTextField.text.length >6 && [self.confirmPasswordTextField.text isEqualToString:self.passwordTextField.text] &&
        [self validateEmail:self.emailTextField.text]){
         return YES;
     } else {
         return NO;
     }
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
 
 /*

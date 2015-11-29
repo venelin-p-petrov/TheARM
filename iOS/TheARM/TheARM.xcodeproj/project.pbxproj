@@ -42,6 +42,7 @@
 		C09CE5241BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5161BE659BF0073D715 /* UIDevice+TKCategory.m */; };
 		C09CE5271BE65C500073D715 /* EventCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE5261BE65C500073D715 /* EventCellView.m */; };
 		C09CE52B1BF8BAD00073D715 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE52A1BF8BAD00073D715 /* EventViewController.m */; };
+		C09CE52D1C00D6D40073D715 /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE52C1C00D6D40073D715 /* DateHelper.m */; };
 		F4073A0C1BF77FE500C9C1C6 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4073A0B1BF77FE500C9C1C6 /* RegisterViewController.m */; };
 		F497D3191BE66E3400B9C820 /* ResourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D3181BE66E3400B9C820 /* ResourcesTableViewController.m */; };
 		F497D31D1BE672DF00B9C820 /* ResourceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F497D31C1BE672DF00B9C820 /* ResourceViewCell.m */; };
@@ -112,6 +113,8 @@
 		C09CE5261BE65C500073D715 /* EventCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCellView.m; sourceTree = "<group>"; };
 		C09CE5291BF8BAD00073D715 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewController.h; path = TheARM/EventViewController.h; sourceTree = SOURCE_ROOT; };
 		C09CE52A1BF8BAD00073D715 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = TheARM/EventViewController.m; sourceTree = SOURCE_ROOT; };
+		C09CE52C1C00D6D40073D715 /* DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateHelper.m; path = Tapku/DateHelper.m; sourceTree = "<group>"; };
+		C09CE52E1C00D6F80073D715 /* DateHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateHelper.h; sourceTree = "<group>"; };
 		F4073A0A1BF77FE500C9C1C6 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		F4073A0B1BF77FE500C9C1C6 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		F497D3171BE66E3400B9C820 /* ResourcesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourcesTableViewController.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				C09CE5281BF77D7D0073D715 /* Controllers */,
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
+				C09CE52E1C00D6F80073D715 /* DateHelper.h */,
+				C09CE52C1C00D6D40073D715 /* DateHelper.m */,
 				C09CE4E21BE659360073D715 /* RestManager.h */,
 				C09CE4E31BE659360073D715 /* RestManager.m */,
 				C09CE4D71BE659130073D715 /* Models */,
@@ -451,6 +456,7 @@
 				C09CE4B11BE6227A0073D715 /* main.m in Sources */,
 				C09CE4EF1BE659360073D715 /* User.m in Sources */,
 				C09CE51F1BE659BF0073D715 /* UIScreen+TKCategory.m in Sources */,
+				C09CE52D1C00D6D40073D715 /* DateHelper.m in Sources */,
 				C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */,
 				C09CE5241BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */,
 				C09CE4E81BE659360073D715 /* DayViewController.m in Sources */,
