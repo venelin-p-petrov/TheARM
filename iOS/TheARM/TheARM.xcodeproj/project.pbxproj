@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A801E9616F29206017823161 /* libPods-TheARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB8485955F6839E46F0E69D /* libPods-TheARM.a */; };
+		C053B55F1C0F861500CB92B9 /* EventDetailVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */; };
 		C09CE4B11BE6227A0073D715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B01BE6227A0073D715 /* main.m */; };
 		C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B31BE6227A0073D715 /* AppDelegate.m */; };
 		C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B51BE6227A0073D715 /* TheARM.xcdatamodeld */; };
@@ -52,6 +53,8 @@
 		1206874DA9EB678E5E3A8538 /* Pods-TheARM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheARM.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheARM/Pods-TheARM.release.xcconfig"; sourceTree = "<group>"; };
 		6CB8485955F6839E46F0E69D /* libPods-TheARM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheARM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF56F961E8D7FF9128DCDDF /* Pods-TheARM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheARM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheARM/Pods-TheARM.debug.xcconfig"; sourceTree = "<group>"; };
+		C053B55D1C0F861500CB92B9 /* EventDetailVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailVIewController.h; path = TheARM/EventDetailVIewController.h; sourceTree = SOURCE_ROOT; };
+		C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailVIewController.m; path = TheARM/EventDetailVIewController.m; sourceTree = SOURCE_ROOT; };
 		C09CE4AC1BE6227A0073D715 /* TheARM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheARM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09CE4B01BE6227A0073D715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C09CE4B21BE6227A0073D715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				F4073A0B1BF77FE500C9C1C6 /* RegisterViewController.m */,
 				C09CE5291BF8BAD00073D715 /* EventViewController.h */,
 				C09CE52A1BF8BAD00073D715 /* EventViewController.m */,
+				C053B55D1C0F861500CB92B9 /* EventDetailVIewController.h */,
+				C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */,
 			);
 			name = Controllers;
 			path = Tapku;
@@ -445,6 +450,7 @@
 				C09CE4D11BE62A1C0073D715 /* LoginViewController.m in Sources */,
 				C09CE5221BE659BF0073D715 /* TKCalendarDayView.m in Sources */,
 				C09CE51B1BE659BF0073D715 /* UIDevice+TKCategory.m in Sources */,
+				C053B55F1C0F861500CB92B9 /* EventDetailVIewController.m in Sources */,
 				C09CE5271BE65C500073D715 /* EventCellView.m in Sources */,
 				F4073A0C1BF77FE500C9C1C6 /* RegisterViewController.m in Sources */,
 				F497D3191BE66E3400B9C820 /* ResourcesTableViewController.m in Sources */,
