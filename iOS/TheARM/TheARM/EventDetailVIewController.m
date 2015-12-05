@@ -95,7 +95,7 @@
 -(UITableViewCell *)firstSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0){
         ResourceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ResourceCell" forIndexPath:indexPath];
-        cell.resourceLabel.text = @"Tenis";
+        cell.resourceLabel.text = [self.currentResource objectForKey:@"name"];
         return cell;
     } else {
         DescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DescriptionCell" forIndexPath:indexPath];

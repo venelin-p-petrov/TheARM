@@ -10,6 +10,7 @@
 #import "ResourceViewCell.h"
 #import "AFNetWorking.h"
 #import "RestManager.h"
+#import "DayViewController.h"
 
 @interface ResourcesTableViewController ()
 
@@ -136,7 +137,8 @@
     NSInteger row = ((ResourceViewCell *)sender).tag;
     NSDictionary *dictionary = [resourcesArray objectAtIndex:row];
     NSLog(@"Selected row %ld %@", (long)row, dictionary );
-    
+    DayViewController *viewController = (DayViewController *)segue.destinationViewController;
+    viewController.resource = dictionary;
 }
 
 @end

@@ -42,5 +42,7 @@ typedef enum EventViewState{
 
 @property(strong, atomic) NSDictionary *currentEvent;
 @property (nonatomic, assign) EventViewState eventViewState;
+@property(strong, atomic) NSDictionary *currentResource;
+
 
 @end

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TKCalendarDayViewController.h"
 
-@interface DayViewController : TKCalendarDayViewController
+@interface DayViewController : TKCalendarDayViewController<UIGestureRecognizerDelegate>
 {
     NSArray *mutArrEvents;
 }
 
+@property NSDictionary *resource;
 
 
 @end

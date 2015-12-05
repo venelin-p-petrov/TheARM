@@ -14,6 +14,7 @@
 #import "TKCalendarDayViewController.h"
 #import "RestManager.h"
 #import "DateHelper.h"
+#import "EventDetailVIewController.h"
 
 @interface DayViewController ()
 
@@ -46,7 +47,18 @@
     //paresh
     NSDateComponents *compNow = [NSDate componentsOfCurrentDate];
     [self performSelector:@selector(updateToCurrentTime) withObject:self afterDelay:60.0f-compNow.second];
+    
+    //Add Long Press Gesture Reconizer
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+//                                               initWithTarget:self action:@selector(handleLongPress:)];
+//    longPress.minimumPressDuration = 2; //seconds
+//    longPress.delegate = self;
+//    [self.dayView addGestureRecognizer:longPress];
 }
+- (IBAction)addEvent:(id)sender {
+}
+
+
 
 - (void) loadEvents{
     [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
@@ -94,6 +106,7 @@
     
 }
 
+
 -(TKCalendarDayEventView *) generateEvenetFromDict:(NSDictionary *) eventDictionary forCalendat:(TKCalendarDayView*)calendarDayTimeline {
     TKCalendarDayEventView *event = [calendarDayTimeline dequeueReusableEventView];
     if(event == nil) event = [TKCalendarDayEventView eventView];
@@ -116,5 +129,14 @@
     NSLog(@"%@",eventView.titleLabel.text);
 }
 
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([@"CreateEvent" isEqualToString:segue.identifier]){
+        EventDetailVIewController *viewController = (EventDetailVIewController *) segue.destinationViewController;
+        [viewController setCurrentResource:self.resource];
+        [viewController setCurrentEvent:[NSDictionary new]];
+        [viewController setEventViewState:CREATE];
+    }
+}
 
 @end

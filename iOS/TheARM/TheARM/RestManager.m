@@ -13,9 +13,12 @@
 
 
 
-static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azure.com:8080";
+//static NSString * const apiURL = @"http://vm-hackathon2.westeurope.cloudapp.azure.com:8080";
+static NSString * const apiURL = @"http://192.168.1.52:8080";
 
 static NSString *_token = @"1";
+static NSArray *resourcesArray;
+static NSArray *eventsArray;
 
 + (void)doLoginWithUsername:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSDictionary *parameters = @{@"username": username, @"password": password, @"token":_token};
@@ -35,12 +38,19 @@ static NSString *_token = @"1";
 
 + (void)getResourcesWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/resources", apiURL,companyId];
-    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
+    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:^(NSObject *responseObject) {
+        resourcesArray = (NSArray *)responseObject;
+        success(responseObject);
+    }];
+
 }
 
 + (void)getEventsWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error{
     NSString *url = [NSString stringWithFormat:@"%@/api/%@/events", apiURL,companyId];
-    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:success];
+    [RestManager doGetRequestWithUrl:url parameters:nil onSuccess:^(NSObject *responseObject) {
+        eventsArray = (NSArray *)eventsArray;
+        success(responseObject);
+    }];
 }
 
 
