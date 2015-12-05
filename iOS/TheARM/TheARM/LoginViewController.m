@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "RestManager.h"
 #import "EventViewController.h"
+#import "AppDelegate.h"
 
 @interface LoginViewController ()
     @property (weak, nonatomic) IBOutlet UITextField *username;
@@ -38,9 +39,14 @@
         NSDictionary *responseDictionary =  [NSJSONSerialization JSONObjectWithData:(NSData *)responseObject options:kNilOptions error:&error];
 
         if ([@"success" isEqualToString:[responseDictionary objectForKey:@"status"]]){
-            [self performSegueWithIdentifier:@"LoginSegue" sender:self];
+            UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+            AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
+            delaget.window.rootViewController = viewController;
+            [delaget.window makeKeyAndVisible];
+   
         } else {
             [self showAlerWithString:@"Wrong username or password"];
+            [self.loginButton setEnabled:YES];
         }
         
     } onError:^(NSError *error) {
@@ -60,13 +66,6 @@
     [self.view endEditing:YES];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([@"CreateEvent" isEqualToString:segue.identifier]){
-        NSDictionary *dictionary  = @{@"startTime":@"2015-11-21T19:00:00.000Z", @"endTime": @"2015-11-21T19:30:00.000Z"};
-        EventViewController *eventViewController = (EventViewController *)segue.destinationViewController;
-        [eventViewController setEventViewState:CREATE];
-        eventViewController.currentEvent = dictionary;
-    }
-}
+
 
 @end

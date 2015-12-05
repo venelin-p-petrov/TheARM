@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-236" y="-466"/>
         </scene>
-        <!--Login View Controller-->
+        <!--The ARM-->
         <scene sceneID="MFJ-KT-8x2">
             <objects>
                 <viewController id="2O5-Lo-KWG" customClass="LoginViewController" sceneMemberID="viewController">
@@ -176,12 +176,11 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="FpM-f8-tiE"/>
+                    <navigationItem key="navigationItem" title="The ARM" id="FpM-f8-tiE"/>
                     <connections>
                         <outlet property="loginButton" destination="sFq-y8-mY9" id="hCd-33-ir5"/>
                         <outlet property="pasword" destination="hdu-8v-wlH" id="QFq-a0-F2X"/>
                         <outlet property="username" destination="msA-y8-KoJ" id="pq9-tb-tVo"/>
-                        <segue destination="n96-BL-CqU" kind="show" identifier="LoginSegue" id="l4n-T7-vnm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J87-II-Ipb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -404,14 +403,31 @@
             <point key="canvasLocation" x="537" y="430"/>
         </scene>
         <!--Events-->
+        <scene sceneID="sGB-ZA-m6e">
+            <objects>
+                <navigationController id="oIC-je-nX6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" id="zk4-tl-29S"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tv3-F5-B1V">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="k1m-K2-PaJ" kind="relationship" relationship="rootViewController" id="h12-Gu-Mnq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1p0-e2-EsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1963.5" y="-1559"/>
+        </scene>
+        <!--The ARM-->
         <scene sceneID="M41-jm-3Yr">
             <objects>
                 <tableViewController id="k1m-K2-PaJ" customClass="EventsTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="nMh-Ko-Nj1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="70" sectionHeaderHeight="18" sectionFooterHeight="18" id="nMh-Ko-Nj1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="70" id="Vhm-aE-fLk" customClass="EventCellView">
                                 <rect key="frame" x="0.0" y="92" width="600" height="70"/>
@@ -492,8 +508,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Events" id="wQa-bA-T8f"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="The ARM" id="pYl-bN-4Dx"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pgt-J6-OA4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -830,12 +849,14 @@
                             <outlet property="delegate" destination="BfE-XU-j7B" id="OTG-YT-iem"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mS7-fh-z6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3382.5" y="-1012"/>
         </scene>
-        <!--Item 2-->
+        <!--Day View Controller-->
         <scene sceneID="Ej4-PJ-79c">
             <objects>
                 <viewController id="suu-Kw-TsY" customClass="DayViewController" sceneMemberID="viewController">
@@ -849,7 +870,6 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="2Cx-4F-hG6"/>
                     <navigationItem key="navigationItem" id="iz3-u9-gHL">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="SFD-9G-EsY">
                             <connections>
@@ -866,11 +886,11 @@
             </objects>
             <point key="canvasLocation" x="3136" y="-187"/>
         </scene>
-        <!--ARM-->
+        <!--Tab Bar Controller-->
         <scene sceneID="u6l-FX-cBQ">
             <objects>
-                <tabBarController id="n96-BL-CqU" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="ARM" id="e48-GL-VEj"/>
+                <tabBarController storyboardIdentifier="TabBarController" id="n96-BL-CqU" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="e48-GL-VEj"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Iwi-ng-c6x">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -878,13 +898,30 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="k1m-K2-PaJ" kind="relationship" relationship="viewControllers" id="Haj-Nc-Lrk"/>
-                        <segue destination="lOO-Lg-KPv" kind="relationship" relationship="viewControllers" id="fwQ-xW-pIj"/>
+                        <segue destination="oIC-je-nX6" kind="relationship" relationship="viewControllers" id="bbM-Tn-GJ4"/>
+                        <segue destination="fnU-Ty-Rse" kind="relationship" relationship="viewControllers" id="OUN-qg-vNl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geH-Zd-q2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1500" y="-799"/>
+        </scene>
+        <!--Resources-->
+        <scene sceneID="upm-D2-iWs">
+            <objects>
+                <navigationController id="fnU-Ty-Rse" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Resources" id="PLq-GO-zhb"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jax-l7-thd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="lOO-Lg-KPv" kind="relationship" relationship="rootViewController" id="6cB-ue-toJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SD4-f9-raE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1410" y="-23"/>
         </scene>
         <!--Resources-->
         <scene sceneID="z4M-b8-RlY">
@@ -987,9 +1024,11 @@
                             <outlet property="delegate" destination="lOO-Lg-KPv" id="Z0B-RX-rxk"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Events" id="nMF-Pe-0O2"/>
+                    <tabBarItem key="tabBarItem" title="Resources" id="nMF-Pe-0O2"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="The ARM" id="wla-cT-vZV"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OrD-ga-0FH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -997,6 +1036,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Cb3-KV-lyS"/>
+        <segue reference="Nut-Ce-W7f"/>
     </inferredMetricsTieBreakers>
 </document>
