@@ -429,7 +429,7 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="70" id="Vhm-aE-fLk" customClass="EventCellView">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="70" id="Vhm-aE-fLk" customClass="EventCellView">
                                 <rect key="frame" x="0.0" y="92" width="600" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vhm-aE-fLk" id="qaK-Cg-a3u">
@@ -498,7 +498,7 @@
                                     <outlet property="dateLabel" destination="IDV-R1-5xY" id="rdP-SX-2y0"/>
                                     <outlet property="descriptionLabel" destination="KQQ-85-tGf" id="HiE-G0-9G2"/>
                                     <outlet property="numberOfPeople" destination="iHZ-eD-EjT" id="pqQ-mh-VwQ"/>
-                                    <segue destination="BfE-XU-j7B" kind="show" identifier="ShowEventSegue" id="Nut-Ce-W7f"/>
+                                    <segue destination="BfE-XU-j7B" kind="show" identifier="ShowEventSegue" id="TzL-oZ-wky"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -850,7 +850,17 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Wua-h8-rPo">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="9b9-BX-dhu">
+                            <connections>
+                                <action selector="actionButtonClicked:" destination="BfE-XU-j7B" id="0uX-Xi-BrT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="actionButton" destination="9b9-BX-dhu" id="Igm-WX-vdN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mS7-fh-z6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1036,6 +1046,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Nut-Ce-W7f"/>
+        <segue reference="TzL-oZ-wky"/>
     </inferredMetricsTieBreakers>
 </document>

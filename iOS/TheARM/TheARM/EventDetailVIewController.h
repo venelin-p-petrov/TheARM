@@ -35,12 +35,14 @@ typedef enum EventViewState{
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @end
 
-@interface EventDetailVIewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>{
+@interface EventDetailVIewController : UITableViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate>{
     BOOL _isDateSelected;
     BOOL _isStartDateSelected;
+    BOOL _isDatePickerLoaded;
 }
 
-@property(strong, atomic) NSDictionary *currentEvent;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *actionButton;
+@property(strong, atomic) NSMutableDictionary *currentEvent;
 @property (nonatomic, assign) EventViewState eventViewState;
 @property(strong, atomic) NSDictionary *currentResource;
 

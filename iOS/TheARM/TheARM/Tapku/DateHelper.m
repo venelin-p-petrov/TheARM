@@ -12,6 +12,7 @@
 @implementation DateHelper
 
 static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+static NSString * const STRING_FORMAT = @"yyyy-MM-dd HH:mm:ss";
 
 +(NSDate *)convertDateFromString:(NSString *) dateString{
     
@@ -19,6 +20,12 @@ static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     [stringToDateFormater setDateFormat:DATE_FORMAT];
     NSDate *date = [stringToDateFormater dateFromString:dateString];
     return date;
+}
+
++(NSString *)convertStringFromDate:(NSDate *) date {
+    NSDateFormatter *stringToDateFormater = [[NSDateFormatter alloc] init];
+    [stringToDateFormater setDateFormat:DATE_FORMAT];
+    return  [stringToDateFormater stringFromDate:date];
 }
 
 @end

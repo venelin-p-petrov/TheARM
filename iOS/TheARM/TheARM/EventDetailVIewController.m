@@ -7,6 +7,7 @@
 //
 
 #import "EventDetailVIewController.h"
+#import "DateHelper.h"
 
 @implementation ResourceCell
 
@@ -19,6 +20,7 @@
 @end
 
 @implementation DatePickerCell
+
 @end
 
 @implementation DateCell
@@ -30,6 +32,34 @@
     [super viewDidLoad];
     _isDateSelected = NO;
     _isStartDateSelected = NO;
+    _isDatePickerLoaded = NO;
+    if (self.eventViewState == CREATE) {
+        [self.actionButton setTitle:@"Add"];
+        [self.currentEvent setValue:[NSNumber numberWithInt:1] forKey:@"minUsers"];
+        [self.currentEvent setValue:[NSNumber numberWithInt:2] forKey:@"maxUsers"];
+        [self.currentEvent setValue:[NSNumber numberWithInt:1] forKey:@"ownerId"];
+        [self.currentEvent setValue:[self.currentResource objectForKey:@"resourceId"] forKey:@"resourceId"];
+        
+    } else if (self.eventViewState == EDIT){
+        [self.actionButton setTitle:@"Save"];
+    } if (self.eventViewState == VIEW){
+        [self.actionButton setTitle:@"Join"];
+    }
+   
+}
+- (IBAction)actionButtonClicked:(id)sender {
+ NSLog(@"create event -> %@", self.currentEvent);
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.currentEvent
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"json string --->  %@", jsonString);
+    }
 }
 
 
@@ -99,12 +129,45 @@
         return cell;
     } else {
         DescriptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DescriptionCell" forIndexPath:indexPath];
-        cell.descriptionTextField.text = @"Add description here";
+        cell.descriptionTextField.delegate = self;
+        NSString *description = [self.currentEvent objectForKey:@"description"];
+        if (description == nil || [description isEqualToString:@""]){
+            cell.descriptionTextField.text = @"Add description here";
+            cell.descriptionTextField.textColor = [UIColor lightGrayColor];
+        } else {
+            cell.descriptionTextField.text = description;
+            cell.descriptionTextField.textColor = [UIColor blackColor];
+        }
+        if (self.eventViewState == CREATE || self.eventViewState == EDIT){
+            cell.descriptionTextField.editable = YES;
+        } else {
+            cell.descriptionTextField.editable = NO;
+        }
         return cell;
 
     }
 }
 
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"Add description here"]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor]; //optional
+    }
+    [textView becomeFirstResponder];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Add description here";
+        textView.textColor = [UIColor lightGrayColor]; //optional
+    } else {
+        [self.currentEvent setValue:textView.text forKey:@"description"];
+    }
+    [textView resignFirstResponder];
+}
 
 
 -(UITableViewCell *) secondSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,19 +175,42 @@
     if (indexPath.row == 0){
         DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
         cell.cellInfoLabel.text = @"Start Date";
-        cell.dateLabel.text = @"22 November 2015 15:30";
+        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"startTime"]];
         return cell;
     } else if (_isDateSelected && ((_isStartDateSelected && indexPath.row == 1) || (!_isStartDateSelected && indexPath.row==2)) ){
             DatePickerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerCell" forIndexPath:indexPath];
-            return cell;
+        if (!_isDatePickerLoaded){
+            [cell.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+            _isDatePickerLoaded = YES;
+        }
+        if (_isStartDateSelected){
+           
+            NSDate *date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"startTime"]];
+            [cell.datePicker setDate:date];
+        } else {
+            NSDate *date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"endTime"]];
+            [cell.datePicker setDate:date];
+        }
+        return cell;
         
     } else {
         DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
         cell.cellInfoLabel.text = @"End Date";
-        cell.dateLabel.text = @"22 November 2015 16:30";
+        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"endTime"]];
         return cell;
 
     }
+}
+
+- (void)dateChanged:(id)sender{
+    NSLog(@"Date changed");
+    UIDatePicker *datePicker = (UIDatePicker *) sender;
+    if (_isStartDateSelected) {
+        [self.currentEvent setValue:[DateHelper convertStringFromDate:datePicker.date]forKey:@"startTime"];
+    } else {
+        [self.currentEvent setValue:[DateHelper convertStringFromDate:datePicker.date] forKey:@"endTime"];
+    }
+    [self.tableView reloadData];
 }
 
 -(UITableViewCell *) userSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -135,7 +221,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 1){
+    if (indexPath.section == 1 && (self.eventViewState == CREATE || self.eventViewState == EDIT)) {
         if (indexPath.row == 0){
             _isStartDateSelected = YES;
             _isDateSelected = YES;

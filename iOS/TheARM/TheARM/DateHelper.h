@@ -10,5 +10,6 @@
 @interface DateHelper : NSObject
 
 +(NSDate *)convertDateFromString:(NSString *) dateString;
++(NSString *)convertStringFromDate:(NSDate *) date;
 
 @end

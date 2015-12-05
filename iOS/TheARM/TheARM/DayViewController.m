@@ -134,7 +134,7 @@
     if([@"CreateEvent" isEqualToString:segue.identifier]){
         EventDetailVIewController *viewController = (EventDetailVIewController *) segue.destinationViewController;
         [viewController setCurrentResource:self.resource];
-        [viewController setCurrentEvent:[NSDictionary new]];
+        [viewController setCurrentEvent:[NSMutableDictionary dictionaryWithObjectsAndKeys:[DateHelper convertStringFromDate:[NSDate new]],@"startTime",[DateHelper convertStringFromDate:[NSDate new]], @"endTime", nil]];
         [viewController setEventViewState:CREATE];
     }
 }
