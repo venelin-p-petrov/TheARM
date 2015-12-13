@@ -149,6 +149,67 @@
 }
 
 
+-(UITableViewCell *) secondSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0){
+        DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
+        cell.cellInfoLabel.text = @"Start Date";
+        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"startTime"]];
+        return cell;
+    } else if (_isDateSelected && ((_isStartDateSelected && indexPath.row == 1) || (!_isStartDateSelected && indexPath.row==2)) ){
+        return [self tableView:tableView generateDatePickerCellForIndexPath:indexPath];
+        
+    } else {
+        DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
+        cell.cellInfoLabel.text = @"End Date";
+        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"endTime"]];
+        return cell;
+
+    }
+}
+
+- (UITableViewCell *) tableView:(UITableView *) tableView generateDatePickerCellForIndexPath:(NSIndexPath *) indexPath{
+    DatePickerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerCell" forIndexPath:indexPath];
+    if (!_isDatePickerLoaded){
+        [cell.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+        _isDatePickerLoaded = YES;
+    }
+    NSDate *date = [NSDate new];
+    if (_isStartDateSelected){
+        date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"startTime"]];
+    } else {
+        date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"endTime"]];
+    }
+    [cell.datePicker setDate:date];
+    return cell;
+}
+
+-(UITableViewCell *) userSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
+    cell.usernameLabel.text = @"User Userov";
+    return cell;
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1 && (self.eventViewState == CREATE || self.eventViewState == EDIT)) {
+        if (indexPath.row == 0){
+            _isStartDateSelected = YES;
+            _isDateSelected = YES;
+        }
+        else if(indexPath.row ==1 && _isDateSelected == NO) {
+            _isStartDateSelected = NO;
+            _isDateSelected = YES;
+        }
+    } else {
+        _isStartDateSelected = NO;
+        _isDateSelected = NO;
+    }
+    [tableView reloadData];
+}
+
+#pragma mark UITextViewDelgate implementation
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     if ([textView.text isEqualToString:@"Add description here"]) {
@@ -169,39 +230,7 @@
     [textView resignFirstResponder];
 }
 
-
--(UITableViewCell *) secondSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.row == 0){
-        DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
-        cell.cellInfoLabel.text = @"Start Date";
-        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"startTime"]];
-        return cell;
-    } else if (_isDateSelected && ((_isStartDateSelected && indexPath.row == 1) || (!_isStartDateSelected && indexPath.row==2)) ){
-            DatePickerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DatePickerCell" forIndexPath:indexPath];
-        if (!_isDatePickerLoaded){
-            [cell.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-            _isDatePickerLoaded = YES;
-        }
-        if (_isStartDateSelected){
-           
-            NSDate *date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"startTime"]];
-            [cell.datePicker setDate:date];
-        } else {
-            NSDate *date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"endTime"]];
-            [cell.datePicker setDate:date];
-        }
-        return cell;
-        
-    } else {
-        DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
-        cell.cellInfoLabel.text = @"End Date";
-        cell.dateLabel.text = [NSString stringWithFormat:@"%@",[self.currentEvent objectForKey:@"endTime"]];
-        return cell;
-
-    }
-}
-
+#pragma mark UIDatePicker
 - (void)dateChanged:(id)sender{
     NSLog(@"Date changed");
     UIDatePicker *datePicker = (UIDatePicker *) sender;
@@ -211,33 +240,6 @@
         [self.currentEvent setValue:[DateHelper convertStringFromDate:datePicker.date] forKey:@"endTime"];
     }
     [self.tableView reloadData];
-}
-
--(UITableViewCell *) userSectionInEvent:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
-    cell.usernameLabel.text = @"User Userov";
-    return cell;
-    
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 1 && (self.eventViewState == CREATE || self.eventViewState == EDIT)) {
-        if (indexPath.row == 0){
-            _isStartDateSelected = YES;
-            _isDateSelected = YES;
-        }
-        else if (_isDateSelected && ((_isStartDateSelected && indexPath.row == 1) || (!_isStartDateSelected && indexPath.row==2)) ){
-        
-        } else {
-            _isStartDateSelected = NO;
-            _isDateSelected = YES;
-        
-        }
-    } else {
-        _isStartDateSelected = NO;
-        _isDateSelected = NO;
-    }
-    [tableView reloadData];
 }
 
 @end

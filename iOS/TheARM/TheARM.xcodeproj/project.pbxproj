@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A801E9616F29206017823161 /* libPods-TheARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB8485955F6839E46F0E69D /* libPods-TheARM.a */; };
 		C053B55F1C0F861500CB92B9 /* EventDetailVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */; };
+		C053B5621C14585B00CB92B9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C053B5611C14585B00CB92B9 /* DataManager.m */; };
 		C09CE4B11BE6227A0073D715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B01BE6227A0073D715 /* main.m */; };
 		C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B31BE6227A0073D715 /* AppDelegate.m */; };
 		C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B51BE6227A0073D715 /* TheARM.xcdatamodeld */; };
@@ -55,6 +56,8 @@
 		9DF56F961E8D7FF9128DCDDF /* Pods-TheARM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheARM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheARM/Pods-TheARM.debug.xcconfig"; sourceTree = "<group>"; };
 		C053B55D1C0F861500CB92B9 /* EventDetailVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailVIewController.h; path = TheARM/EventDetailVIewController.h; sourceTree = SOURCE_ROOT; };
 		C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailVIewController.m; path = TheARM/EventDetailVIewController.m; sourceTree = SOURCE_ROOT; };
+		C053B5601C14585B00CB92B9 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		C053B5611C14585B00CB92B9 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		C09CE4AC1BE6227A0073D715 /* TheARM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheARM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09CE4B01BE6227A0073D715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C09CE4B21BE6227A0073D715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				C09CE5281BF77D7D0073D715 /* Controllers */,
 				C09CE4B21BE6227A0073D715 /* AppDelegate.h */,
 				C09CE4B31BE6227A0073D715 /* AppDelegate.m */,
+				C053B5601C14585B00CB92B9 /* DataManager.h */,
+				C053B5611C14585B00CB92B9 /* DataManager.m */,
 				C09CE52E1C00D6F80073D715 /* DateHelper.h */,
 				C09CE52C1C00D6D40073D715 /* DateHelper.m */,
 				C09CE4E21BE659360073D715 /* RestManager.h */,
@@ -471,6 +476,7 @@
 				C09CE5181BE659BF0073D715 /* TKGlobal.m in Sources */,
 				C09CE52B1BF8BAD00073D715 /* EventViewController.m in Sources */,
 				C09CE5231BE659BF0073D715 /* TKCalendarDayViewController.m in Sources */,
+				C053B5621C14585B00CB92B9 /* DataManager.m in Sources */,
 				C09CE51D1BE659BF0073D715 /* UIImageView+TKCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
