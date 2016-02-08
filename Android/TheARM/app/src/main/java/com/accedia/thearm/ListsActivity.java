@@ -121,7 +121,7 @@ public class ListsActivity extends AppCompatActivity {
             resources.clear();
             for (int i = 0; i<= companiesArr.length(); i++){
                 String companyId = companiesArr.getJSONObject(i).getString("companyId");
-                String resourcesRes = ApiHelper.getCompanyResources(companyId);
+                //String resourcesRes = ApiHelper.getCompanyResources(companyId);
                 JSONArray resourcesArr = new JSONArray();
                 for (int j = 0; j <= resourcesArr.length(); j++) {
                     JSONObject obj = resourcesArr.getJSONObject(j);

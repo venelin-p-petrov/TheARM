@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.accedia.thearm.helpers.ApiHelper;
 
+import org.json.JSONException;
+
 import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -32,11 +34,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String username = editUsername.getText().toString();
-                String email = editPassword.getText().toString();
+                String email = editEmail.getText().toString();
                 String password = editPassword.getText().toString();
 
                 try {
-                    if (ApiHelper.register(email, password, username, "")) {
+                    if (ApiHelper.register(username, password, "", email)) {
                         Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register successful.", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
@@ -46,6 +48,9 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
                 }

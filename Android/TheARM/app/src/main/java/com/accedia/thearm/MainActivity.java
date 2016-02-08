@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.accedia.thearm.helpers.ApiHelper;
 
+import org.json.JSONException;
+
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                 }
