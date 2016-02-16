@@ -20,6 +20,10 @@ public class CreateEventActivity extends AppCompatActivity {
 
         Calendar startTime = (Calendar) getIntent().getSerializableExtra(START_DATE);
 
+        if (startTime == null) {
+            startTime = Calendar.getInstance();
+        }
+
         startTimePicker = (TimePicker) findViewById(R.id.dtp_from_date);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

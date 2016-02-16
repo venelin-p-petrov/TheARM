@@ -25,7 +25,7 @@ public class Event {
     private List<Rule> rules;
     private List<User> users;
     private User owner;
-    SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public Event(JSONObject obj) throws JSONException, ParseException {
         this.eventId = obj.getInt("eventId");

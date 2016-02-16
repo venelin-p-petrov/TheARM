@@ -1,5 +1,7 @@
 package com.accedia.thearm.helpers;
 
+import android.util.Log;
+
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
 import com.accedia.thearm.models.User;
@@ -43,7 +45,12 @@ public class ObjectsHelper {
     }
 
     public void setResources(ArrayList<Resource> resources) {
-        this.resources = resources;
+        if (this.resources == null) {
+            this.resources = new ArrayList<Resource>();
+        }
+
+        this.resources.clear();
+        this.resources.addAll(resources);
     }
 
 
@@ -54,6 +61,12 @@ public class ObjectsHelper {
     }
 
     public void setEvents(ArrayList<Event> events) {
-        this.events = events;
+        if (this.events == null) {
+            this.events = new ArrayList<Event>();
+        }
+
+        this.events.clear();
+        this.events.addAll(events);
+        Log.w("DEBUG", "set events");
     }
 }

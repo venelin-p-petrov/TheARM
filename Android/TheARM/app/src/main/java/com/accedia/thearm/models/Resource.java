@@ -26,4 +26,8 @@ public class Resource {
         // TODO save rules
         //this.rules = new ArrayList<Rule>();
     }
+
+    public String getName() {
+        return name;
+    }
 }

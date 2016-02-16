@@ -21,4 +21,8 @@ public class User {
         this.notificationToken = obj.getString("token");
         this.companyId = obj.optInt("companyId", 0);
     }
+
+    public int getCompanyId() {
+        return companyId;
+    }
 }
