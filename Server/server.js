@@ -8,8 +8,10 @@ var userController = require("Controllers/users-controller.js");
 var companiesController = require("Controllers/companies-controller.js");
 var eventsController = require("Controllers/events-controller.js");
 var resourcesController = require("Controllers/resources-controller.js");
+var notificationsController = require("Controllers/notifications-controller.js");
 var jsonBuilder = require("./utils/jsonBuilder.js");
 var constants = require("./constants");
+var CronJob = require('cron').CronJob;
 
 var app = express();
 
@@ -41,6 +43,10 @@ app.delete('/api/*', function (request, response, next) {
     next();
 });
 
+//This will be executing every minute and will be checking for push notifications to send
+new CronJob('* * * * * *', function() {
+    notificationsController.sendPushNotifications();
+}, null, true);
 
 app.post('/api/login', function (request, response)
 {
