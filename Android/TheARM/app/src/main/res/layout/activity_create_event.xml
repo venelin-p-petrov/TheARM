@@ -27,20 +27,20 @@
                 android:text="Resource name" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/event_description"
                 android:layout_below="@+id/text_resource_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:lines="5"
-                android:minLines="3"
+                android:minLines="1"
                 android:gravity="top|left"
                 android:layout_margin="10dp"
                 android:hint="Some text" />
 
             <LinearLayout
                 android:id="@+id/time_pickers_container"
-                android:layout_below="@+id/editText"
+                android:layout_below="@+id/event_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -115,6 +115,7 @@
                     android:text="Required number of players" />
 
                 <EditText
+                    android:id="@+id/event_required_users"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -122,6 +123,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/create_event_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/number_of_players_container"

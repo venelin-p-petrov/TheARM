@@ -25,4 +25,8 @@ public class User {
     public int getCompanyId() {
         return companyId;
     }
+
+    public int getUserId() {
+        return userId;
+    }
 }

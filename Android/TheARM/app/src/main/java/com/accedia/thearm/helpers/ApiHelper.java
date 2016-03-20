@@ -102,8 +102,8 @@ public class ApiHelper {
             event.put("description", description);
             event.put("minUsers", requiredUsers);
             event.put("maxUsers", requiredUsers);
-            event.put("startTime", startDate);
-            event.put("endTime", endDate);
+            event.put("startTime", ObjectsHelper.jsonDateFormat.format(startDate));
+            event.put("endTime", ObjectsHelper.jsonDateFormat.format(endDate));
             event.put("resourceId", resourceId);
             event.put("ownerId", ownerId);
         } catch(JSONException e){
@@ -112,9 +112,9 @@ public class ApiHelper {
 
         String result = new RequestTask(POST.value()).execute(url, event.toString()).get();
 
-        Event eventObj = new Event(new JSONObject(result));
+        //Event eventObj = new Event(new JSONObject(result));
 
-        return eventObj;
+        return null;//eventObj;
     }
 
     public static List<Event> getEvents(int companyId) throws ExecutionException, InterruptedException, JSONException, ParseException {

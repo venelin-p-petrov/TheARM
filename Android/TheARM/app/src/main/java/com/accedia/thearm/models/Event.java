@@ -1,5 +1,7 @@
 package com.accedia.thearm.models;
 
+import com.accedia.thearm.helpers.ObjectsHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,9 +27,10 @@ public class Event {
     private List<Rule> rules;
     private List<User> users;
     private User owner;
-    SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public Event(JSONObject obj) throws JSONException, ParseException {
+        SimpleDateFormat format = ObjectsHelper.jsonDateFormat;
+
         this.eventId = obj.getInt("eventId");
         this.description = obj.getString("description");
         this.minUsers = obj.getInt("minUsers");

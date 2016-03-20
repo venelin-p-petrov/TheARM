@@ -6,6 +6,7 @@ import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
 import com.accedia.thearm.models.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class ObjectsHelper {
 
     private static ObjectsHelper instance;
+    public static SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     private ObjectsHelper(){
     }
