@@ -43,19 +43,15 @@ Example request:
 Returns: 
 {
   "status": "success",
-  "email": "test@test.test",
-  "displayName": "testuser2",
+  "email": "petar.georgiev1@accedia.com",
+  "userId": 3,
+  "displayName": "Peter Georgiev",
+  "username": "peterGeorgiev12",
   "os": "Android",
-  "token": "asd",
+  "token": "sadasd",
   "companyId": 1
 }
-Ping:
-Address: /api/ping
-Type: GET
-Returns:
-{
-  "status": "alive"
-}
+
 All companies:
 Address: /api/companies
 Type: GET
@@ -63,9 +59,10 @@ Returns:
 [
   {
     "companyId": 1,
-    "name": "Accedia"
+    "companyName": "Accedia"
   }
 ]
+
 Resources for company
 Address: /api/{companyId}/resources
 Type: GET
@@ -74,11 +71,12 @@ Returns:
 [
   {
     "resourceId": 1,
-    "image": "asd",
-    "name": "Fusball",
-    "company_companyId": 1
+    "image": "image.image",
+    "name": "Fussball",
+    "companyId": 1
   }
 ]
+
 Get data about one resource:
 Address: /api/{companyId}/resources/{resourceId}
 Type: GET
@@ -86,36 +84,60 @@ Parameters: company id and resource id in the url
 Returns: 
 {
   "resourceId": 1,
-  "image": "1.png",
-  "name": "Fusball",
-  "company_companyId": 1,
-  "rules": []
+  "image": "https://thearmstorage.blob.core.windows.net/thearmblobcontainer/40909329-Fussball-Tabelle-Icon-Lizenzfreie-Bilder.jpg",
+  "name": "Fussball",
+  "companyId": 1
 }
+
 Create event:
-Address: /api/{companyId}/events/create
+Address: /api/events/create
 Type: POST
-Parameters: company id in the url
-description, minUsers, maxUsers, startTime, endTime, resourceId, ownerId
+Example request:
+{
+    "companyId" : 1,
+    "description" : "Not so unpleasent event",
+    "minUsers" : 2,
+    "maxUsers" : 4,
+    "startTime" : "2016-12-10T12:30:00",
+    "endTime" : "2016-12-10T12:30:00",
+    "resourceId" : 1,
+    "ownerId" : 1
+}
 Returns:
 {
-  "eventId": 2,
-  "description": "Code created event",
-  "minUsers": "2",
-  "maxUsers": "4",
-  "startTime": "",
-  "endTime": "",
-  "resource_resourceId": "1",
+  "eventId": 15,
+  "description": "Not so unpleasent event",
+  "minUsers": 2,
+  "maxUsers": 4,
+  "startTime": "2016-12-10T12:30:00Z",
+  "endTime": "2016-12-10T12:30:00Z",
+  "resource_resourceId": 1,
   "owner_userId": 1,
   "rules": [],
   "owner": {
+    "status": "success",
+    "email": "petar.georgiev@accedia.com",
     "userId": 1,
-    "email": "nfhh@abv.bg",
-    "password": "sha1$63b9f850$1$365bdb4766320b7c2cfcc9147424f2d0ccd0c01e",
-    "os": "iOS-8.200000",
-    "displayName": "mihail1",
-    "token": "5545bbec1d2fa60f72b59e86180a5efa22a15dcb759b296ef38f1c4edb97c206"
-  }
+    "displayName": "Peter Georgiev",
+    "username": "peterGeorgiev11",
+    "os": "Android",
+    "token": "sadasd",
+    "companyId": 1
+  },
+  "users": [
+    {
+      "status": "success",
+      "email": "petar.georgiev@accedia.com",
+      "userId": 1,
+      "displayName": "Peter Georgiev",
+      "username": "peterGeorgiev11",
+      "os": "Android",
+      "token": "sadasd",
+      "companyId": 1
+    }
+  ]
 }
+
 Get all events for company:
 Address: /api/{companyId}/events
 Type: GET
@@ -123,78 +145,110 @@ Parameters: company id in url
 Returns:
 [
   {
-    "eventId": 1,
-    "description": "Mass orgy",
+    "eventId": 12,
+    "description": "Not so unpleasent event",
     "minUsers": 2,
-    "maxUsers": 120,
-    "startTime": "2015-11-21T19:00:00.000Z",
-    "endTime": "2015-11-21T19:30:00.000Z",
+    "maxUsers": 4,
+    "startTime": "2016-12-10T12:30:00Z",
+    "endTime": "2016-12-10T12:30:00Z",
     "resource_resourceId": 1,
     "owner_userId": 1,
-    "users": [],
     "rules": [],
     "owner": {
+      "status": "success",
+      "email": "petar.georgiev@accedia.com",
       "userId": 1,
-      "email": "nfhh@abv.bg",
-      "password": "sha1$63b9f850$1$365bdb4766320b7c2cfcc9147424f2d0ccd0c01e",
-      "os": "iOS-8.200000",
-      "displayName": "mihail1",
-      "token": "5545bbec1d2fa60f72b59e86180a5efa22a15dcb759b296ef38f1c4edb97c206"
-    }
+      "displayName": "Peter Georgiev",
+      "username": "peterGeorgiev11",
+      "os": "Android",
+      "token": "sadasd",
+      "companyId": 1
+    },
+    "users": [
+      {
+        "status": "success",
+        "email": "petar.georgiev@accedia.com",
+        "userId": 1,
+        "displayName": "Peter Georgiev",
+        "username": "peterGeorgiev11",
+        "os": "Android",
+        "token": "sadasd",
+        "companyId": 1
+      }
+    ]
   }
 ]
+
 Get data for single event:
-Address: /api/{companyId}/events/{eventid}
+Address: /api/events/{eventid}
 Type: GET
-Parameters: company id and event id in url
+Parameters: event id in url
 Returns:
 {
-  "eventId": 1,
-  "description": "Mass orgy",
+  "eventId": 12,
+  "description": "Not so unpleasent event",
   "minUsers": 2,
-  "maxUsers": 120,
-  "startTime": "2015-11-21T19:00:00.000Z",
-  "endTime": "2015-11-21T19:30:00.000Z",
+  "maxUsers": 4,
+  "startTime": "2016-12-10T12:30:00Z",
+  "endTime": "2016-12-10T12:30:00Z",
   "resource_resourceId": 1,
   "owner_userId": 1,
-  "users": [],
   "rules": [],
   "owner": {
+    "status": "success",
+    "email": "petar.georgiev@accedia.com",
     "userId": 1,
-    "email": "nfhh@abv.bg",
-    "password": "sha1$63b9f850$1$365bdb4766320b7c2cfcc9147424f2d0ccd0c01e",
-    "os": "iOS-8.200000",
-    "displayName": "mihail1",
-    "token": "5545bbec1d2fa60f72b59e86180a5efa22a15dcb759b296ef38f1c4edb97c206"
-  }
+    "displayName": "Peter Georgiev",
+    "username": "peterGeorgiev11",
+    "os": "Android",
+    "token": "sadasd",
+    "companyId": 1
+  },
+  "users": []
 }
+
 Join event:
-Address: /api/{companyId}/events/join
+Address: /api/events/join
 Type: POST
-Parameters: company id in url
-username, eventId
-Returns: To 
+Example request:
 {
-  "status": "success"
+    "userId" : 1,
+    "eventId" : 8
 }
+Returns:  
+{
+  "status": "succesful",
+  "message": "Event joined successful."
+}
+
 Leave event:
-Address: /api/:companyId/events/leave
+Address: /api/events/leave
 Type: POST
-Parameters: company id in url
-username, eventId
+Example request:
+{
+    "userId" : 1,
+    "eventId" : 8
+}
 Returns: 
 {
-  "status": "success"
+  "status": "succesful",
+  "message": "Event left successful."
 }
+
 Delete event:
-Address: /api/:companyId/events/delete/:eventid/:userid
+Address: /api/events/delete
 Type: DELETE
-Parameters: company id, event id and user id in url
+Example request
+{
+    "userId" : 1,
+    "eventId" : 11
+}
 Returns:
 {
-  "status": "success"
+  "status": "succesful",
+  "message": "Delete event successful."
 }
 Get resource image:
-Just GET it from {server address}/images/{name of the image} 
+Just GET it from the given url
 </pre>
 
