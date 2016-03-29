@@ -11,7 +11,12 @@ TheARM Web API Documentation:
 Login:
 Address: /api/login
 Type: POST
-Parameters: username, password, token
+Example request:
+{
+    "username" : "peterGeorgiev11",
+    "password" : "asdfghj8",
+    "token" : "sadasd"
+}
 Returns: 
 {
   "status": "success",
@@ -22,10 +27,19 @@ Returns:
   "token": "asd"
   "companyId": 1
 }
+
 Register:
 Address: /api/register
 Type: POST
-Parameters: username, password, token, email, os
+Example request:
+{
+    "username" : "peterGeorgiev11",
+    "password" : "asdfghj8",
+    "token" : "sadasd",
+    "email" : "petar.georgiev@accedia.com",
+    "displayName" : "Peter Georgiev",
+    "os" : "Android"
+}
 Returns: 
 {
   "status": "success",
