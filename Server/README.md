@@ -1,4 +1,12 @@
 <pre>
+
+Header requirements:
+Content-Type = application/json
+x-zumo-application = NsyvgflFAzydhjsoiqiCGUilEdSolD68
+
+Service url:
+https://thearm.azure-mobile.net
+
 TheARM Web API Documentation:
 Login:
 Address: /api/login
