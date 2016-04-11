@@ -44,9 +44,15 @@ app.delete('/api/*', function (request, response, next) {
 });
 
 //This will be executing every minute and will be checking for push notifications to send
-new CronJob('* * * * * *', function() {
-    notificationsController.sendPushNotifications();
+new CronJob('0 * * * * *', function() {
+   notificationsController.sendPushNotifications();
 }, null, true);
+
+app.get('/api/sendNotifications', function(request, response)
+{
+	notificationsController.sendPushNotifications();
+	response.end();
+});
 
 app.post('/api/login', function (request, response)
 {
@@ -223,5 +229,6 @@ app.delete('/api/:companyId/events/delete/:eventid/:userid', function (request, 
 });
 
 app.listen(8080, function () {
+	process.env['DEBUG'] = 'apn';
     console.log("Service running...");
 });
