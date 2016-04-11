@@ -13,18 +13,15 @@ import java.util.List;
  */
 public class Resource {
     private int resourceId;
-    private String imageName;
+    private String imageUrl;
     private String name;
     private int companyId;
-    private ArrayList<Rule> rules;
 
     public Resource(JSONObject obj) throws JSONException {
         this.resourceId = obj.getInt("resourceId");
-        this.imageName = obj.getString("image");
+        this.imageUrl = obj.getString("image");
         this.name = obj.getString("name");
-        this.companyId = obj.getInt("company_companyId");
-        // TODO save rules
-        //this.rules = new ArrayList<Rule>();
+        this.companyId = obj.getInt("companyId");
     }
 
     public String getName() {

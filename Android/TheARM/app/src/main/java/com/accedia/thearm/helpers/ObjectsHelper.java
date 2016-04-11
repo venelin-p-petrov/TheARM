@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ObjectsHelper {
 
     private static ObjectsHelper instance;
-    public static SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     private ObjectsHelper(){
     }
@@ -70,5 +70,19 @@ public class ObjectsHelper {
         this.events.clear();
         this.events.addAll(events);
         Log.w("DEBUG", "set events");
+    }
+
+    public Event getEventById(int id){
+        if (id == 0){
+            return null;
+        }
+
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getEventId() == id){
+                return events.get(i);
+            }
+        }
+
+        return null;
     }
 }

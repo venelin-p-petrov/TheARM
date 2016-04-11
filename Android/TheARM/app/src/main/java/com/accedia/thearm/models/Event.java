@@ -39,12 +39,12 @@ public class Event {
         this.endTime = format.parse(obj.getString("endTime"));
         this.resourceId = obj.getInt("resource_resourceId");
         this.ownerId = obj.getInt("owner_userId");
-        // TODO parse rules
+
         this.owner = new User(obj.getJSONObject("owner"));
 
         this.users = new ArrayList<User>();
         JSONArray userArr = obj.optJSONArray("users");
-        if (userArr != null){
+        if (userArr != null) {
             for (int i = 0; i < userArr.length(); i++) {
                 this.users.add(new User(userArr.getJSONObject(i)));
             }
@@ -57,5 +57,13 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public int getEventId() {
+        return eventId;
     }
 }

@@ -18,6 +18,7 @@ public class User {
         this.email = obj.getString("email");
         this.userId = obj.getInt("userId");
         this.displayName = obj.getString("displayName");
+        this.username = obj.getString("username");
         this.notificationToken = obj.getString("token");
         this.companyId = obj.optInt("companyId", 0);
     }

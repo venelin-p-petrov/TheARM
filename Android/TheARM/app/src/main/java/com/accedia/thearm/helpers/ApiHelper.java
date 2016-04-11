@@ -24,18 +24,18 @@ import static com.accedia.thearm.helpers.RequestTask.RequestMethod.*;
  */
 public class ApiHelper {
 
-    private final static String URL_ENDPOINT = "http://vm-hackathon-re.westeurope.cloudapp.azure.com:8080/api/";
+    private final static String URL_ENDPOINT = "https://thearm2.azure-mobile.net/api/";
 
     public static boolean login(String username, String password, String token) throws ExecutionException, InterruptedException, JSONException {
         String url = URL_ENDPOINT + "login";
 
-        Uri.Builder builder = new Uri.Builder()
-                .appendQueryParameter("username", username)
-                .appendQueryParameter("password", password)
-                .appendQueryParameter("token", token);
+        JSONObject obj = new JSONObject();
+        obj.put("username", username);
+        obj.put("username", username);
+        obj.put("password", password);
+        obj.put("token", token);
 
-        String params = builder.build().getEncodedQuery();
-        String result = new RequestTask(POST.value()).execute(url, params).get();
+        String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
 
         JSONObject res = new JSONObject(result);
         boolean isSuccess = res.getString("status").equals("success");
@@ -45,19 +45,19 @@ public class ApiHelper {
         return isSuccess;
     }
 
-    public static boolean register(String username, String password, String token, String email) throws ExecutionException, InterruptedException, JSONException {
+    public static boolean register(String username, String password, String token, String email, String displayName) throws ExecutionException, InterruptedException, JSONException {
 
         String url = URL_ENDPOINT + "register";
 
-        Uri.Builder builder = new Uri.Builder()
-                .appendQueryParameter("username", username)
-                .appendQueryParameter("password", password)
-                .appendQueryParameter("token", token)
-                .appendQueryParameter("email", email)
-                .appendQueryParameter("os", "Android");
+        JSONObject obj = new JSONObject();
+        obj.put("username", username);
+        obj.put("password", password);
+        obj.put("token", token);
+        obj.put("email", email);
+        obj.put("displayName", displayName);
+        obj.put("os", "Android");
 
-        String params = builder.build().getEncodedQuery();
-        String result = new RequestTask(POST.value()).execute(url, params).get();
+        String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
 
         JSONObject res = new JSONObject(result);
         boolean isSuccess = res.getString("status").equals("success");
@@ -93,26 +93,23 @@ public class ApiHelper {
         return res;
     }
 
-    public static Event createEvent(int companyId, String description, int requiredUsers, Date startDate, Date endDate, int resourceId, int ownerId) throws ExecutionException, InterruptedException, JSONException, ParseException {
+    public static Event createEvent(String description, int minUsers, int maxUsers, Date startDate, Date endDate, int resourceId, int ownerId) throws ExecutionException, InterruptedException, JSONException, ParseException {
 
-        String url = URL_ENDPOINT + companyId + "/events/create";
+        String url = URL_ENDPOINT + "/events/create";
 
         JSONObject event = new JSONObject();
-        try {
-            event.put("description", description);
-            event.put("minUsers", requiredUsers);
-            event.put("maxUsers", requiredUsers);
-            event.put("startTime", ObjectsHelper.jsonDateFormat.format(startDate));
-            event.put("endTime", ObjectsHelper.jsonDateFormat.format(endDate));
-            event.put("resourceId", resourceId);
-            event.put("ownerId", ownerId);
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
+        event.put("companyId", ObjectsHelper.getInstance().getCurrentUser().getCompanyId());
+        event.put("description", description);
+        event.put("minUsers", minUsers);
+        event.put("maxUsers", maxUsers);
+        event.put("startTime", ObjectsHelper.jsonDateFormat.format(startDate));
+        event.put("endTime", ObjectsHelper.jsonDateFormat.format(endDate));
+        event.put("resourceId", resourceId);
+        event.put("ownerId", ownerId);
 
         String result = new RequestTask(POST.value()).execute(url, event.toString()).get();
 
-        //Event eventObj = new Event(new JSONObject(result));
+        Event eventObj = new Event(new JSONObject(result));
 
         return null;//eventObj;
     }
@@ -133,8 +130,8 @@ public class ApiHelper {
         return events;
     }
 
-    public static Event getEvent(int companyId, int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
-        String url = URL_ENDPOINT + companyId + "/events/" + eventId;
+    public static Event getEvent(int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
+        String url = URL_ENDPOINT + "/events/" + eventId;
         String result = new RequestTask(GET.value()).execute(url).get();
 
         Event event = new Event(new JSONObject(result));
@@ -142,28 +139,14 @@ public class ApiHelper {
         return event;
     }
 
-    public static boolean joinEvent(String username, int companyId, int eventId) throws ExecutionException, InterruptedException, JSONException {
+    public static boolean joinEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException {
 
-        String url = URL_ENDPOINT + companyId + "/events/join";
-        Uri.Builder builder = new Uri.Builder()
-                .appendQueryParameter("username", username)
-                .appendQueryParameter("eventId", String.valueOf(eventId));
+        String url = URL_ENDPOINT + "/events/join";
+        JSONObject obj = new JSONObject();
+        obj.put("userId", String.valueOf(userId));
+        obj.put("eventId", String.valueOf(eventId));
 
-        String result = new RequestTask(POST.value()).execute(url).get();
-
-        JSONObject res = new JSONObject(result);
-        boolean isSuccess = res.getString("status").equals("success");
-
-        return isSuccess;
-    }
-
-    public static boolean leaveEvent(String username, int companyId, int eventId) throws ExecutionException, InterruptedException, JSONException {
-        String url = URL_ENDPOINT + companyId + "/events/leave";
-        Uri.Builder builder = new Uri.Builder()
-                .appendQueryParameter("username", username)
-                .appendQueryParameter("eventId", String.valueOf(eventId));
-
-        String result = new RequestTask(POST.value()).execute(url).get();
+        String result = new RequestTask(POST.value()).execute(url, obj.toString() ).get();
 
         JSONObject res = new JSONObject(result);
         boolean isSuccess = res.getString("status").equals("success");
@@ -171,7 +154,33 @@ public class ApiHelper {
         return isSuccess;
     }
 
-    // TODO create delete event method
+    public static boolean leaveEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException {
+        String url = URL_ENDPOINT + "/events/leave";
+        JSONObject obj = new JSONObject();
+        obj.put("userId", String.valueOf(userId));
+        obj.put("eventId", String.valueOf(eventId));
+
+        String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
+
+        JSONObject res = new JSONObject(result);
+        boolean isSuccess = res.getString("status").equals("success");
+
+        return isSuccess;
+    }
+
+    public static boolean deleteEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException {
+        String url = URL_ENDPOINT + "/events/delete";
+        JSONObject obj = new JSONObject();
+        obj.put("userId", String.valueOf(userId));
+        obj.put("eventId", String.valueOf(eventId));
+
+        String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
+
+        JSONObject res = new JSONObject(result);
+        boolean isSuccess = res.getString("status").equals("success");
+
+        return isSuccess;
+    }
 
     public static String getCompanies() throws ExecutionException, InterruptedException {
 

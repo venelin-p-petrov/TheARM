@@ -25,7 +25,8 @@ public class CreateEventActivity extends AppCompatActivity {
     private TimePicker endTimePicker;
     private Button createEventButton;
     private EditText eventDescriptionEditText;
-    private EditText eventRequiredUsers;
+    private EditText eventMinUsers;
+    private EditText eventMaxUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +44,20 @@ public class CreateEventActivity extends AppCompatActivity {
         endTimePicker = (TimePicker) findViewById(R.id.dtp_to_date);
         createEventButton = (Button) findViewById(R.id.create_event_button);
         eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
-        eventRequiredUsers = (EditText) findViewById(R.id.event_required_users);
+        eventMinUsers = (EditText) findViewById(R.id.event_min_users);
+        eventMaxUsers = (EditText) findViewById(R.id.event_max_users);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            startTimePicker.setHour(startTime.get(Calendar.HOUR));
-            startTimePicker.setMinute(startTime.get(Calendar.MINUTE));
-        } else {
-            startTimePicker.setCurrentHour(startTime.get(Calendar.HOUR));
-            startTimePicker.setCurrentMinute(startTime.get(Calendar.MINUTE));
-        }
+        startTimePicker.setIs24HourView(true);
+        endTimePicker.setIs24HourView(true);
+
+        // TODO
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            startTimePicker.setHour(startTime.get(Calendar.HOUR));
+//            startTimePicker.setMinute(startTime.get(Calendar.MINUTE));
+//        } else {
+//            startTimePicker.setCurrentHour(startTime.get(Calendar.HOUR));
+//            startTimePicker.setCurrentMinute(startTime.get(Calendar.MINUTE));
+//        }
 
         final Calendar finalStartTime = startTime;
         final Calendar finalEndTime = endTime;
@@ -74,14 +80,16 @@ public class CreateEventActivity extends AppCompatActivity {
                 }
 
                 try {
-                    ApiHelper.createEvent(1/*ObjectsHelper.getInstance().getCurrentUser().getCompanyId()*/,
-                            eventDescriptionEditText.getText().toString(),
-                            Integer.parseInt(eventRequiredUsers.getText().toString()),//required users
+                    ApiHelper.createEvent(eventDescriptionEditText.getText().toString(),
+                            Integer.parseInt(eventMinUsers.getText().toString()),
+                            Integer.parseInt(eventMaxUsers.getText().toString()),
                             finalStartTime.getTime(),
                             finalEndTime.getTime(),
                             1,//resource id
                             ObjectsHelper.getInstance().getCurrentUser().getUserId() // owner id
                             );
+
+                    finish();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

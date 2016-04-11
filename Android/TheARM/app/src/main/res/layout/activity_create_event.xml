@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.accedia.thearm.CreateEventActivity">
 
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,46 +30,46 @@
 
             <EditText
                 android:id="@+id/event_description"
-                android:layout_below="@+id/text_resource_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/text_resource_name"
+                android:layout_margin="10dp"
+                android:gravity="top|left"
+                android:hint="Some text"
                 android:inputType="textMultiLine"
                 android:lines="5"
-                android:minLines="1"
-                android:gravity="top|left"
-                android:layout_margin="10dp"
-                android:hint="Some text" />
+                android:minLines="1" />
 
             <LinearLayout
                 android:id="@+id/time_pickers_container"
-                android:layout_below="@+id/event_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_below="@+id/event_description"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/text_from_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="From time"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="From time" />
 
                     <TimePicker
                         android:id="@+id/dtp_from_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:layout_margin="5dp"
                         android:timePickerMode="spinner" />
                 </LinearLayout>
 
@@ -75,24 +77,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/text_to_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="To time"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="To time" />
 
                     <TimePicker
                         android:id="@+id/dtp_to_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:scaleX="1"
                         android:scaleY="1"
-                        android:layout_margin="5dp"
-                        android:timePickerMode="spinner"/>
+                        android:timePickerMode="spinner" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -103,21 +105,36 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/time_pickers_container"
                 android:gravity="center">
-                
 
                 <TextView
-                    android:id="@+id/text_number_players"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
-                    android:text="Required number of players" />
+                    android:text="Players" />
 
                 <EditText
-                    android:id="@+id/event_required_users"
+                    android:id="@+id/event_min_users"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="Min"
+                    android:inputType="number"
+                    android:minWidth="50dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:text="to" />
+
+                <EditText
+                    android:id="@+id/event_max_users"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Max"
                     android:inputType="number"
                     android:minWidth="50dp" />
             </LinearLayout>
@@ -127,8 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/number_of_players_container"
-                android:padding="20dp"
                 android:layout_centerHorizontal="true"
+                android:padding="20dp"
                 android:text="CREATE" />
         </RelativeLayout>
     </ScrollView>

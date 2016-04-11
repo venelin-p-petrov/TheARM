@@ -27,10 +27,19 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/edit_register_password"
+        android:id="@+id/edit_register_display_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_register_email"
+        android:layout_margin="10dp"
+        android:hint="Display name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_register_display_name"
         android:layout_margin="10dp"
         android:hint="Password"
         android:inputType="textPassword" />

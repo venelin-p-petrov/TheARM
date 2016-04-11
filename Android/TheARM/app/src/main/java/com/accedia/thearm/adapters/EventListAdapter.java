@@ -56,9 +56,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
             convertView = inflater.inflate(R.layout.list_item_event, parent, false);
         }
 
-        Event eventItem = (Event)getItem(position);
+        Event eventItem = (Event) getItem(position);
 
-        if (eventItem != null){
+        if (eventItem != null) {
             TextView textDescription = (TextView) convertView.findViewById(R.id.list_item_event_description);
             TextView textStart = (TextView) convertView.findViewById(R.id.list_item_event_start);
 
@@ -67,7 +67,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
             }
 
             if (textStart != null) {
-//                textStart.setText(eventItem.getDate().toString());
+                textStart.setText(eventItem.getStartTime().toString());
             }
         }
 
