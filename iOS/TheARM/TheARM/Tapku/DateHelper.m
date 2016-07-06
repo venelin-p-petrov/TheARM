@@ -11,7 +11,7 @@
 
 @implementation DateHelper
 
-static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 static NSString * const STRING_FORMAT = @"yyyy-MM-dd HH:mm:ss";
 
 +(NSDate *)convertDateFromString:(NSString *) dateString{

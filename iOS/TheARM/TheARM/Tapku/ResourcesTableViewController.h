@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIImageView+AFNetworking.h>
 
 @interface ResourcesTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *resourcesArray;
 }
+
 
 @end

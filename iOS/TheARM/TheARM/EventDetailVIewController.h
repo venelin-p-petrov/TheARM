@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef enum EventViewState{
-    VIEW,
+    JOIN,
+    LEAVE,
     EDIT,
     CREATE
 } EventViewState;
@@ -30,12 +31,16 @@ typedef enum EventViewState{
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @end
 
+@interface PickerCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIPickerView *customPicker;
+@end
+
 @interface DateCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *cellInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @end
 
-@interface EventDetailVIewController : UITableViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate>{
+@interface EventDetailVIewController : UITableViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate, UIAlertViewDelegate,UIPickerViewDataSource, UIPickerViewDelegate>{
     BOOL _isDateSelected;
     BOOL _isStartDateSelected;
     BOOL _isDatePickerLoaded;

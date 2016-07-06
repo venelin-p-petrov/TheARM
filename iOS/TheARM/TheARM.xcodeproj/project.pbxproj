@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		A801E9616F29206017823161 /* libPods-TheARM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CB8485955F6839E46F0E69D /* libPods-TheARM.a */; };
+		C0519D321D2D5D3A00E166F4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0519D311D2D5D3A00E166F4 /* logo@2x.png */; };
+		C0519D341D2D760200E166F4 /* at.png in Resources */ = {isa = PBXBuildFile; fileRef = C0519D331D2D760200E166F4 /* at.png */; };
 		C053B55F1C0F861500CB92B9 /* EventDetailVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */; };
 		C053B5621C14585B00CB92B9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C053B5611C14585B00CB92B9 /* DataManager.m */; };
+		C0798AAA1D072D3E003B9B6B /* logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0798AA91D072D3E003B9B6B /* logo@3x.png */; };
+		C0798AAC1D0730C6003B9B6B /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = C0798AAB1D0730C6003B9B6B /* user.png */; };
+		C0798AAE1D0733D2003B9B6B /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = C0798AAD1D0733D2003B9B6B /* lock.png */; };
 		C09CE4B11BE6227A0073D715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B01BE6227A0073D715 /* main.m */; };
 		C09CE4B41BE6227A0073D715 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B31BE6227A0073D715 /* AppDelegate.m */; };
 		C09CE4B71BE6227A0073D715 /* TheARM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C09CE4B51BE6227A0073D715 /* TheARM.xcdatamodeld */; };
@@ -54,10 +59,15 @@
 		1206874DA9EB678E5E3A8538 /* Pods-TheARM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheARM.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheARM/Pods-TheARM.release.xcconfig"; sourceTree = "<group>"; };
 		6CB8485955F6839E46F0E69D /* libPods-TheARM.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheARM.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF56F961E8D7FF9128DCDDF /* Pods-TheARM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheARM.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheARM/Pods-TheARM.debug.xcconfig"; sourceTree = "<group>"; };
+		C0519D311D2D5D3A00E166F4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		C0519D331D2D760200E166F4 /* at.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = at.png; sourceTree = "<group>"; };
 		C053B55D1C0F861500CB92B9 /* EventDetailVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventDetailVIewController.h; path = TheARM/EventDetailVIewController.h; sourceTree = SOURCE_ROOT; };
 		C053B55E1C0F861500CB92B9 /* EventDetailVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventDetailVIewController.m; path = TheARM/EventDetailVIewController.m; sourceTree = SOURCE_ROOT; };
 		C053B5601C14585B00CB92B9 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		C053B5611C14585B00CB92B9 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		C0798AA91D072D3E003B9B6B /* logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@3x.png"; sourceTree = "<group>"; };
+		C0798AAB1D0730C6003B9B6B /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		C0798AAD1D0733D2003B9B6B /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		C09CE4AC1BE6227A0073D715 /* TheARM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheARM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09CE4B01BE6227A0073D715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C09CE4B21BE6227A0073D715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -320,6 +330,11 @@
 		F497D31E1BE6820C00B9C820 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0519D331D2D760200E166F4 /* at.png */,
+				C0798AAD1D0733D2003B9B6B /* lock.png */,
+				C0798AAB1D0730C6003B9B6B /* user.png */,
+				C0519D311D2D5D3A00E166F4 /* logo@2x.png */,
+				C0798AA91D072D3E003B9B6B /* logo@3x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -358,6 +373,7 @@
 				TargetAttributes = {
 					C09CE4AB1BE6227A0073D715 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 8TEBZUZ6U9;
 					};
 				};
 			};
@@ -385,7 +401,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C09CE4C51BE6227A0073D715 /* LaunchScreen.storyboard in Resources */,
+				C0798AAC1D0730C6003B9B6B /* user.png in Resources */,
+				C0798AAE1D0733D2003B9B6B /* lock.png in Resources */,
+				C0798AAA1D072D3E003B9B6B /* logo@3x.png in Resources */,
+				C0519D321D2D5D3A00E166F4 /* logo@2x.png in Resources */,
 				C09CE4C21BE6227A0073D715 /* Assets.xcassets in Resources */,
+				C0519D341D2D760200E166F4 /* at.png in Resources */,
 				C09CE4C01BE6227A0073D715 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,6 +639,8 @@
 			baseConfigurationReference = 9DF56F961E8D7FF9128DCDDF /* Pods-TheARM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheARM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -651,6 +674,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.accedia.TheARM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -659,6 +683,8 @@
 			baseConfigurationReference = 1206874DA9EB678E5E3A8538 /* Pods-TheARM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TheARM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -692,6 +718,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.accedia.TheARM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
