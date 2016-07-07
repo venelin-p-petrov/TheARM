@@ -12,7 +12,7 @@
 #import "TKCalendarDayEventView.h"
 #import "TKCalendarDayView.h"
 #import "TKCalendarDayViewController.h"
-#import "DataManager.h"
+#import "RestManager.h"
 #import "DateHelper.h"
 #import "EventDetailVIewController.h"
 
@@ -61,8 +61,7 @@
 
 
 - (void) loadEvents{
-    DataManager *dataManager = [DataManager sharedDataManager];
-    [dataManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
+    [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
         mutArrEvents = (NSArray *) responseObject;
         [self.dayView reloadData];
     }onError:^(NSError *error){

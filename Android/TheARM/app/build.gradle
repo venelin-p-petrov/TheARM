@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
@@ -26,4 +27,5 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.github.shell-software:fab:1.1.2'
     compile 'com.github.alamkanak:android-week-view:1.2.3'
+    compile "com.google.android.gms:play-services-gcm:8.3.0"
 }

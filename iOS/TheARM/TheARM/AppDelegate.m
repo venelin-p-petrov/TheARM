@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "DataManager.h"
+#import "RestManager.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
-@property DataManager *dataManager;
+
 @end
 
 @implementation AppDelegate
@@ -21,44 +21,22 @@
     UIUserNotificationType types = UIUserNotificationTypeBadge |
     UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
     
-    NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:2 * 1024 * 1024
-                                                            diskCapacity:100 * 1024 * 1024
-                                                                diskPath:nil];
-    [NSURLCache setSharedURLCache:sharedCache];
-    
-    self.dataManager = [DataManager sharedDataManager];
-    
     UIUserNotificationSettings *mySettings =
     [UIUserNotificationSettings settingsForTypes:types categories:nil];
     
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
-    
     return YES;
-}
--(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    
 }
 
 // Delegation methods
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
     
-    NSString *token = [[devToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"content---%@", token);
-    [self.dataManager setToken:token];
-    NSUserDefaults *userDefults = [NSUserDefaults standardUserDefaults];
-    NSString *userToken = [userDefults objectForKey:@"userToken"];
-    if (userToken != nil && ![userToken isEqualToString:@""]){
-        NSString *password = [userDefults objectForKey:@"userPassword"];
-        DataManager *dataManager = [DataManager sharedDataManager];
-        [dataManager doLoginWithUsername:userToken password:password onSuccess:^(NSObject *responseObject) {
-            
-        } onError:^(NSError *error) {
-            
-        }];
-    }
+    NSString *newToken = [devToken description];
+    newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [RestManager setToken:newToken];
+    
     NSLog(@"dev TOken %@", devToken);
 }
 
@@ -81,7 +59,6 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

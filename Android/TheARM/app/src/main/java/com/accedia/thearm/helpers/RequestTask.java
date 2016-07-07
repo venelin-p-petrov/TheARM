@@ -41,6 +41,8 @@ public class RequestTask extends AsyncTask<String, String, String> {
 
         URL url = new URL(params[0]);
         urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestProperty("Content-Type", "application/json");
+        urlConnection.setRequestProperty("x-zumo-application", "FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44");
         urlConnection.setRequestMethod(this.method);
 
         if(RequestMethod.POST.toString().equals(this.method)){

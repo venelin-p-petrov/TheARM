@@ -26,6 +26,7 @@ import android.widget.ListView;
 import com.accedia.thearm.adapters.EventListAdapter;
 import com.accedia.thearm.adapters.ResourceListAdapter;
 import com.accedia.thearm.helpers.ApiHelper;
+import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
 
@@ -33,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +59,7 @@ public class ListsActivity extends AppCompatActivity {
 
     private static FloatingActionButton fabNewEvent;
 
-    private static List<Resource> resources = new ArrayList<Resource>();
+    //private static List<Resource> resources = new ArrayList<Resource>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +84,9 @@ public class ListsActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
-                    fabNewEvent.setVisibility(View.GONE);
-                } else if (position == 1) {
                     fabNewEvent.setVisibility(View.VISIBLE);
+                } else if (position == 1) {
+                    fabNewEvent.setVisibility(View.GONE);
                 }
             }
 
@@ -107,7 +109,7 @@ public class ListsActivity extends AppCompatActivity {
             }
         });
 
-        fabNewEvent.setVisibility(View.GONE);
+        fabNewEvent.setVisibility(View.VISIBLE);
 
     }
 
@@ -116,25 +118,16 @@ public class ListsActivity extends AppCompatActivity {
         super.onResume();
 
         try {
-            String result = ApiHelper.getCompanies();
-            JSONArray companiesArr = new JSONArray(result);
-            resources.clear();
-            for (int i = 0; i<= companiesArr.length(); i++){
-                String companyId = companiesArr.getJSONObject(i).getString("companyId");
-                String resourcesRes = ApiHelper.getCompanyResources(companyId);
-                JSONArray resourcesArr = new JSONArray();
-                for (int j = 0; j <= resourcesArr.length(); j++) {
-                    JSONObject obj = resourcesArr.getJSONObject(j);
-                    Resource res = new Resource();
-                    res.setName(obj.getString("name"));
-                    resources.add(res);
-                }
-            }
+            Log.w("DEBUG", "activity resume");
+            ApiHelper.getEvents(1/*ObjectsHelper.getInstance().getCurrentUser().getCompanyId()*/);
+            ApiHelper.getResources(1/*ObjectsHelper.getInstance().getCurrentUser().getCompanyId()*/);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -166,9 +159,9 @@ public class ListsActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Resources";
-                case 1:
                     return "Events";
+                case 1:
+                    return "Resources";
             }
             return null;
         }
@@ -206,11 +199,20 @@ public class ListsActivity extends AppCompatActivity {
 
             View rootView = null;
             if (sectionNumber == 1) {
+                rootView = inflater.inflate(R.layout.fragment_events, container, false);
+
+                // TODO events view create
+                ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
+                BaseAdapter adapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
+                listEvents.setAdapter(adapter);
+
+                // TODO add click listener to open join/edit page
+            } else if (sectionNumber == 2) {
                 rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
                 // TODO resources view create
                 ListView listResources = (ListView) rootView.findViewById(R.id.list_resources);
-                BaseAdapter adapter = new ResourceListAdapter(getContext(), resources);
+                BaseAdapter adapter = new ResourceListAdapter(getContext(), ObjectsHelper.getInstance().getResources());
                 listResources.setAdapter(adapter);
                 listResources.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -219,18 +221,6 @@ public class ListsActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-            } else if (sectionNumber == 2) {
-                rootView = inflater.inflate(R.layout.fragment_events, container, false);
-
-                // TODO events view create
-                ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
-                List<Event> events = new ArrayList<Event>();
-                Event evnt = new Event();
-                evnt.setDescription("Test Event 1");
-                evnt.setDate(new Date());
-                events.add(evnt);
-                BaseAdapter adapter = new EventListAdapter(getContext(), events);
-                listEvents.setAdapter(adapter);
             }
             return rootView;
         }

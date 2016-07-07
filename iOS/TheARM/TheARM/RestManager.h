@@ -13,12 +13,13 @@ typedef void (^ARMErrorBlock)(NSError *error);
 
 @interface RestManager : NSObject
 
++ (void)doLoginWithUsername:(NSString *) username password:(NSString *) password onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void)doRegisterUsername:(NSString *) username password:(NSString *) password andEmail:(NSString *) email
+         onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
-+ (void)doPostRequestWithUrl:(NSString *) urlPath parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock) errorBlock;
++ (void)getResourcesWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
++ (void)getEventsWithCompanyId:(NSString *) companyId onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error;
 
-+ (void)doGetRequestWithUrl:(NSString *) url parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success;
-
-+ (void)doDeleteRequestWithUrl:(NSString *) urlPath parameters:(NSDictionary *) parameters onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock) errorBlock;
-+(NSString *) generateURL:(NSString *) path;
++ (void) setToken: (NSString *)token;
 
 @end

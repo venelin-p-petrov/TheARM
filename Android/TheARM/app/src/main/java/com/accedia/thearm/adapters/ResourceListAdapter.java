@@ -65,9 +65,10 @@ public class ResourceListAdapter extends BaseAdapter implements ListAdapter {
             textResourceName.setText(resourceItem.getName());
         }
 
-        if (imageResourceImage != null){
-            imageResourceImage.setImageBitmap(resourceItem.getImage());
-        }
+        // TODO set image
+//        if (imageResourceImage != null){
+//            imageResourceImage.setImageBitmap(resourceItem.getImage());
+//        }
 
         return convertView;
     }

@@ -7,7 +7,7 @@
 //
 
 #import "RegisterViewController.h"
-#import "DataManager.h"
+#import "RestManager.h"
 
 @interface RegisterViewController ()
 
@@ -46,8 +46,7 @@
 
 - (IBAction)registerButtonClicked:(id)sender {
     [self.registerButton setEnabled:NO];
-    DataManager *dataManager = [DataManager sharedDataManager];
-    [dataManager doRegisterUsername:self.usernameTextField.text password:self.passwordTextField.text andEmail:self.emailTextField.text onSuccess:^(NSObject *reponseObject){
+    [RestManager doRegisterUsername:self.usernameTextField.text password:self.passwordTextField.text andEmail:self.emailTextField.text onSuccess:^(NSObject *reponseObject){
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful registration"
                                                         message:@"Registration was successful."

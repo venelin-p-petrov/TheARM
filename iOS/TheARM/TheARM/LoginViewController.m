@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "DataManager.h"
+#import "RestManager.h"
 #import "EventViewController.h"
 #import "AppDelegate.h"
 
@@ -20,30 +20,7 @@
 @implementation LoginViewController
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:YES];
-    
-    self.username.leftViewMode = UITextFieldViewModeAlways;
-    self.username.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user.png"]];
-     
-    [self.username.leftView setFrame:CGRectMake(self.username.frame.origin.x, self.username.frame.origin.y, 40, 40)];
-    
-    self.pasword.leftViewMode = UITextFieldViewModeAlways;
-    self.pasword.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lock.png"]];
-    
-    [self.pasword.leftView setFrame:CGRectMake(self.username.frame.origin.x, self.username.frame.origin.y, 40, 40)];
-    
-    
-    NSUserDefaults *userDefults = [NSUserDefaults standardUserDefaults];
-    NSString *userToken = [userDefults objectForKey:@"userToken"];
-    if (userToken != nil && ![userToken isEqualToString:@""]){
-
-        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-        AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
-        delaget.window.rootViewController = viewController;
-        [delaget.window makeKeyAndVisible];
-
-    }
+    [super viewDidLoad];    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -56,18 +33,12 @@
     NSLog(@"Username %@", self.username.text);
     NSLog(@"Password %@", self.pasword.text);
 
-    DataManager *dataManager = [DataManager sharedDataManager];
-    [dataManager doLoginWithUsername:self.username.text password:self.pasword.text onSuccess:^(NSObject *responseObject) {
+    [RestManager doLoginWithUsername:self.username.text password:self.pasword.text onSuccess:^(NSObject *responseObject) {
         NSLog(@"Success");
-
-    
-        NSDictionary *responseDictionary =  (NSDictionary*)responseObject;
+        NSError *error;
+        NSDictionary *responseDictionary =  [NSJSONSerialization JSONObjectWithData:(NSData *)responseObject options:kNilOptions error:&error];
 
         if ([@"success" isEqualToString:[responseDictionary objectForKey:@"status"]]){
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:self.pasword.text forKey:@"userPassword"];
-            [userDefaults setObject:self.username.text forKey:@"userToken"];
-
             UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
             AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
             delaget.window.rootViewController = viewController;

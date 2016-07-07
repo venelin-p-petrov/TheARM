@@ -1,46 +1,30 @@
 package com.accedia.thearm.models;
 
 import android.graphics.Bitmap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Home on 1.11.2015 г..
  */
 public class Resource {
-    private Bitmap image;
+    private int resourceId;
+    private String imageUrl;
     private String name;
-    private List<Rule> rules;
-    private List<Event> events;
+    private int companyId;
 
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public Resource(JSONObject obj) throws JSONException {
+        this.resourceId = obj.getInt("resourceId");
+        this.imageUrl = obj.getString("image");
+        this.name = obj.getString("name");
+        this.companyId = obj.getInt("companyId");
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 }

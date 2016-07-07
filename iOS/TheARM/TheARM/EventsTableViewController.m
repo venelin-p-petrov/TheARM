@@ -8,9 +8,8 @@
 
 #import "EventsTableViewController.h"
 #import "EventCellView.h"
-#import "EventDetailVIewController.h"
-#import "DataManager.h"
-#import "AppDelegate.h"
+#import "RestManager.h"
+#import "EventViewController.h"
 
 @interface EventsTableViewController ()
 
@@ -30,22 +29,16 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     
     eventsArray = [NSArray new];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     [self loadEvents];
 }
 
+
 -(void)loadEvents{
-    DataManager *dataManager = [DataManager sharedDataManager];
-    [dataManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
+    [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
         eventsArray = (NSArray*) responseObject;
         [self.tableView reloadData];
-         [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
-    
     } onError:^(NSError *error) {
-         [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
+        
     }];
 }
 
@@ -90,50 +83,12 @@
     lastSelectedEvent = [eventsArray objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"ShowEventSegue" sender:self];
 }
-- (IBAction)logout:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults removeObjectForKey:@"userPassword"];
-    [userDefaults removeObjectForKey:@"userToken"];
-    
-    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogingNavCotroller"];
-    AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
-    delaget.window.rootViewController = viewController;
-    [delaget.window makeKeyAndVisible];
-}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([@"ShowEventSegue" isEqualToString:segue.identifier]){
-        EventDetailVIewController *destinationController = (EventDetailVIewController *)segue.destinationViewController;
-        [destinationController setCurrentEvent:[NSMutableDictionary dictionaryWithDictionary:lastSelectedEvent]];
-        DataManager *dataManager = [DataManager sharedDataManager];
-        NSArray *resourceArray = [dataManager resources];
-        NSNumber *resourceId = [lastSelectedEvent objectForKey:@"resource_resourceId"];
-        for (NSDictionary *resource in resourceArray){
-            if ([resourceId isEqual: [resource objectForKey:@"resourceId"]]){
-                [destinationController setCurrentResource:resource];
-                break;
-            }
-        }
-        NSDictionary *ownerDictionary = [lastSelectedEvent objectForKey:@"owner"];
-        NSNumber *userId = [dataManager.user objectForKey:@"userId"];
-        if ([userId isEqual:[ownerDictionary objectForKey:@"userId"]]){
-            [destinationController setEventViewState:EDIT];
-        } else {
-            NSArray *users = [lastSelectedEvent objectForKey:@"users"];
-            [destinationController setEventViewState:JOIN];
-            for (NSDictionary *user in users){
-                if ([userId isEqual:[user objectForKey:@"userId"]]){
-                  [destinationController setEventViewState:LEAVE];
-                    break;
-                }
-            }
-        }
+        EventViewController *destinationController = (EventViewController *)segue.destinationViewController;
+        [destinationController setCurrentEvent:lastSelectedEvent];
     }
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [super viewWillDisappear:animated];
 }
 
 @end

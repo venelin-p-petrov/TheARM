@@ -1,6 +1,7 @@
 package com.accedia.thearm.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,13 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
     private List<Event> items = new ArrayList<Event>();
 
     public EventListAdapter(Context context, List<Event> items) {
-this.context = context;
+        this.context = context;
         this.items = items;
     }
 
     @Override
     public int getCount() {
+        Log.w("DEBUG", "get event count adapter");
         return this.items.size();
     }
 
@@ -54,9 +56,9 @@ this.context = context;
             convertView = inflater.inflate(R.layout.list_item_event, parent, false);
         }
 
-        Event eventItem = (Event)getItem(position);
+        Event eventItem = (Event) getItem(position);
 
-        if (eventItem != null){
+        if (eventItem != null) {
             TextView textDescription = (TextView) convertView.findViewById(R.id.list_item_event_description);
             TextView textStart = (TextView) convertView.findViewById(R.id.list_item_event_start);
 
@@ -65,7 +67,7 @@ this.context = context;
             }
 
             if (textStart != null) {
-                textStart.setText(eventItem.getDate().toString());
+                textStart.setText(eventItem.getStartTime().toString());
             }
         }
 

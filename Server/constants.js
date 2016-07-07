@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  *  Contains app settings
 */
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     mySql: "mysql://",
     username: "root",
     password: "",
-    database: "test",
+    database: "thearmdb",
     dbPort: "3306",
     mySqlUrl: function () {
         return this.mySql + this.username + ":" + this.password + "@" + this.baseUrl + ":" + this.dbPort + "/" + this.database;
