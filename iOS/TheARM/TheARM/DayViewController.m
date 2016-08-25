@@ -12,9 +12,10 @@
 #import "TKCalendarDayEventView.h"
 #import "TKCalendarDayView.h"
 #import "TKCalendarDayViewController.h"
-#import "RestManager.h"
+#import "DataManager.h"
 #import "DateHelper.h"
 #import "EventDetailVIewController.h"
+#import "AppDelegate.h"
 
 @interface DayViewController ()
 
@@ -31,13 +32,6 @@
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
     
-//    mutArrEvents = [NSMutableArray arrayWithObjects:
-//                    @[@"Meeting with CEO, MD and COO", @"Paresh Navadiya Paresh Navadiya", @2, @0, @2, @15],
-//                    @[@"Call with HCA Client, Call with HCA Client, Call with HCA Client", @"Paresh Navadiya", @7, @0, @7, @45],
-//                    @[@"Break for 1 hour", @"Paresh Navadiya", @15, @0, @16, @00],
-//                    @[@"Break for 1 hour and 30 minutes", @"Paresh Navadiya", @15, @0, @16, @30],
-//                    @[@"Reports for product managment", @"Paresh Navadiya", @5, @30, @6, @0],
-//                    @[@"QC Task needed to be done", @"Paresh Navadiya", @19, @30, @24, @0], nil];
     [self loadEvents];
     
     CGRect frame = self.view.bounds;
@@ -55,13 +49,30 @@
 //    longPress.delegate = self;
 //    [self.dayView addGestureRecognizer:longPress];
 }
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    AppDelegate *delagete = [[UIApplication sharedApplication] delegate];
+    [delagete.rootViewController setNavigationBarHidden:YES];
+
+    UINavigationBar *bar = self.navigationController.navigationBar;
+    NSArray<UINavigationItem*>  *items = bar.items;
+    for (UINavigationItem *item in items){
+        item.backBarButtonItem.title = @"";
+        item.title = @"";
+    }
+
+}
+
 - (IBAction)addEvent:(id)sender {
 }
 
 
 
 - (void) loadEvents{
-    [RestManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
+    DataManager *dataManager = [DataManager sharedDataManager];
+    [dataManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject){
         mutArrEvents = (NSArray *) responseObject;
         [self.dayView reloadData];
     }onError:^(NSError *error){
@@ -92,14 +103,15 @@
     
     if([eventDate compare:[NSDate dateWithTimeIntervalSinceNow:24*60*60]] == NSOrderedDescending)
         return @[];
-    
+    NSNumber *currentResourceId = [self.resource objectForKey:@"resourceId"];
     NSMutableArray *ret = [NSMutableArray array];
-    
+   
     for(NSDictionary *eventDictionary in mutArrEvents){
-        
-        TKCalendarDayEventView *event = [self generateEvenetFromDict:eventDictionary forCalendat:calendarDayTimeline];
-        [ret addObject:event];
-        
+        NSNumber *resourceId = [eventDictionary objectForKey:@"resource_resourceId"];
+        if ([currentResourceId intValue] == [resourceId intValue]) {
+            TKCalendarDayEventView *event = [self generateEvenetFromDict:eventDictionary forCalendat:calendarDayTimeline];
+            [ret addObject:event];
+        }
     }
     return ret;
     

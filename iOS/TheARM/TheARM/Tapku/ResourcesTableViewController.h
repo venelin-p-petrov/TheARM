@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIImageView+AFNetworking.h>
+
+@protocol ResourceTableDelegate <NSObject>
+
+-(void) didSelectResource:(NSDictionary *) resource;
+
+@end
 
 @interface ResourcesTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *resourcesArray;
 }
+
+@property id<ResourceTableDelegate> resourceDelegate;
 
 @end

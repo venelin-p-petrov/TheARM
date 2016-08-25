@@ -11,7 +11,8 @@
 
 @implementation DateHelper
 
-static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+static NSString * const HOURS_FORMAT = @"HH:mm";
+static NSString * const DATE_FORMAT = @"yyyy-MM-dd'T'HH:mm:ss'Z'";
 static NSString * const STRING_FORMAT = @"yyyy-MM-dd HH:mm:ss";
 
 +(NSDate *)convertDateFromString:(NSString *) dateString{
@@ -25,6 +26,13 @@ static NSString * const STRING_FORMAT = @"yyyy-MM-dd HH:mm:ss";
 +(NSString *)convertStringFromDate:(NSDate *) date {
     NSDateFormatter *stringToDateFormater = [[NSDateFormatter alloc] init];
     [stringToDateFormater setDateFormat:DATE_FORMAT];
+    return  [stringToDateFormater stringFromDate:date];
+}
+
+
++(NSString *)convertStringHoursMinutesFromDate:(NSDate *) date {
+    NSDateFormatter *stringToDateFormater = [[NSDateFormatter alloc] init];
+    [stringToDateFormater setDateFormat:HOURS_FORMAT];
     return  [stringToDateFormater stringFromDate:date];
 }
 

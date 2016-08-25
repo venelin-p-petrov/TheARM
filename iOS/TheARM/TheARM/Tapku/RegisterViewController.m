@@ -7,19 +7,14 @@
 //
 
 #import "RegisterViewController.h"
-#import "RestManager.h"
+#import "DataManager.h"
+#import "MBProgressHUD.h"
 
 @interface RegisterViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
-
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-
-@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
-
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property RegisterFormController *registerForm;
 
 @end
 
@@ -27,11 +22,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self changeTextFieldStyles:self.usernameTextField isValid:NO];
-    [self changeTextFieldStyles:self.passwordTextField isValid:NO];
-    [self changeTextFieldStyles:self.confirmPasswordTextField isValid:NO];
-    [self changeTextFieldStyles:self.emailTextField isValid:NO];
-    self.registerButton.enabled = NO;
+
+//    self.registerButton.enabled = NO;
 }
 
 - (void)viewDidLoad {
@@ -44,58 +36,53 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)registerButtonClicked:(id)sender {
-    [self.registerButton setEnabled:NO];
-    [RestManager doRegisterUsername:self.usernameTextField.text password:self.passwordTextField.text andEmail:self.emailTextField.text onSuccess:^(NSObject *reponseObject){
+- (IBAction)goToLoginButton:(id)sender {
+   [self.navigationController popViewControllerAnimated:YES];
+}
 
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful registration"
-                                                        message:@"Registration was successful."
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
+- (IBAction)registerButtonClicked:(id)sender {
+    if ([self.registerForm areTextFieldsValid]) {
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+   
+        
+        [self.registerButton setEnabled:NO];
+        DataManager *dataManager = [DataManager sharedDataManager];
+        [dataManager doRegisterUsername:self.registerForm.usernameField.text password:self.registerForm.passwordField.text email: self.registerForm.emailField.text     andDisplayName:self.registerForm.displayNameField.text  onSuccess:^(NSObject *reponseObject){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Successful registration"
+                                                            message:@"Registration was successful."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
-        [alert show];
-    }onError:^(NSError *error) {
-        [self.registerButton setEnabled:YES];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration fail"
-                                                        message:@"Registration was unseccessful."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
+            [alert show];
+        }onError:^(NSError *error) {
+            [self.registerButton setEnabled:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration fail"
+                                                            message:@"Registration was unseccessful."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }];
+            
+          });
+    }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)emailEditingChanged:(id)sender {
-    [self changeTextFieldStyles: (UITextField *)sender isValid:[self validateEmail:self.emailTextField.text]];
-}
-
-- (IBAction)fextFieldsMinLenghtEditingChanged:(id)sender {
-    [self changeTextFieldStyles: (UITextField *)sender isValid:((UITextField *)sender).text.length > 6];
-}
-
-- (IBAction)confirmPasswordNotMatchEditingChanged:(id)sender {
-    [self changeTextFieldStyles: (UITextField *)sender isValid: ([self.passwordTextField.text isEqualToString: self.confirmPasswordTextField.text] && self.confirmPasswordTextField.text.length > 6)];
-}
-
-
-- (void)changeTextFieldStyles:(UITextField *) textField isValid:
-(BOOL) valid {
-    if(!valid){
-        textField.layer.cornerRadius=8.0f;
-        textField.layer.masksToBounds=YES;
-        textField.layer.borderColor=[[UIColor redColor]CGColor];
-        textField.layer.borderWidth= 1.0f;
-    } else{
-        textField.layer.borderWidth= 0.0f;
-    }
-}
 
 - (IBAction)registerButtonEnableTextFieldsEditingChanged:(id)sender {
-    if([self areTextFieldsValid]){
+    if([self.registerForm areTextFieldsValid]){
         self.registerButton.enabled = YES;
     }
     else{
@@ -103,26 +90,12 @@
     }
 }
 
-- (BOOL) validateEmail: (NSString *) candidate {
-    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    
-    return [emailTest evaluateWithObject:candidate];
-}
-
-- (BOOL)areTextFieldsValid {
-    if(self.usernameTextField.text.length > 6 && self.passwordTextField.text.length > 6 &&
-       self.confirmPasswordTextField.text.length >6 && [self.confirmPasswordTextField.text isEqualToString:self.passwordTextField.text] &&
-       [self validateEmail:self.emailTextField.text]){
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
+    [self.registerForm endTextEditing];
+}
+- (IBAction)tapGesture:(id)sender {
+     [self.registerForm endTextEditing];
 }
 
 /*
@@ -134,5 +107,18 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSString * segueName = segue.identifier;
+    if ([segueName isEqualToString: @"RegisterContainerSegue"]) {
+        self.registerForm = (RegisterFormController *) [segue destinationViewController];
+        self.registerForm.delegate = self;
+    }
+}
+
+-(void)registerStatusChabged{
+    [self registerButtonEnableTextFieldsEditingChanged:nil];
+}
 
 @end

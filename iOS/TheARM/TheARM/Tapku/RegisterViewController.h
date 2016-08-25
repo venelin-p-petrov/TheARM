@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RegisterFormController.h"
 
-@interface RegisterViewController : UIViewController<UIAlertViewDelegate>
+@interface RegisterViewController : UIViewController<UIAlertViewDelegate, RegisterControllerDelegate>
 
 @end

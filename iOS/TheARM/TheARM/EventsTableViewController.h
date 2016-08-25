@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SlideNavigationController.h>
 
-@interface EventsTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
+@interface EventsTableViewController : UITableViewController<SlideNavigationControllerDelegate, UIPopoverPresentationControllerDelegate,UITableViewDataSource, UITableViewDelegate>
 {
     NSArray *eventsArray;
 }

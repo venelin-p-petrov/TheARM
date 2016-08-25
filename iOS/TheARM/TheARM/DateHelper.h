@@ -11,5 +11,6 @@
 
 +(NSDate *)convertDateFromString:(NSString *) dateString;
 +(NSString *)convertStringFromDate:(NSDate *) date;
++(NSString *)convertStringHoursMinutesFromDate:(NSDate *) date;
 
 @end

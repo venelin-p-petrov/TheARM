@@ -9,8 +9,11 @@
 #import "ResourcesTableViewController.h"
 #import "ResourceViewCell.h"
 #import "AFNetWorking.h"
-#import "RestManager.h"
+#import "DataManager.h"
 #import "DayViewController.h"
+#import <UIImageView+AFNetworking.h>
+#import "RestManager.h"
+#import "AppDelegate.h"
 
 @interface ResourcesTableViewController ()
 
@@ -28,17 +31,32 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     //self.tableView.contentInset = UIEdgeInsetsMake(64,0,0,0);
     resourcesArray = [NSArray new];
-    [self loadEvents];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:168.0/256.0 green:168.0/256.0 blue:168.0/256.0 alpha:1.0]];
 }
 
--(void) loadEvents{
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     
-    [RestManager getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
+    AppDelegate *delagete = [[UIApplication sharedApplication] delegate];
+    [delagete.rootViewController setNavigationBarHidden:NO];
+    
+    [self loadResources];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
+-(void) loadResources{
+    DataManager *dataManger = [DataManager sharedDataManager];
+    [dataManger getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
        resourcesArray = (NSArray*) responseObject;
         [self.tableView reloadData];
+        [self performSelector:@selector(loadResources) withObject:nil afterDelay:10.0];
         
     } onError:^(NSError *error) {
-        
+        [self performSelector:@selector(loadResources) withObject:nil afterDelay:10.0];
     }];
 }
 
@@ -46,6 +64,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)logout:(id)sender {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:@"userPassword"];
+    [userDefaults removeObjectForKey:@"userToken"];
+    [userDefaults removeObjectForKey:@"username"];
+    [userDefaults removeObjectForKey:@"userID"];
+    
+    UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogingNavCotroller"];
+    AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
+    delaget.window.rootViewController = viewController;
+    [delaget.window makeKeyAndVisible];
+
+}
+
+
 
 #pragma mark - Table view data source
 
@@ -62,76 +96,35 @@
     NSDictionary *dictionary = [resourcesArray objectAtIndex:indexPath.row];
     
     cell.name.text = [dictionary objectForKey:@"name"];
-//    [cell.imageUrl setImageWithURLRequest:[dictionary objectForKey:@"image"] placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-//        cell.imageUrl.image = image;
-//    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-//        NSLog(@"Error %@", error.description);
-//    }];
-    [cell.imageUrl setImage:[UIImage imageNamed: @"xbox-one2.jpg"]];
+    NSString *imagePath = [dictionary objectForKey:@"image"];
+    NSURL *url = [NSURL URLWithString:imagePath];
+    [cell.imageUrl setImageWithURL:url placeholderImage:[UIImage imageNamed:@"entertaiment_image.jpg"]];
     cell.tag = indexPath.row;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 70;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 70;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+-(UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    static NSString *CellIdentifier = @"SectionHeader";
+    UITableViewCell *headerView = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (headerView == nil){
+        [NSException raise:@"headerView == nil.." format:@"No cells with matching CellIdentifier loaded from your storyboard"];
+    }
+    return headerView;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.resourceDelegate){
+        NSDictionary *dictionary = [resourcesArray objectAtIndex:indexPath.row];
+        [self.resourceDelegate didSelectResource:dictionary];
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     NSInteger row = ((ResourceViewCell *)sender).tag;

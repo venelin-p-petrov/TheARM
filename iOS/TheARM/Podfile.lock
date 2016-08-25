@@ -1,30 +1,35 @@
 PODS:
-  - AFNetworking (2.6.1):
-    - AFNetworking/NSURLConnection (= 2.6.1)
-    - AFNetworking/NSURLSession (= 2.6.1)
-    - AFNetworking/Reachability (= 2.6.1)
-    - AFNetworking/Security (= 2.6.1)
-    - AFNetworking/Serialization (= 2.6.1)
-    - AFNetworking/UIKit (= 2.6.1)
-  - AFNetworking/NSURLConnection (2.6.1):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.1)
-  - AFNetworking/Security (2.6.1)
-  - AFNetworking/Serialization (2.6.1)
-  - AFNetworking/UIKit (2.6.1):
-    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - iOS-Slide-Menu (1.5)
+  - LGSideMenuController (1.0.10)
+  - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.0)
+  - AFNetworking (~> 3.0)
+  - iOS-Slide-Menu (~> 1.5)
+  - LGSideMenuController (~> 1.0.0)
+  - MBProgressHUD (~> 1.0.0)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  iOS-Slide-Menu: 40b0cbd8916c42afc755f0869793cd09e7a32102
+  LGSideMenuController: 8682bdbd0008c1acfbce95eaf96cc3657bca5f95
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 6c1bd59d69de69dd8afa8426e3f780fdd0582d1f
+
+COCOAPODS: 1.0.1

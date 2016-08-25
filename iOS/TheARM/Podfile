@@ -4,6 +4,8 @@
 # use_frameworks!
 
 target 'TheARM' do
-pod "AFNetworking", "~> 2.0"
+pod "AFNetworking", "~> 3.0"
+pod "MBProgressHUD", "~> 1.0.0"
+pod 'iOS-Slide-Menu', "~> 1.5"
 end
 
