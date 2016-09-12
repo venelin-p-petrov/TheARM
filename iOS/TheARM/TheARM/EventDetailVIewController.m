@@ -35,6 +35,11 @@
 @implementation PickerCell
 @end
 
+@interface EventDetailVIewController()
+@property(weak, nonatomic) UIButton *actionButton;
+
+@end
+
 @implementation EventDetailVIewController
 
 @synthesize currentEvent,currentResource;
@@ -44,7 +49,7 @@
     _isDateSelected = NO;
     _isDurationSelected = NO;
     _isDatePickerLoaded = NO;
-//  self.tableView.separatorColor = [UIColor clearColor];
+    //  self.tableView.separatorColor = [UIColor clearColor];
     if (self.eventViewState == CREATE) {
         DataManager *dataManager = [DataManager sharedDataManager];
         NSNumber *userId= [dataManager.user objectForKey:@"userId"];
@@ -56,11 +61,11 @@
         [self.currentEvent setValue:[self.currentResource objectForKey:@"resourceId"] forKey:@"resourceId"];
         
         NSDate *startDate = [NSDate new];
-            int minTime = [[self.currentResource objectForKey:@"minTime"] intValue];
+        int minTime = [[self.currentResource objectForKey:@"minTime"] intValue];
         NSDate *endDate = [startDate dateByAddingTimeInterval:minTime * 60];
         [self.currentEvent setValue:[DateHelper convertStringFromDate:startDate] forKey:@"startTime"];
         [self.currentEvent setValue:[DateHelper convertStringFromDate:endDate] forKey:@"endTime"];
-
+        
         
     }
 }
@@ -91,20 +96,19 @@
     } else if (self.eventViewState == EDIT){
         [self deleteEvent];
     }
- 
+    
 }
 
 - (void) deleteEvent{
     DataManager *dataManager = [DataManager sharedDataManager];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-
+        
         [dataManager doDelete:[self.currentEvent objectForKey:@"eventId"] andUserId:[dataManager.user objectForKey:@"userId"] onSuccess:^(NSObject *responseObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly deleted event" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView setDelegate:self];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly deleted event" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
         } onError:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -112,6 +116,7 @@
             });
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
+            [self.actionButton setEnabled:YES];
         }];
     });
 }
@@ -121,13 +126,13 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-
+        
         NSDictionary *requestBody = [NSDictionary dictionaryWithObjectsAndKeys:[dataManager.user objectForKey:@"userId"],@"userId",[self.currentEvent objectForKey:@"eventId"],@"eventId", nil];
         [dataManager doLeaveEvent:requestBody onSuccess:^(NSObject *responseObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly left the event" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly left the event" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
         } onError:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -135,6 +140,7 @@
             });
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
+            [self.actionButton setEnabled:YES];
         }];
     });
 }
@@ -143,13 +149,13 @@
     DataManager *dataManager = [DataManager sharedDataManager];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-
+        
         NSDictionary *requestBody = [NSDictionary dictionaryWithObjectsAndKeys:[dataManager.user objectForKey:@"userId"],@"userId",[self.currentEvent objectForKey:@"eventId"],@"eventId", nil];
         [dataManager doJoinEvent:requestBody onSuccess:^(NSObject *responseObject) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly joined to the event" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Successfuly joined to the event" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
         } onError:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -157,6 +163,7 @@
             });
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
+            [self.actionButton setEnabled:YES];
         }];
     });
 }
@@ -175,6 +182,7 @@
             } else {
                 alertView = [[UIAlertView alloc] initWithTitle:@"Event is created" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             }
+            [self.actionButton setEnabled:YES];
             [alertView show];
         } onError:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -182,6 +190,7 @@
             });
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please, try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alertView show];
+            [self.actionButton setEnabled:YES];
         }];
     });
 }
@@ -248,8 +257,9 @@
     }
     
     [footerView.actionButton  addTarget:self
-                 action:@selector(actionButtonClicked:)
-       forControlEvents:UIControlEventTouchUpInside];
+                                 action:@selector(actionButtonClicked:)
+                       forControlEvents:UIControlEventTouchUpInside];
+    self.actionButton = footerView.actionButton;
     return footerView;
 }
 
@@ -290,7 +300,7 @@
     if (indexPath.row == 0 && self.eventViewState == CREATE){
         return [self descriptionCellFor:tableView cellForRowAtIndexPath:indexPath];
     } else if (indexPath.row == 0 + index){
-       return [self starDateCellFor:tableView atIndexPath:indexPath];
+        return [self starDateCellFor:tableView atIndexPath:indexPath];
     } else if(indexPath.row == 1 + index && _isDateSelected) {
         return [self tableView:tableView generateDatePickerCellForIndexPath:indexPath];
     } else if((indexPath.row == 1 + index && !_isDateSelected) || (indexPath.row == 2 + index && _isDateSelected)  ) {
@@ -300,13 +310,13 @@
     } else if(self.eventViewState == CREATE && ((indexPath.row == 3 + index && (_isDurationSelected || _isDateSelected)) || (indexPath.row == 2 + index && (!_isDurationSelected && !_isDateSelected)))) {
         return [self participientsCellFor:tableView atIndexPath:indexPath];
     } else if(self.eventViewState != CREATE && ((indexPath.row == 3 + index && (_isDurationSelected || _isDateSelected)) || (indexPath.row == 2 + index && (!_isDurationSelected && !_isDateSelected)))) {
-         return [self userCellFor:tableView atIndexPath:indexPath];
+        return [self userCellFor:tableView atIndexPath:indexPath];
     } else if(indexPath.row == 3 + index  && _isParticipientsSelected) {
         return [self tableView:tableView generatePickerCellForIndexPath:indexPath];
     } else {
         return [self durationCellFor:tableView atIndexPath:indexPath];
     }
-
+    
 }
 
 -(UITableViewCell *)descriptionCellFor:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -314,8 +324,8 @@
     
     
     [cell.descriptionTextField addTarget:self
-                  action:@selector(textFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
+                                  action:@selector(textFieldDidChange:)
+                        forControlEvents:UIControlEventEditingChanged];
     
     NSString *description = [self.currentEvent objectForKey:@"description"];
     cell.descriptionTextField.text = description;
@@ -379,10 +389,10 @@
     DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
     cell.cellInfoLabel.text = @"Participants";
     
-    NSNumber *minUsers = [self.currentEvent objectForKey:@"minUsers"];
-
+    NSNumber *minUsers = [self.currentEvent objectForKey:@"maxUsers"];
+    
     cell.dateLabel.text = [NSString stringWithFormat:@"%d", [minUsers intValue]];
-  
+    
     
     if (_isParticipientsSelected){
         cell.dateLabel.textColor = [UIColor colorWithRed:(205/255.f) green:(32/255.f) blue:(38/255.f) alpha:1.0];
@@ -398,7 +408,7 @@
     
     UserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell" forIndexPath:indexPath];
     NSArray *users = [currentEvent objectForKey:@"users"];
-    cell.participientsNumberLabel.text = [NSString stringWithFormat:@"%tu/4",[users count]];
+    cell.participientsNumberLabel.text = [NSString stringWithFormat:@"%tu/%d",[users count], [[currentEvent objectForKey:@"maxUsers"] intValue]];
     NSString *displayNames = @"";
     for (NSDictionary *user in users){
         NSString *nameWithEndLine = [NSString stringWithFormat:@"%@\n",[user objectForKey:@"displayName"]];
@@ -415,8 +425,7 @@
         [cell.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
         _isDatePickerLoaded = YES;
     }
-    NSDate *date = [NSDate new];
-    date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"startTime"]];
+    NSDate *date = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"startTime"]];
     [cell.datePicker setDate:date];
     return cell;
 }
@@ -431,14 +440,14 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
     BOOL previousDateSelected = _isDateSelected;
     BOOL previousDurationSelected = _isDurationSelected;
     BOOL previousParticipentSelcted = _isParticipientsSelected;
     _isDateSelected = NO;
     _isDurationSelected = NO;
     _isParticipientsSelected = NO;
-  
+    
     if (self.eventViewState != CREATE){
         return;
     }
@@ -447,7 +456,7 @@
         index = 1;
     }
     if (indexPath.row == 0 + index ){
-         _isDateSelected = !previousDateSelected;
+        _isDateSelected = !previousDateSelected;
     } else {
         if (previousDateSelected) {
             index++;
@@ -539,7 +548,7 @@
         label.font=[UIFont boldSystemFontOfSize:22];
         label.backgroundColor = [UIColor clearColor];
         label.textAlignment = NSTextAlignmentCenter;
-
+        
         label.font=[UIFont boldSystemFontOfSize:22];
         if (_isDurationSelected) {
             int minTime = [[self.currentResource objectForKey:@"minTime"] intValue];
@@ -550,7 +559,7 @@
         }
     }
     return label;
-
+    
 }
 
 @end

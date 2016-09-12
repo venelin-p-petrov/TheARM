@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
@@ -60,14 +60,24 @@
 }
 
 -(void)loadEvents{
-    [dataManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
-        eventsArray = (NSArray*) responseObject;
-        [self.tableView reloadData];
-         [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
-    
-    } onError:^(NSError *error) {
-         [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
-    }];
+    if (dataManager.resources && [dataManager.resources count] > 0) {
+        [dataManager getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
+            eventsArray = (NSArray*) responseObject;
+            [self.tableView reloadData];
+            [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
+        
+        } onError:^(NSError *error) {
+            [self performSelector:@selector(loadEvents) withObject:nil afterDelay:10.0];
+        }];
+    } else {
+        [dataManager getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
+            [self loadEvents];
+            
+        } onError:^(NSError *error) {
+            [self loadEvents];
+        }];
+
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,8 +88,8 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1; 
+    
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -109,15 +119,15 @@
                 [cell.resourceImage setImageWithURL:url placeholderImage:[UIImage imageNamed:@"entertaiment_image.jpg"]];
             }
         }
-    } 
+    }
     return cell;
 }
 - (NSString *)generateParticipientsLabelForEvent:(NSDictionary *) event {
     NSArray *users = [event objectForKey:@"users"];
     
     
-    return [NSString stringWithFormat:@"Joined: %tu/4",[users count]];
-
+    return [NSString stringWithFormat:@"Joined: %tu/%d",[users count],[[event objectForKey:@"maxUsers"] intValue]];
+    
 }
 
 - (NSString *)generateTimeLabelForEvent:(NSDictionary *) event {
@@ -176,7 +186,7 @@
             [destinationController setEventViewState:JOIN];
             for (NSDictionary *user in users){
                 if ([userId isEqual:[user objectForKey:@"userId"]]){
-                  [destinationController setEventViewState:LEAVE];
+                    [destinationController setEventViewState:LEAVE];
                     break;
                 }
             }
@@ -221,7 +231,7 @@
     [resourcePopover dismissViewControllerAnimated:NO completion:^{
         [self performSegueWithIdentifier:@"CreateEventSegue" sender:self];
     }];
- 
+    
 }
 
 @end

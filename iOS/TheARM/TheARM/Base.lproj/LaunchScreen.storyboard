@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -85,7 +86,7 @@
                                     <constraint firstAttribute="height" constant="21" id="aa0-Ko-Vtd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -119,15 +120,15 @@
                                 <exclude reference="3Co-Bv-M0t"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="l1u-6W-Y9H"/>
                                 <exclude reference="gBL-IQ-g6k"/>
                                 <exclude reference="mrA-64-dxo"/>
                                 <exclude reference="wEg-jl-asC"/>
-                                <exclude reference="CBJ-Te-dU7"/>
-                                <exclude reference="Sxm-jA-EWs"/>
                                 <exclude reference="3Xm-Mc-MfE"/>
                                 <exclude reference="nG5-Ee-ozz"/>
                                 <exclude reference="pFU-Td-ALB"/>
-                                <exclude reference="l1u-6W-Y9H"/>
+                                <exclude reference="CBJ-Te-dU7"/>
+                                <exclude reference="Sxm-jA-EWs"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -138,15 +139,15 @@
                                 <include reference="3Co-Bv-M0t"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="l1u-6W-Y9H"/>
                                 <include reference="gBL-IQ-g6k"/>
                                 <include reference="mrA-64-dxo"/>
                                 <include reference="wEg-jl-asC"/>
-                                <include reference="CBJ-Te-dU7"/>
-                                <include reference="Sxm-jA-EWs"/>
                                 <include reference="3Xm-Mc-MfE"/>
                                 <include reference="nG5-Ee-ozz"/>
                                 <include reference="pFU-Td-ALB"/>
-                                <include reference="l1u-6W-Y9H"/>
+                                <include reference="CBJ-Te-dU7"/>
+                                <include reference="Sxm-jA-EWs"/>
                             </mask>
                         </variation>
                     </view>

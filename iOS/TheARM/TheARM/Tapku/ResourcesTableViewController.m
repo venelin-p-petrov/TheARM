@@ -51,7 +51,7 @@
 -(void) loadResources{
     DataManager *dataManger = [DataManager sharedDataManager];
     [dataManger getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
-       resourcesArray = (NSArray*) responseObject;
+        resourcesArray = (NSArray*) responseObject;
         [self.tableView reloadData];
         [self performSelector:@selector(loadResources) withObject:nil afterDelay:10.0];
         
@@ -76,7 +76,7 @@
     AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
     delaget.window.rootViewController = viewController;
     [delaget.window makeKeyAndVisible];
-
+    
 }
 
 

@@ -43,11 +43,11 @@
     [self performSelector:@selector(updateToCurrentTime) withObject:self afterDelay:60.0f-compNow.second];
     
     //Add Long Press Gesture Reconizer
-//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
-//                                               initWithTarget:self action:@selector(handleLongPress:)];
-//    longPress.minimumPressDuration = 2; //seconds
-//    longPress.delegate = self;
-//    [self.dayView addGestureRecognizer:longPress];
+    //    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+    //                                               initWithTarget:self action:@selector(handleLongPress:)];
+    //    longPress.minimumPressDuration = 2; //seconds
+    //    longPress.delegate = self;
+    //    [self.dayView addGestureRecognizer:longPress];
 }
 
 
@@ -55,18 +55,16 @@
     [super viewWillAppear:animated];
     AppDelegate *delagete = [[UIApplication sharedApplication] delegate];
     [delagete.rootViewController setNavigationBarHidden:YES];
-
+    
     UINavigationBar *bar = self.navigationController.navigationBar;
     NSArray<UINavigationItem*>  *items = bar.items;
     for (UINavigationItem *item in items){
         item.backBarButtonItem.title = @"";
         item.title = @"";
     }
-
+    
 }
 
-- (IBAction)addEvent:(id)sender {
-}
 
 
 
@@ -105,7 +103,7 @@
         return @[];
     NSNumber *currentResourceId = [self.resource objectForKey:@"resourceId"];
     NSMutableArray *ret = [NSMutableArray array];
-   
+    
     for(NSDictionary *eventDictionary in mutArrEvents){
         NSNumber *resourceId = [eventDictionary objectForKey:@"resource_resourceId"];
         if ([currentResourceId intValue] == [resourceId intValue]) {
@@ -131,7 +129,7 @@
     
     NSString *startDateString = [eventDictionary objectForKey:@"startTime"];
     event.startDate = [DateHelper convertDateFromString:startDateString];
-
+    
     NSString *endDateString = [eventDictionary objectForKey:@"endTime"];
     event.endDate = [DateHelper convertDateFromString:endDateString];
     return event;

@@ -24,7 +24,7 @@
 
 - (id)init {
     if (self = [super init]) {
-       
+        
     }
     return self;
 }
@@ -38,13 +38,13 @@
     NSUserDefaults *userDefults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefults objectForKey:@"username"];
     NSString *userID = [userDefults objectForKey:@"userID"];
-
+    
     self.user = @{@"username":username,@"userId":userID};
 }
 
 - (void)doCreateEvent:(NSDictionary *) parameters
             onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
-  
+    
     NSString *url = [NSString stringWithFormat:@"/api/events/create"];
     
     [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
@@ -55,12 +55,12 @@
             NSDate *remainderDate = [NSDate dateWithTimeInterval:-(60 * 5) sinceDate:startDate];
             if ([remainderDate compare:[NSDate date]] == NSOrderedDescending){
                 UILocalNotification *startNotification = [[UILocalNotification alloc] init];
-
+                
                 startNotification.fireDate = remainderDate;
                 startNotification.applicationIconBadgeNumber = 1;
                 startNotification.soundName = UILocalNotificationDefaultSoundName;
                 startNotification.alertBody = [NSString stringWithFormat:@"It is time for %@", [response objectForKey:@"description"]];
-             
+                
                 [[UIApplication sharedApplication] scheduleLocalNotification: startNotification];
             }
         }
@@ -74,24 +74,13 @@
     NSString *url = [NSString stringWithFormat:@"/api/login"];
     
     [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
-       
+        
         self.user = (NSDictionary *)responseObject;
         if ([@"success" isEqualToString:[self.user objectForKey:@"status"]]){
-            [self getEventsWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
-              
-            } onError:^(NSError *error) {
-                
-            }];
-            [self getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
-                
-            } onError:^(NSError *error) {
-                
-            }];
-            
+            success(responseObject);
+        } else {
+            error([NSError new]);
         }
-        
-        success(responseObject);
-        
     } onError:error];
 }
 
@@ -129,7 +118,7 @@
 
 
 - (void)doJoinEvent:(NSDictionary *) parameters
-            onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
+          onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
     
     NSString *url = [NSString stringWithFormat:@"/api/events/join"];
     
@@ -137,21 +126,20 @@
 }
 
 - (void)doLeaveEvent:(NSDictionary *) parameters
-            onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
+           onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
     
     NSString *url = [NSString stringWithFormat:@"/api/events/leave"];
     
-   
+    
     [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
 }
 
 - (void)doDelete:(NSString *) eventId andUserId:(NSString *) userId
-           onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
+       onSuccess:(ARMResponsBlock)success onError:(ARMErrorBlock)error {
     
-    NSString *url = [NSString stringWithFormat:@"/api/events/delete"];
+    NSString *url = [NSString stringWithFormat:@"/api/events/%@/delete/%@",eventId,userId];
     
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:eventId,@"eventId",userId,@"userId", nil];
-    [RestManager doDeleteRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
+    [RestManager doDeleteRequestWithUrl:url parameters:nil onSuccess:success onError:error];
 }
 
 @end

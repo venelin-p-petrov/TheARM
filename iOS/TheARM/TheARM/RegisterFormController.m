@@ -13,6 +13,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self changeTextFieldStyles:self.usernameField isValid:NO];
     [self changeTextFieldStyles:self.passwordField isValid:NO];
     [self changeTextFieldStyles:self.confirmPasswordField isValid:NO];

@@ -34,7 +34,7 @@
     AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
     delaget.window.rootViewController = viewController;
     [delaget.window makeKeyAndVisible];
-
+    
 }
 
 @end

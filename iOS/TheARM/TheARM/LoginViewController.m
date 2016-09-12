@@ -14,8 +14,8 @@
 #import "LoginTableViewController.h"
 
 @interface LoginViewController ()
-    @property LoginTableViewController *tableView;
-    @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property LoginTableViewController *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @end
 
 @implementation LoginViewController
@@ -24,7 +24,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES];
     
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -37,43 +37,43 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
-    DataManager *dataManager = [DataManager sharedDataManager];
-    [dataManager doLoginWithUsername:self.tableView.usernameTextField.text password:self.tableView.passwordTextField.text onSuccess:^(NSObject *responseObject) {
-        NSLog(@"Success");
-
-    
-        NSDictionary *responseDictionary =  (NSDictionary*)responseObject;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-        if ([@"success" isEqualToString:[responseDictionary objectForKey:@"status"]]){
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:self.tableView.passwordTextField.text forKey:@"userPassword"];
-            [userDefaults setObject:self.tableView.usernameTextField.text forKey:@"userToken"];
-            [userDefaults setObject:[responseDictionary objectForKey:@"userId"] forKey:@"userID"];
-            [userDefaults setObject:[responseDictionary objectForKey:@"displayName"] forKey:@"displayName"];
-            [userDefaults setObject:self.tableView.usernameTextField.text forKey:@"username"];
-            [dataManager getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
-                [self openNextFlowOfTheApplication];
-            } onError:^(NSError *error) {
-                [self openNextFlowOfTheApplication];
-            }];
+        DataManager *dataManager = [DataManager sharedDataManager];
+        [dataManager doLoginWithUsername:self.tableView.usernameTextField.text password:self.tableView.passwordTextField.text onSuccess:^(NSObject *responseObject) {
+            NSLog(@"Success");
             
-   
-        } else {
-            [self showAlerWithString:@"Wrong username or password"];
+            
+            NSDictionary *responseDictionary =  (NSDictionary*)responseObject;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            if ([@"success" isEqualToString:[responseDictionary objectForKey:@"status"]]){
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:self.tableView.passwordTextField.text forKey:@"userPassword"];
+                [userDefaults setObject:self.tableView.usernameTextField.text forKey:@"userToken"];
+                [userDefaults setObject:[responseDictionary objectForKey:@"userId"] forKey:@"userID"];
+                [userDefaults setObject:[responseDictionary objectForKey:@"displayName"] forKey:@"displayName"];
+                [userDefaults setObject:self.tableView.usernameTextField.text forKey:@"username"];
+                [dataManager getResourcesWithCompanyId:@"1" onSuccess:^(NSObject *responseObject) {
+                    [self openNextFlowOfTheApplication];
+                } onError:^(NSError *error) {
+                    [self openNextFlowOfTheApplication];
+                }];
+                
+                
+            } else {
+                [self showAlerWithString:@"Wrong username or password"];
+                [self.loginButton setEnabled:YES];
+            }
+            
+        } onError:^(NSError *error) {
+            NSLog(@"ERROR --- ");
+            [self showAlerWithString:[error description]];
             [self.loginButton setEnabled:YES];
-        }
-        
-    } onError:^(NSError *error) {
-        NSLog(@"ERROR --- ");
-        [self showAlerWithString:[error description]];
-        [self.loginButton setEnabled:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-    }];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        }];
     });
 }
 
@@ -82,7 +82,7 @@
     AppDelegate *delaget = [[UIApplication sharedApplication] delegate];
     delaget.window.rootViewController = viewController;
     [delaget.window makeKeyAndVisible];
-
+    
 }
 
 -(void) showAlerWithString:(NSString *) alertMessage{

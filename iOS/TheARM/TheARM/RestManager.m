@@ -29,16 +29,13 @@ static NSString *const zumoApplication = @"FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44";
     NSString *url = [NSString stringWithFormat:@"%@%@",apiURL,urlPath];
     
     AFHTTPSessionManager *manager = [RestManager createManager];
-
-
+    
+    
     [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"Success: doGetRequestWithUrl %@",url);
-//        NSError *e;
-//        NSArray *array = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingAllowFragments error:&e];
-//        
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-          NSLog(@"Error: %@", error);
+        NSLog(@"Error: %@", error);
     }];
     
 }
@@ -47,14 +44,14 @@ static NSString *const zumoApplication = @"FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44";
     NSString *url = [NSString stringWithFormat:@"%@%@",apiURL,urlPath];
     AFHTTPSessionManager *manager = [RestManager createManager];
     
-  [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-      NSLog(@"Success: %@", responseObject);
-     
-      success(responseObject);
-  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-      NSLog(@"Error: %@", error);
-      errorBlock(error);
-  }];
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"Success: %@", responseObject);
+        
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"Error: %@", error);
+        errorBlock(error);
+    }];
     
 }
 
@@ -65,13 +62,11 @@ static NSString *const zumoApplication = @"FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44";
     
     [manager DELETE:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"Success: doDeleteRequestWithUrl");
-//        NSError *e;
-//        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:(id)responseObject options:NSJSONReadingAllowFragments error:&e];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"Error: %@", error);
         errorBlock(error);
-
+        
     }];
     
 }
@@ -84,7 +79,7 @@ static NSString *const zumoApplication = @"FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [manager.requestSerializer setValue:zumoApplication forHTTPHeaderField:@"x-zumo-application"];
-//       [manager.requestSerializer setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
+    //       [manager.requestSerializer setValue:@"2.0.0" forHTTPHeaderField:@"ZUMO-API-VERSION"];
     return manager;
     
 }
