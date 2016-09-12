@@ -9,116 +9,189 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.accedia.thearm.ViewEventActivity">
+    tools:context="com.accedia.thearm.ViewEventActivity"
+    android:background="@color/backgroundColor">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/text_resource_name"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/resource_image"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:text="Resource name" />
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true" />
+
 
             <TextView
                 android:id="@+id/text_event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text_resource_name"
+                android:layout_below="@+id/resource_image"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:text="Event name"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:id="@+id/layout_start_time"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/text_event_owner"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_event_name"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Event owner"
+                android:textSize="10sp"/>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/start_time_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/text_event_owner"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textlines"
+                android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/static_text_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_event_owner"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
-                    android:text="Start time" />
+                    android:text="Start Date:"
+                    android:textSize="15sp"/>
 
                 <TextView
-                    android:id="@+id/text_event_start_time"
+                    android:id="@+id/text_start_time"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:gravity="right"
+                    android:text="Start Date:"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/end_time_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/start_time_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textlines"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/static_text_end_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_event_owner"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="10dp"
-                    android:text="" />
+                    android:text="End Date:"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/text_end_time"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:gravity="right"
+                    android:text="End Date:"
+                    android:textSize="15sp"/>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_end_time"
+                android:id="@+id/participients_layout"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_start_time"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_below="@+id/end_time_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:weightSum="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/participients_text_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/static_text_participiernts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Participients"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/text_participients"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="right"
+                        android:text="1/4"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <ListView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="End time" />
+                    android:id="@+id/participients_list_view"
+                    tools:listitem="@layout/list_item_participient"/>
 
-                <TextView
-                    android:id="@+id/text_event_end_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_users"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_end_time"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Users" />
-
-                <TextView
-                    android:id="@+id/text_event_min_users"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/text_event_max_users"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/button_event_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/greenColor"
                 android:layout_centerHorizontal="true"
                 android:text="JOIN"
-                android:layout_below="@+id/layout_users"/>
+                android:layout_marginTop="30dp"
+                android:textColor="#ffffff"
+                android:layout_below="@+id/participients_layout"
+                android:layout_alignParentBottom="true"/>
+
+
+
 
         </RelativeLayout>
 

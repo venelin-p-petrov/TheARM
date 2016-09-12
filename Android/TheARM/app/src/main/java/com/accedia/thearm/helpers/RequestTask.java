@@ -45,7 +45,7 @@ public class RequestTask extends AsyncTask<String, String, String> {
         urlConnection.setRequestProperty("x-zumo-application", "FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44");
         urlConnection.setRequestMethod(this.method);
 
-        if(RequestMethod.POST.toString().equals(this.method)){
+        if(RequestMethod.POST.toString().equals(this.method) || RequestMethod.DELETE.toString().equals(this.method)){
             urlConnection.setDoOutput(true);
         }
 

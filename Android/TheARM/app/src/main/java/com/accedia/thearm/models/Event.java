@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Home on 1.11.2015 г..
  */
-public class Event {
+public class Event implements ARMModel {
     private int eventId;
     private String description;
     private Integer minUsers;
@@ -33,8 +33,8 @@ public class Event {
 
         this.eventId = obj.getInt("eventId");
         this.description = obj.getString("description");
-        this.minUsers = obj.getInt("minUsers");
-        this.maxUsers = obj.getInt("maxUsers");
+        this.minUsers = obj.getInt("usersCount");
+        this.maxUsers = obj.getInt("usersCount");
         this.startTime = format.parse(obj.getString("startTime"));
         this.endTime = format.parse(obj.getString("endTime"));
         this.resourceId = obj.getInt("resource_resourceId");
@@ -63,7 +63,23 @@ public class Event {
         return startTime;
     }
 
+    public Date getEndTime() {
+        return endTime;
+    }
+
     public int getEventId() {
         return eventId;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+    public int getResourceId() {
+        return resourceId;
+    }
+    public List<User> getUsers() {
+        return users;
+    }
+
+
 }

@@ -1,8 +1,12 @@
 package com.accedia.thearm;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,44 +24,135 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editEmail;
     private EditText editPassword;
     private EditText editDisplayName;
+    private EditText editConfirmPassword;
+    private ProgressDialog dialog;
+
+    public void hideSoftKeyboard(View view) {
+//        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        setupProgressDialog();
         buttonRegister = (Button) findViewById(R.id.button_register);
         editUsername = (EditText) findViewById(R.id.edit_register_username);
         editEmail = (EditText) findViewById(R.id.edit_register_email);
         editPassword = (EditText) findViewById(R.id.edit_register_password);
         editDisplayName = (EditText) findViewById(R.id.edit_register_display_name);
+        editConfirmPassword  = (EditText) findViewById(R.id.edit_confirm_password);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = editUsername.getText().toString();
-                String email = editEmail.getText().toString();
-                String password = editPassword.getText().toString();
-                String displayName = editDisplayName.getText().toString();
+                if (checkTexts()) {
+                    dialog.show();
+                    buttonRegister.setEnabled(false);
+                    Thread mThread = new Thread() {
+                        String username = editUsername.getText().toString();
+                        String email = editEmail.getText().toString();
+                        String password = editPassword.getText().toString();
+                        String displayName = editDisplayName.getText().toString();
+                        @Override
+                        public void run() {
 
-                try {
-                    if (ApiHelper.register(username, password, "", email, displayName)) {
-                        Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register successful.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register failed.", Toast.LENGTH_SHORT).show();
+                            try {
+                                if (ApiHelper.register(username, password, "", email, displayName)) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register successful.", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    });
+                                } else {
+                                    showToastWithError("Register failed.");
+                                }
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                                showToastWithError("Register failed.");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                showToastWithError("Register failed.");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                showToastWithError("Register failed.");
+                            } finally {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.hide();
+                                        buttonRegister.setEnabled(true);
+                                    }
+                                });
+                            }
+                        }
+
+                    };
+                    mThread.start();
                 }
             }
         });
+
+
+    }
+
+    private void showToastWithError(final String errorMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupProgressDialog() {
+        dialog = new ProgressDialog(RegisterActivity.this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+    }
+
+
+    private boolean checkTexts(){
+        String username = editUsername.getText().toString();
+        String email = editEmail.getText().toString();
+        String password = editPassword.getText().toString();
+        String displayName = editDisplayName.getText().toString();
+        String confirmPassword = editConfirmPassword.getText().toString();
+        return RegisterActivity.this.checkTexts(username, email, password, confirmPassword, displayName);
+    }
+
+    /**
+     *  This method validate all edit text are correctly fulfilled.
+     */
+    //TODO: change validation method for email.
+    private boolean checkTexts(String username, String email, String password, String confirmPassword, String displayName) {
+        boolean isValid = true;
+        if (email == null || email.length() < 5 ){
+            isValid = false;
+            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add valid email address.", Toast.LENGTH_SHORT).show();
+        } else if (password == null || password.length() < 6) {
+            isValid = false;
+            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add password with at least 6 symbols.", Toast.LENGTH_SHORT).show();
+        } else if (confirmPassword == null || !confirmPassword.equals(password)) {
+            isValid = false;
+            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add matching passwords", Toast.LENGTH_SHORT).show();
+        } else if (username == null  || username.length() < 5) {
+            isValid = false;
+            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add username with at least 5 symbols.", Toast.LENGTH_SHORT).show();
+        } else if (displayName == null  || displayName.length() < 5) {
+            isValid = false;
+            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add display name with at least 5 symbols.", Toast.LENGTH_SHORT).show();
+        }
+
+        return  isValid;
     }
 }

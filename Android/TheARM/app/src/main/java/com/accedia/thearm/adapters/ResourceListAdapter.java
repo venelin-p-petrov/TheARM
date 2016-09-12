@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.accedia.thearm.R;
 import com.accedia.thearm.models.Resource;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,9 @@ public class ResourceListAdapter extends BaseAdapter implements ListAdapter {
     private List<Resource> items = new ArrayList<Resource>();
 
     public ResourceListAdapter(Context context, List<Resource> items) {
+        if (items == null){
+            items = new ArrayList<Resource>();
+        }
         this.context = context;
         this.items = items;
     }
@@ -65,10 +69,12 @@ public class ResourceListAdapter extends BaseAdapter implements ListAdapter {
             textResourceName.setText(resourceItem.getName());
         }
 
-        // TODO set image
-//        if (imageResourceImage != null){
-//            imageResourceImage.setImageBitmap(resourceItem.getImage());
-//        }
+
+        if (imageResourceImage != null){
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageResourceImage.setImageResource(R.drawable.resourcesactive);
+            imageLoader.displayImage(resourceItem.getImageUrl(), imageResourceImage);
+        }
 
         return convertView;
     }

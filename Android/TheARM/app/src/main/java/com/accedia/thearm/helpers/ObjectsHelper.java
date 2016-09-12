@@ -1,5 +1,7 @@
 package com.accedia.thearm.helpers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.accedia.thearm.models.Event;
@@ -13,6 +15,10 @@ import java.util.ArrayList;
  * Created by venelin.petrov on 8.2.2016 г..
  */
 public class ObjectsHelper {
+
+    private static final String USERNAME_KEY = "usernameKey";
+    private static final String DISPLAY_NAME_KEY = "displayNameKey";
+    private static final String USER_ID_KEY = "userIDKey";
 
     private static ObjectsHelper instance;
     public static SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -39,6 +45,14 @@ public class ObjectsHelper {
         this.currentUser = currentUser;
     }
 
+    public void storeUser(User user, Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USERNAME_KEY, user.getUsername());
+        editor.putString(DISPLAY_NAME_KEY, user.getDisplayName());
+        editor.putInt(USER_ID_KEY, user.getUserId());
+        editor.apply();
+    }
 
     private ArrayList<Resource> resources;
 
@@ -54,7 +68,6 @@ public class ObjectsHelper {
         this.resources.clear();
         this.resources.addAll(resources);
     }
-
 
     private ArrayList<Event> events;
 
@@ -84,5 +97,50 @@ public class ObjectsHelper {
         }
 
         return null;
+    }
+
+    public Resource getResourceById(int id){
+        if (id == 0 || resources == null){
+            return null;
+        }
+
+        for (Resource resource: resources){
+            if (resource.getResourceId() == id){
+                return resource;
+            }
+        }
+        return null;
+    }
+
+    public boolean isUserCached(Context context) {
+
+        SharedPreferences preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        String username = preferences.getString(USERNAME_KEY, null);
+        if (username == null || username.isEmpty()){
+            return  false;
+        }
+        return true;
+    }
+
+    public boolean generateCurrentUser(Context context) {
+
+        SharedPreferences preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+
+        String username = preferences.getString(USERNAME_KEY, null);
+        String displayName = preferences.getString(DISPLAY_NAME_KEY, null);
+        int userId = preferences.getInt(USER_ID_KEY, 0);
+
+        this.currentUser  = new User(username,displayName,userId);
+        return true;
+    }
+
+    public void logoutCurrentUser(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(USERNAME_KEY);
+        editor.remove(DISPLAY_NAME_KEY);
+        editor.remove(USER_ID_KEY);
+        editor.apply();
     }
 }

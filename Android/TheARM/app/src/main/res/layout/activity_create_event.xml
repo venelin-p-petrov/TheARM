@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.accedia.thearm.CreateEventActivity">
+    tools:context="com.accedia.thearm.CreateEventActivity"
+    android:background="@color/backgroundColor">
 
 
     <ScrollView
@@ -19,125 +20,220 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/resource_image_create"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true" />
+
             <TextView
                 android:id="@+id/text_resource_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@id/resource_image_create"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:text="Resource name" />
 
-            <EditText
-                android:id="@+id/event_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_resource_name"
-                android:layout_margin="10dp"
-                android:gravity="top|left"
-                android:hint="Some text"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:minLines="1" />
 
             <LinearLayout
-                android:id="@+id/time_pickers_container"
+                android:id="@+id/name_layout"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/text_resource_name"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/event_description"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textlines"
+                android:weightSum="1">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView2"
+                    android:layout_gravity="center"
+                    android:background="@drawable/cup"/>
 
-                    <TextView
-                        android:id="@+id/text_from_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:text="From time" />
+                <EditText
+                    android:id="@+id/event_description"
+                    android:hint="Enter name"
+                    android:background="@drawable/edittext"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone" />
 
-                    <TimePicker
-                        android:id="@+id/dtp_from_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:scaleX="1"
-                        android:scaleY="1"
-                        android:timePickerMode="spinner" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/text_to_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:text="To time" />
-
-                    <TimePicker
-                        android:id="@+id/dtp_to_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:scaleX="1"
-                        android:scaleY="1"
-                        android:timePickerMode="spinner" />
-
-                </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/start_time_vertical_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/name_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/textlines"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/start_time_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/name_layout"
+
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/static_text_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="10dp"
+                        android:text="Start Date:"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/text_start_time"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_margin="10dp"
+                        android:gravity="right"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+                <TimePicker
+                    android:id="@+id/dtp_from_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/start_time_layout"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:timePickerMode="spinner" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/end_time_vertical_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/start_time_vertical_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/end_time_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/name_layout"
+                    android:background="@drawable/textlines"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/static_text_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="10dp"
+                        android:text="Duration:"
+                        android:textSize="15sp"/>
+
+                    <LinearLayout
+                        android:id="@+id/duration_spinener_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:weightSum="1">
+
+                        <Spinner
+                            android:id="@+id/duration_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/number_of_players_container"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/time_pickers_container"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:layout_below="@+id/end_time_vertical_layout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:weightSum="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="10dp"
-                    android:text="Players" />
+                <LinearLayout
+                    android:id="@+id/number_of_players_hor"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/name_layout"
 
-                <EditText
-                    android:id="@+id/event_min_users"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Min"
-                    android:inputType="number"
-                    android:minWidth="50dp" />
+                    android:weightSum="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_margin="10dp"
-                    android:text="to" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="10dp"
+                        android:text="Number of participants"
+                        android:textSize="15sp"/>
 
-                <EditText
-                    android:id="@+id/event_max_users"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Max"
-                    android:inputType="number"
-                    android:minWidth="50dp" />
+
+                    <LinearLayout
+                        android:id="@+id/people_spinener_layout"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:weightSum="1">
+
+                        <Spinner
+                            android:id="@+id/people_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
+
 
             <Button
                 android:id="@+id/create_event_button"
@@ -146,9 +242,14 @@
                 android:layout_below="@+id/number_of_players_container"
                 android:layout_centerHorizontal="true"
                 android:padding="20dp"
+                android:layout_margin="20dp"
+                android:background="@color/greenColor"
+                android:textColor="#fff"
                 android:text="CREATE" />
         </RelativeLayout>
     </ScrollView>
+
+
 
 
 </RelativeLayout>

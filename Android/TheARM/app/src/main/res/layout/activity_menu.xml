@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menuBackgroundColor">
+
+    <ImageView
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:id="@+id/cup_image"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/profilecup"
+        android:padding="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="51dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/user_id"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_below="@+id/cup_image"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/display_name"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/user_id" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logout_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="53dp"
+        android:textColor="#fff"
+        android:background="@color/redButtonColor"/>
+</RelativeLayout>

@@ -23,6 +23,12 @@ public class User {
         this.companyId = obj.optInt("companyId", 0);
     }
 
+    public User(String username, String displayName, int userId) {
+        this.userId = userId;
+        this.displayName = displayName;
+        this.username = username;
+    }
+
     public int getCompanyId() {
         return companyId;
     }
@@ -30,4 +36,9 @@ public class User {
     public int getUserId() {
         return userId;
     }
+
+    public String getUsername() { return username; }
+
+    public String getDisplayName() { return displayName; }
+
 }

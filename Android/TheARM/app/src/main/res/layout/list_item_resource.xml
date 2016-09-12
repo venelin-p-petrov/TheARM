@@ -5,19 +5,22 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <ImageView
+        android:id="@+id/list_item_resource_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
     <TextView
         android:id="@+id/list_item_resource_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/list_item_resource_image"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/list_item_resource_image"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
         android:text="Name" />
 
-    <ImageView
-        android:id="@+id/list_item_resource_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
 </RelativeLayout>

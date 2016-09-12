@@ -1,27 +1,16 @@
 package com.accedia.thearm;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.accedia.thearm.helpers.ApiHelper;
+import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.services.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -40,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonRegister;
     private EditText editUsername;
     private EditText editPassword;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupProgressDialog();
 
         buttonLogin = (Button) findViewById(R.id.button_login);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -55,29 +47,61 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO
-                String username = editUsername.getText().toString();
-                String password = editPassword.getText().toString();
+                final String username = editUsername.getText().toString();
+                final String password = editPassword.getText().toString();
 
-                try {
-                    if(ApiHelper.login(username, password, "")) {
-                        Intent intent = new Intent(MainActivity.this, ListsActivity.class);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                if (username == null || username.isEmpty()) {
+                    showToastWithError("Please enter username");
+                    return;
+                } else {
+                    dialog.show();
+                    buttonLogin.setEnabled(false);
                 }
+                Thread loginThread = new Thread() {
+
+                    @Override
+                    public void run() {
+
+                        try {
+                            if (ApiHelper.login(username, password, "")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ObjectsHelper.getInstance().storeUser(ObjectsHelper.getInstance().getCurrentUser(), getApplicationContext());
+                                        Intent intent = new Intent(MainActivity.this, ListsActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
+                            } else {
+                                showToastWithError("Login failed.");
+                            }
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            showToastWithError("Login failed.");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            showToastWithError("Login failed.");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            showToastWithError("Login failed.");
+                        } finally {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.hide();
+                                    buttonLogin.setEnabled(true);
+                                }
+                            });
+
+                        }
+                    }
+                };
+                loginThread.start();
+
             }
         });
+
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +117,24 @@ public class MainActivity extends AppCompatActivity {
             startService(intent);
         }
     }
+
+    private void showToastWithError(final String errorMessage){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupProgressDialog() {
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Loading. Please wait...");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+    }
+
 
     /**
      * Check the device to make sure it has the Google Play Services APK. If

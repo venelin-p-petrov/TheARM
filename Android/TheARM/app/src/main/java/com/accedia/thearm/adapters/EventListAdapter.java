@@ -1,6 +1,8 @@
 package com.accedia.thearm.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +14,16 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.accedia.thearm.R;
+import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +36,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
     private List<Event> items = new ArrayList<Event>();
 
     public EventListAdapter(Context context, List<Event> items) {
+        if(items == null) {
+            items = new ArrayList<Event>();
+        }
         this.context = context;
         this.items = items;
     }
@@ -59,15 +71,29 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         Event eventItem = (Event) getItem(position);
 
         if (eventItem != null) {
+            ImageLoader imageLoader = ImageLoader.getInstance();
             TextView textDescription = (TextView) convertView.findViewById(R.id.list_item_event_description);
             TextView textStart = (TextView) convertView.findViewById(R.id.list_item_event_start);
+            TextView textOwner = (TextView) convertView.findViewById(R.id.list_item_event_owner);
+            final ImageView imageView = (ImageView) convertView.findViewById(R.id.eventImage);
 
             if (textDescription != null) {
                 textDescription.setText(eventItem.getDescription());
             }
 
             if (textStart != null) {
-                textStart.setText(eventItem.getStartTime().toString());
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
+                String time = "Time: " +  dateFormatter.format(eventItem.getStartTime()) + " - " +  dateFormatter.format(eventItem.getEndTime());
+                textStart.setText(time);
+            }
+
+            if (textOwner != null) {
+                textOwner.setText(eventItem.getOwner().getDisplayName());
+            }
+            if (imageView != null) {
+                Resource resource = ObjectsHelper.getInstance().getResourceById(eventItem.getResourceId());
+                imageView.setImageResource(R.drawable.resourcesactive);
+                imageLoader.displayImage(resource.getImageUrl(), imageView);
             }
         }
 
