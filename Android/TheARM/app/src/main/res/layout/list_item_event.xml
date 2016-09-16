@@ -64,6 +64,17 @@
                     android:layout_alignParentEnd="true"
                     android:gravity="left" />
 
+
+                <TextView
+                    android:id="@+id/players_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="start"
+                    android:singleLine="true"
+                    android:layout_alignTop="@+id/eventImage"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="right" />
+
             </LinearLayout>
 
         </LinearLayout>

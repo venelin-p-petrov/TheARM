@@ -173,16 +173,11 @@ public class ApiHelper {
     }
 
     public static Result deleteEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
-        String url = URL_ENDPOINT + "events/delete";
-        JSONObject obj = new JSONObject();
-        obj.put("userId", String.valueOf(userId));
-        obj.put("eventId", String.valueOf(eventId));
+        String url = URL_ENDPOINT + "events/" +eventId +"/delete/" + userId;
 
-        String result = new RequestTask(DELETE.value()).execute(url, obj.toString()).get();
+        String result = new RequestTask(DELETE.value()).execute(url,null).get();
 
-        Result resulObject = new Result(new JSONObject(result));
-
-        return resulObject;
+        return new Result(new JSONObject(result));
     }
 
     public static String getCompanies() throws ExecutionException, InterruptedException {

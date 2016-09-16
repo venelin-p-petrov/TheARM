@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
+import com.accedia.thearm.helpers.WaitingDialog;
 import com.accedia.thearm.services.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupProgressDialog();
+        dialog = WaitingDialog.setupProgressDialog(MainActivity.this);
 
         buttonLogin = (Button) findViewById(R.id.button_login);
         buttonRegister = (Button) findViewById(R.id.button_register);
@@ -125,14 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void setupProgressDialog() {
-        dialog = new ProgressDialog(MainActivity.this);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading. Please wait...");
-        dialog.setIndeterminate(true);
-        dialog.setCanceledOnTouchOutside(false);
     }
 
 

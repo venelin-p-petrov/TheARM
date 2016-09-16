@@ -45,18 +45,19 @@ public class RequestTask extends AsyncTask<String, String, String> {
         urlConnection.setRequestProperty("x-zumo-application", "FlGJqyAJBDQtoGOnWDCjeoGbRqzAuB44");
         urlConnection.setRequestMethod(this.method);
 
-        if(RequestMethod.POST.toString().equals(this.method) || RequestMethod.DELETE.toString().equals(this.method)){
+        if(RequestMethod.POST.toString().equals(this.method)){
             urlConnection.setDoOutput(true);
         }
 
         if(params.length > 1) {
-            OutputStream os = urlConnection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, UTF_8.name()));
-            writer.write(params[1]);
-            writer.flush();
-            writer.close();
-            os.close();
-
+            if (!RequestMethod.DELETE.toString().equals(this.method)) {
+                OutputStream os = urlConnection.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, UTF_8.name()));
+                writer.write(params[1]);
+                writer.flush();
+                writer.close();
+                os.close();
+            }
             urlConnection.connect();
         }
 

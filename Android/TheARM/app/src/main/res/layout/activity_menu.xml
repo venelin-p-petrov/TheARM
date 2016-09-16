@@ -41,7 +41,7 @@
         android:layout_below="@+id/user_id" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Logout"
         android:id="@+id/logout_button"
@@ -49,6 +49,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="53dp"
+        android:layout_margin="40dp"
         android:textColor="#fff"
         android:background="@color/redButtonColor"/>
 </RelativeLayout>

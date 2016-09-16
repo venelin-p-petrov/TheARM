@@ -33,8 +33,8 @@ public class Event implements ARMModel {
 
         this.eventId = obj.getInt("eventId");
         this.description = obj.getString("description");
-        this.minUsers = obj.getInt("usersCount");
-        this.maxUsers = obj.getInt("usersCount");
+        this.minUsers = obj.getInt("minUsers");
+        this.maxUsers = obj.getInt("maxUsers");
         this.startTime = format.parse(obj.getString("startTime"));
         this.endTime = format.parse(obj.getString("endTime"));
         this.resourceId = obj.getInt("resource_resourceId");
@@ -82,4 +82,15 @@ public class Event implements ARMModel {
     }
 
 
+    public Integer getMinUsers() {
+        return minUsers;
+    }
+
+    public Integer getMaxUsers() {
+        return maxUsers;
+    }
+
+    public void setMaxUsers(Integer maxUsers) {
+        this.maxUsers = maxUsers;
+    }
 }

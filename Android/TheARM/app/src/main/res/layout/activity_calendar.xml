@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/backgroundColor"
     tools:context="com.accedia.thearm.CalendarActivity">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resource_image"
+        android:background="@color/backgroundColor"
+        android:layout_margin="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textResourceName"
@@ -13,7 +23,9 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"/>
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:layout_below="@id/resource_image"/>
 
 
     <com.alamkanak.weekview.WeekView
@@ -21,17 +33,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/textResourceName"
-        app:eventTextColor="@color/colorPrimary"
+        app:eventTextColor="@color/grayTextColor"
         app:textSize="12sp"
-        app:hourHeight="60dp"
+        app:hourHeight="120dp"
         app:headerColumnPadding="8dp"
-        app:headerColumnTextColor="#8f000000"
+        app:headerColumnTextColor="@color/grayTextColor"
         app:headerRowPadding="12dp"
-        app:columnGap="8dp"
+        app:eventPadding="20dp"
+        app:columnGap="30dp"
         app:noOfVisibleDays="1"
-        app:headerRowBackgroundColor="#ffefefef"
-        app:dayBackgroundColor="#05000000"
-        app:todayBackgroundColor="#1848adff"
-        app:headerColumnBackground="#ffffffff"/>
+        app:headerRowBackgroundColor="#fff"
+        app:dayBackgroundColor="#fff"
+        app:hourSeparatorColor="@color/grayTextColor"
+        app:hourSeparatorHeight="1px"
+        app:todayBackgroundColor="#fff"
+        app:headerColumnBackground="#ffffffff"
+        app:showDistinctPastFutureColor="true"
+        app:todayHeaderTextColor="@color/grayTextColor"
+        app:showNowLine="true"
+        app:nowLineThickness="2dp"
+        app:nowLineColor="@color/greenColor"
+        android:background="#fff"
+    />
+
+
+    <!--app:showDistinctPastFutureColor="true"-->
+        <!--app:showNowLine="true"-->
+        <!--app:nowLineColor="@color/redButtonColor"-->
+
 
 </RelativeLayout>

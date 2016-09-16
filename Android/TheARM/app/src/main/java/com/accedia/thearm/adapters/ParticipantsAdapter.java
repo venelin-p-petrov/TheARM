@@ -23,12 +23,12 @@ import java.util.List;
 /**
  * Created by mihailkarev on 9/2/16.
  */
-public class ParticipientsAdapter extends BaseAdapter implements ListAdapter {
+public class ParticipantsAdapter extends BaseAdapter implements ListAdapter {
 
     private Context context;
     private List<User> participients;
 
-    public ParticipientsAdapter(Context context, List<User>  participients) {
+    public ParticipantsAdapter(Context context, List<User>  participients) {
         if(participients == null) {
             participients = new ArrayList<User>();
         }
@@ -59,7 +59,7 @@ public class ParticipientsAdapter extends BaseAdapter implements ListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item_participient, parent, false);
         }
-        User user = participients.get(0);
+        User user = participients.get(position);
 
         if (user != null) {
             TextView textPlayerNumber = (TextView) convertView.findViewById(R.id.player_number);

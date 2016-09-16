@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.TimePicker;
 
 import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
+import com.accedia.thearm.helpers.WaitingDialog;
 import com.accedia.thearm.models.ARMModel;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
@@ -68,21 +70,15 @@ public class CreateEventActivity extends AppCompatActivity {
         createEventButton = (Button) findViewById(R.id.create_event_button);
         eventDescriptionEditText = (EditText) findViewById(R.id.event_description);
 
-        setupProgressDialog();
+        dialog = WaitingDialog.setupProgressDialog(CreateEventActivity.this);
         setupTopImage();
 
         TextView textResourceName = (TextView) findViewById(R.id.text_resource_name);
         textResourceName.setText("Create " + resource.getName() + " Event");
 
-
-
         addListenerOnStartTime();
-        addCloseTimePickerOnView(findViewById(R.id.scrollView));
-        addCloseTimePickerOnView(createEventButton);
-        addCloseTimePickerOnView(eventDescriptionEditText);
-        addCloseTimePickerOnView(findViewById(R.id.end_time_vertical_layout));
-        addCloseTimePickerOnView(findViewById(R.id.number_of_players_hor));
-
+        addCloseStartTimeListeners();
+        addCloseTextListeners();
 
         defineMinUserSpinner();
         defineDurationSpinner();
@@ -135,7 +131,10 @@ public class CreateEventActivity extends AppCompatActivity {
                             finalStartTime.set(Calendar.MINUTE, startTimePicker.getCurrentMinute());
                         }
                         Spinner durationSpinner = (Spinner) findViewById(R.id.duration_spinner);
-                        int duration = Integer.valueOf(durationSpinner.getSelectedItem().toString());
+
+                        String minutesString = durationSpinner.getSelectedItem().toString();
+                        minutesString = minutesString.replaceAll(" minutes", "");
+                        int duration = Integer.valueOf(minutesString);
                         finalEndTime.setTime(finalStartTime.getTime());
                         finalEndTime.add(Calendar.MINUTE, duration);
 
@@ -191,6 +190,39 @@ public class CreateEventActivity extends AppCompatActivity {
         });
     }
 
+    private void addCloseTextListeners() {
+        addCloseKeyboardListener(findViewById(R.id.resource_image_create));
+        addCloseKeyboardListener(findViewById(R.id.start_time_vertical_layout));
+        addCloseKeyboardListener(findViewById(R.id.end_time_vertical_layout));
+        addCloseKeyboardListener(findViewById(R.id.scrollView));
+        addCloseKeyboardListener(createEventButton);
+        addCloseKeyboardListener(findViewById(R.id.end_time_vertical_layout));
+        addCloseKeyboardListener(findViewById(R.id.number_of_players_hor));
+    }
+
+    private void addCloseKeyboardListener(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(CreateEventActivity.this.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        });
+    }
+
+    private void addCloseStartTimeListeners() {
+        addCloseKeyboardListener(findViewById(R.id.resource_image_create));
+        addCloseTimePickerOnView(findViewById(R.id.scrollView));
+        addCloseTimePickerOnView(createEventButton);
+        addCloseTimePickerOnView(eventDescriptionEditText);
+        addCloseTimePickerOnView(findViewById(R.id.end_time_vertical_layout));
+        addCloseTimePickerOnView(findViewById(R.id.number_of_players_hor));
+
+    }
+
     private void showAlertDialog(Result result) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
@@ -217,16 +249,6 @@ public class CreateEventActivity extends AppCompatActivity {
     }
 
 
-    private void setupProgressDialog() {
-        dialog = new ProgressDialog(CreateEventActivity.this);
-
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading. Please wait...");
-        dialog.setIndeterminate(true);
-        dialog.setCanceledOnTouchOutside(false);
-
-    }
-
     private void setupTopImage() {
         ImageLoader imageLoader = ImageLoader.getInstance();
         ImageView imageView =  (ImageView) findViewById(R.id.resource_image_create);
@@ -241,7 +263,7 @@ public class CreateEventActivity extends AppCompatActivity {
         String[] durationsArr = new String[countOfDurations];
 
         for (int duration = resource.getMinTime(),i=0; i< countOfDurations; i++) {
-            durationsArr[i] = ""+ (int)(duration + 5*i);
+            durationsArr[i] = ""+ (int)(duration + 5*i) +" minutes";
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.duration_spinner);

@@ -64,6 +64,7 @@ public class ListsActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private SlidingMenu menu;
+    private static EventListAdapter eventListAdapter;
 
     private static FloatingActionButton fabNewEvent;
 
@@ -122,6 +123,7 @@ public class ListsActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(selectedTabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.setTabTextColors(R.color.grayTextColor, R.color.grayTextColor);
+
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
 
@@ -277,10 +279,9 @@ public class ListsActivity extends AppCompatActivity {
             if (sectionNumber == 1) {
                 rootView = inflater.inflate(R.layout.fragment_events, container, false);
 
-                // TODO events view create
                 ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
-                BaseAdapter adapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
-                listEvents.setAdapter(adapter);
+                eventListAdapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
+                listEvents.setAdapter(eventListAdapter);
                 listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -291,11 +292,9 @@ public class ListsActivity extends AppCompatActivity {
                     }
                 });
 
-                // TODO add click listener to open join/edit page
             } else if (sectionNumber == 2) {
                 rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
-                // TODO resources view create
                 ListView listResources = (ListView) rootView.findViewById(R.id.list_resources);
                 BaseAdapter adapter = new ResourceListAdapter(getContext(), ObjectsHelper.getInstance().getResources());
                 listResources.setAdapter(adapter);
@@ -310,6 +309,12 @@ public class ListsActivity extends AppCompatActivity {
                 });
             }
             return rootView;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            eventListAdapter.notifyDataSetChanged();
         }
     }
 }

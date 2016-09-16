@@ -75,7 +75,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
             TextView textDescription = (TextView) convertView.findViewById(R.id.list_item_event_description);
             TextView textStart = (TextView) convertView.findViewById(R.id.list_item_event_start);
             TextView textOwner = (TextView) convertView.findViewById(R.id.list_item_event_owner);
+            TextView textPlayersCount = (TextView) convertView.findViewById(R.id.players_count);
             final ImageView imageView = (ImageView) convertView.findViewById(R.id.eventImage);
+
 
             if (textDescription != null) {
                 textDescription.setText(eventItem.getDescription());
@@ -95,6 +97,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
                 imageView.setImageResource(R.drawable.resourcesactive);
                 imageLoader.displayImage(resource.getImageUrl(), imageView);
             }
+
+            textPlayersCount.setText(eventItem.getUsers().size() + "/" + eventItem.getMaxUsers());
+
         }
 
         return convertView;

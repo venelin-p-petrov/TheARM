@@ -5,12 +5,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
+import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,13 +32,21 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-       resourceId = getIntent().getIntExtra(EXTRA_RESOURCE_ID, 0);
+        resourceId = getIntent().getIntExtra(EXTRA_RESOURCE_ID, 0);
 
+        Resource resource = ObjectsHelper.getInstance().getResourceById(resourceId);
+
+        ImageView imageView = (ImageView) findViewById(R.id.resource_image);
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(resource.getImageUrl(), imageView);
+
+        TextView textResourceName = (TextView) findViewById(R.id.textResourceName);
+        textResourceName.setText(resource.getName());
 
         weekView = (WeekView) findViewById(R.id.weekView);
 
         weekView.setFirstDayOfWeek(Calendar.MONDAY);
-        weekView.setMonthChangeListener(new WeekView.MonthChangeListener() {
+        weekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
             public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
                 Log.i("asdasd", "month changed");
@@ -52,6 +65,8 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        weekView.goToDate(Calendar.getInstance());
+        weekView.goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
     }
 
     private List<WeekViewEvent> generateEvents() {

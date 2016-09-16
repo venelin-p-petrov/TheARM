@@ -158,7 +158,7 @@
                         android:textSize="15sp"/>
 
                     <TextView
-                        android:id="@+id/text_participients"
+                        android:id="@+id/text_participants"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
@@ -172,7 +172,7 @@
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:id="@+id/participients_list_view"
                     tools:listitem="@layout/list_item_participient"/>
 
@@ -180,7 +180,7 @@
 
             <Button
                 android:id="@+id/button_event_join"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/greenColor"
                 android:layout_centerHorizontal="true"
