@@ -75,11 +75,11 @@
     
     [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
         
-        self.user = (NSDictionary *)responseObject;
-        if ([@"success" isEqualToString:[self.user objectForKey:@"status"]]){
+        if ([(NSDictionary *)responseObject objectForKey:@"status"]){
+            self.user = (NSDictionary *)responseObject;
             success(responseObject);
         } else {
-            error([NSError new]);
+            error([NSError errorWithDomain:@"problem" code:201 userInfo:(NSDictionary *)responseObject]);
         }
     } onError:error];
 }
@@ -95,7 +95,14 @@
     NSDictionary *parameters = @{@"username": username, @"password": password, @"token": _token, @"email": email,@"displayName":displayName, @"os": osVersion};
     NSString *url = [NSString stringWithFormat:@"/api/register"];
     
-    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
+    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
+        if ([@"success" isEqualToString:[(NSDictionary *)responseObject objectForKey:@"status"]]){
+            success(responseObject);
+        } else {
+            error([NSError errorWithDomain:@"problem" code:201 userInfo:(NSDictionary *)responseObject]);
+        }
+
+    } onError:error];
 }
 
 
@@ -122,7 +129,14 @@
     
     NSString *url = [NSString stringWithFormat:@"/api/events/join"];
     
-    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
+    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
+        if ([@"success" isEqualToString:[(NSDictionary *)responseObject objectForKey:@"status"]]){
+            success(responseObject);
+        } else {
+            error([NSError errorWithDomain:@"problem" code:201 userInfo:(NSDictionary *)responseObject]);
+        }
+        
+    } onError:error];
 }
 
 - (void)doLeaveEvent:(NSDictionary *) parameters
@@ -131,7 +145,14 @@
     NSString *url = [NSString stringWithFormat:@"/api/events/leave"];
     
     
-    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:success onError:error];
+    [RestManager doPostRequestWithUrl:url parameters:parameters onSuccess:^(NSObject *responseObject) {
+        if ([@"success" isEqualToString:[(NSDictionary *)responseObject objectForKey:@"status"]]){
+            success(responseObject);
+        } else {
+            error([NSError errorWithDomain:@"problem" code:201 userInfo:(NSDictionary *)responseObject]);
+        }
+        
+    } onError:error];
 }
 
 - (void)doDelete:(NSString *) eventId andUserId:(NSString *) userId
@@ -139,7 +160,14 @@
     
     NSString *url = [NSString stringWithFormat:@"/api/events/%@/delete/%@",eventId,userId];
     
-    [RestManager doDeleteRequestWithUrl:url parameters:nil onSuccess:success onError:error];
+    [RestManager doDeleteRequestWithUrl:url parameters:nil onSuccess:^(NSObject *responseObject) {
+        if ([@"success" isEqualToString:[(NSDictionary *)responseObject objectForKey:@"status"]]){
+            success(responseObject);
+        } else {
+            error([NSError errorWithDomain:@"problem" code:201 userInfo:(NSDictionary *)responseObject]);
+        }
+
+    } onError:error];
 }
 
 @end
