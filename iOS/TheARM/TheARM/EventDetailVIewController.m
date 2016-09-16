@@ -37,6 +37,7 @@
 
 @interface EventDetailVIewController()
 @property(weak, nonatomic) UIButton *actionButton;
+@property NSNumber *duration;
 
 @end
 
@@ -50,6 +51,7 @@
     _isDurationSelected = NO;
     _isDatePickerLoaded = NO;
     //  self.tableView.separatorColor = [UIColor clearColor];
+   
     if (self.eventViewState == CREATE) {
         DataManager *dataManager = [DataManager sharedDataManager];
         NSNumber *userId= [dataManager.user objectForKey:@"userId"];
@@ -61,12 +63,21 @@
         [self.currentEvent setValue:[self.currentResource objectForKey:@"resourceId"] forKey:@"resourceId"];
         
         NSDate *startDate = [NSDate new];
-        int minTime = [[self.currentResource objectForKey:@"minTime"] intValue];
-        NSDate *endDate = [startDate dateByAddingTimeInterval:minTime * 60];
+        self.duration = [self.currentResource objectForKey:@"minTime"];
+//        NSDate *endDate = [startDate dateByAddingTimeInterval:minTime * 60];
         [self.currentEvent setValue:[DateHelper convertStringFromDate:startDate] forKey:@"startTime"];
-        [self.currentEvent setValue:[DateHelper convertStringFromDate:endDate] forKey:@"endTime"];
+//        [self.currentEvent setValue:[DateHelper convertStringFromDate:endDate] forKey:@"endTime"];
         
         
+    } else {
+        
+        NSDate *startDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"startTime"]];
+        NSDate *endDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"endTime"]];
+        if (startDate && endDate){
+            NSTimeInterval secondsBetween = [endDate timeIntervalSinceDate:startDate];
+            self.duration = [NSNumber numberWithInt:secondsBetween/ 60];
+        }
+
     }
 }
 
@@ -168,6 +179,11 @@
     });
 }
 - (void) createEvent{
+    
+    NSDate *startDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"startTime"]];
+    NSDate *date = [startDate dateByAddingTimeInterval:[self.duration intValue] * 60];
+    [self.currentEvent setValue:[DateHelper convertStringFromDate:date] forKey:@"endTime"];
+    
     DataManager *dataManager = [DataManager sharedDataManager];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -365,14 +381,8 @@
     DateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DateCell" forIndexPath:indexPath];
     cell.cellInfoLabel.text = @"Duration";
     
-    NSDate *startDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"startTime"]];
-    NSDate *endDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"endTime"]];
-    if (startDate && endDate){
-        NSTimeInterval secondsBetween = [endDate timeIntervalSinceDate:startDate];
-        cell.dateLabel.text = [NSString stringWithFormat:@"%d Minutes",(int)secondsBetween/60];
-    }
-    
-    
+    cell.dateLabel.text = [NSString stringWithFormat:@"%d Minutes",[self.duration intValue]];
+
     if (_isDurationSelected){
         cell.dateLabel.textColor = [UIColor colorWithRed:(205/255.f) green:(32/255.f) blue:(38/255.f) alpha:1.0];
         cell.cellInfoLabel.textColor = [UIColor colorWithRed:(205/255.f) green:(32/255.f) blue:(38/255.f) alpha:1.0];
@@ -489,12 +499,6 @@
     UIDatePicker *datePicker = (UIDatePicker *) sender;
     if (_isDateSelected) {
         [self.currentEvent setValue:[DateHelper convertStringFromDate:datePicker.date]forKey:@"startTime"];
-        NSDate *endDate = [DateHelper convertDateFromString: [self.currentEvent objectForKey:@"endTime"]];
-        if ([endDate compare:datePicker.date] == NSOrderedAscending){
-            [self.currentEvent setValue:[self.currentEvent objectForKey:@"startTime"] forKey:@"endTime"];
-        }
-    } else {
-        [self.currentEvent setValue:[DateHelper convertStringFromDate:datePicker.date] forKey:@"endTime"];
     }
     [self.tableView reloadData];
 }
@@ -511,9 +515,7 @@
     if (_isDurationSelected) {
         int minTime = [[self.currentResource objectForKey:@"minTime"] intValue];
         int numberOfMinutes =  minTime + ((int)(row) * 5);
-        NSDate *startDate = [DateHelper convertDateFromString:[self.currentEvent objectForKey:@"startTime"]];
-        NSDate *date = [startDate dateByAddingTimeInterval:numberOfMinutes * 60];
-        [self.currentEvent setValue:[DateHelper convertStringFromDate:date] forKey:@"endTime"];
+        self.duration = [NSNumber numberWithInt:numberOfMinutes];
     } else {
         int minUsers = [[self.currentResource objectForKey:@"minUsers"] intValue];
         NSNumber *numberOfUsers = [NSNumber numberWithInteger:minUsers + (int)(row)];
