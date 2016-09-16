@@ -3,6 +3,8 @@ package com.accedia.thearm;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.accedia.thearm.helpers.ApiHelper;
+import com.accedia.thearm.models.ARMModel;
+import com.accedia.thearm.models.Result;
+import com.accedia.thearm.models.User;
 
 import org.json.JSONException;
 
@@ -41,7 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         setupProgressDialog();
+
         buttonRegister = (Button) findViewById(R.id.button_register);
+        Button buttonLogin = (Button) findViewById(R.id.button_login);
         editUsername = (EditText) findViewById(R.id.edit_register_username);
         editEmail = (EditText) findViewById(R.id.edit_register_email);
         editPassword = (EditText) findViewById(R.id.edit_register_password);
@@ -62,44 +69,40 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            try {
-                                if (ApiHelper.register(username, password, "", email, displayName)) {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register successful.", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
-                                    });
-                                } else {
-                                    showToastWithError("Register failed.");
-                                }
-                            } catch (ExecutionException e) {
-                                e.printStackTrace();
-                                showToastWithError("Register failed.");
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                showToastWithError("Register failed.");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                showToastWithError("Register failed.");
-                            } finally {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                            final ARMModel response = ApiHelper.register(username, password, "", email, displayName);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (response.getClass().equals(User.class)) {
+
                                         dialog.hide();
+                                        Toast.makeText(RegisterActivity.this.getApplicationContext(), "Register successful.", Toast.LENGTH_SHORT).show();
+                                        finish();
+
+                                    } else {
+                                        dialog.hide();
+                                        generateAlert("Problem", ((Result) response).getMessage(), new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
                                         buttonRegister.setEnabled(true);
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
-
                     };
                     mThread.start();
                 }
             }
         });
-
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -128,6 +131,24 @@ public class RegisterActivity extends AppCompatActivity {
         String displayName = editDisplayName.getText().toString();
         String confirmPassword = editConfirmPassword.getText().toString();
         return RegisterActivity.this.checkTexts(username, email, password, confirmPassword, displayName);
+    }
+
+    private void generateAlert(String title, String message, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        alertDialogBuilder.setTitle(title);
+
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton("OK",listener);
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
     /**

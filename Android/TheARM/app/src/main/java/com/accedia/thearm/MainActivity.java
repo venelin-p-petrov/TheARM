@@ -18,6 +18,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.json.JSONException;
 
+import java.text.ParseException;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -84,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
                             e.printStackTrace();
                             showToastWithError("Login failed.");
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                            showToastWithError("Login failed.");
+                        } catch (ParseException e) {
                             e.printStackTrace();
                             showToastWithError("Login failed.");
                         } finally {

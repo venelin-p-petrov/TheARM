@@ -3,10 +3,12 @@ package com.accedia.thearm.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+
 /**
  * Created by venelin.petrov on 1.11.2015 г..
  */
-public class User {
+public class User implements ARMModel {
     private String email;
     private int userId;
     private String username;
@@ -14,7 +16,7 @@ public class User {
     private String notificationToken;
     private int companyId;
 
-    public User(JSONObject obj) throws JSONException {
+    public User(JSONObject obj) throws JSONException, ParseException {
         this.email = obj.getString("email");
         this.userId = obj.getInt("userId");
         this.displayName = obj.getString("displayName");

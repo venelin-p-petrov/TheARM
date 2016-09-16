@@ -29,7 +29,7 @@ public class ApiHelper {
     private final static String URL_ENDPOINT = "https://thearm2.azure-mobile.net/api/";
 
 
-    public static boolean login(String username, String password, String token) throws ExecutionException, InterruptedException, JSONException {
+    public static boolean login(String username, String password, String token) throws ExecutionException, InterruptedException, JSONException, ParseException {
         String url = URL_ENDPOINT + "login";
 
         JSONObject obj = new JSONObject();
@@ -48,26 +48,43 @@ public class ApiHelper {
         return isSuccess;
     }
 
-    public static boolean register(String username, String password, String token, String email, String displayName) throws ExecutionException, InterruptedException, JSONException {
+    public static ARMModel register(String username, String password, String token, String email, String displayName)  {
 
         String url = URL_ENDPOINT + "register";
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("username", username);
 
-        JSONObject obj = new JSONObject();
-        obj.put("username", username);
-        obj.put("password", password);
-        obj.put("token", token);
-        obj.put("email", email);
-        obj.put("displayName", displayName);
-        obj.put("os", "Android");
+            obj.put("password", password);
+            obj.put("token", token);
+            obj.put("email", email);
+            obj.put("displayName", displayName);
+            obj.put("os", "Android");
 
-        String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
+            String result = new RequestTask( POST.value()).execute(url, obj.toString()).get();
 
-        JSONObject res = new JSONObject(result);
-        boolean isSuccess = res.getString("status").equals("success");
+            try {
+                User user = new User(new JSONObject(result));
+                ObjectsHelper.getInstance().setCurrentUser(user);
+                return user;
+            } catch (JSONException e) {
+                Result resultObject =   new Result(new JSONObject(result));
+                return resultObject;
+            }
 
-        ObjectsHelper.getInstance().setCurrentUser(new User(res));
-
-        return isSuccess;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return new Result(e.getMessage(), "failed");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return new Result(e.getMessage(), "failed");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return new Result(e.getMessage(), "failed");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Result(e.getMessage(), "failed");
+        }
     }
 
     public static List<Resource> getResources(int companyId) throws ExecutionException, InterruptedException, JSONException {
@@ -75,7 +92,7 @@ public class ApiHelper {
         String url = URL_ENDPOINT + companyId + "/resources";
         String result = new RequestTask(GET.value()).execute(url).get();
 
-        ArrayList<Resource> resources = new ArrayList<Resource>();
+        ArrayList<Resource> resources = new ArrayList<>();
         JSONArray resArr = new JSONArray(result);
         for (int i = 0; i < resArr.length(); i++){
             resources.add(new Resource(resArr.getJSONObject(i)));
@@ -91,9 +108,7 @@ public class ApiHelper {
         String url = URL_ENDPOINT + companyId + "/resources/" + resourceId;
         String result = new RequestTask(GET.value()).execute(url).get();
 
-        Resource res = new Resource(new JSONObject(result));
-
-        return res;
+        return new Resource(new JSONObject(result));
     }
 
     public static ARMModel createEvent(String description, int minUsers, int maxUsers, Date startDate, Date endDate, int resourceId, int ownerId) throws ExecutionException, JSONException, InterruptedException, ParseException {
@@ -111,7 +126,7 @@ public class ApiHelper {
         event.put("ownerId", ownerId);
 
         String result = new RequestTask(POST.value()).execute(url, event.toString()).get();
-        ARMModel eventObj = null;
+        ARMModel eventObj;
         try {
             eventObj = new Event(new JSONObject(result));
         } catch (JSONException e) {
@@ -125,7 +140,7 @@ public class ApiHelper {
         String url = URL_ENDPOINT + companyId + "/events";
         String result = new RequestTask(GET.value()).execute(url).get();
 
-        ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Event> events = new ArrayList<>();
         JSONArray evArr = new JSONArray(result);
         for (int i = 0; i < evArr.length(); i++) {
             events.add(new Event(evArr.getJSONObject(i)));
@@ -140,9 +155,7 @@ public class ApiHelper {
         String url = URL_ENDPOINT + "/events/" + eventId;
         String result = new RequestTask(GET.value()).execute(url).get();
 
-        Event event = new Event(new JSONObject(result));
-
-        return event;
+        return new Event(new JSONObject(result));
     }
 
     public static Result joinEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
@@ -154,9 +167,7 @@ public class ApiHelper {
 
         String result = new RequestTask(POST.value()).execute(url, obj.toString() ).get();
 
-        Result resulObject = new Result(new JSONObject(result));
-
-        return resulObject;
+        return new Result(new JSONObject(result));
     }
 
     public static Result leaveEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
@@ -167,9 +178,7 @@ public class ApiHelper {
 
         String result = new RequestTask(POST.value()).execute(url, obj.toString()).get();
 
-        Result resulObject = new Result(new JSONObject(result));
-
-        return resulObject;
+        return new Result(new JSONObject(result));
     }
 
     public static Result deleteEvent(int userId, int eventId) throws ExecutionException, InterruptedException, JSONException, ParseException {
@@ -183,7 +192,6 @@ public class ApiHelper {
     public static String getCompanies() throws ExecutionException, InterruptedException {
 
         String url = URL_ENDPOINT + "companies";
-        String result = new RequestTask(GET.value()).execute(url).get();
-        return result;
+        return new RequestTask(GET.value()).execute(url).get();
     }
 }

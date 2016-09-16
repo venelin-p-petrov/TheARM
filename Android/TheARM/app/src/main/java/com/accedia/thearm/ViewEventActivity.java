@@ -95,16 +95,12 @@ public class ViewEventActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 //                        Result result = null;
-                        String operation = "";
                         try {
                             if (event.getOwner().getUserId() == userID) {
-                                operation = "delete";
                                 result = ApiHelper.deleteEvent(userID, eventId);
                             } else if (isUserParticipant(userID, event)) {
-                                operation = "left";
                                 result = ApiHelper.leaveEvent(userID, eventId);
                             } else {
-                                operation = "join";
                                 result = ApiHelper.joinEvent(userID, eventId);
                             }
                         } catch (ExecutionException e) {
@@ -124,14 +120,13 @@ public class ViewEventActivity extends AppCompatActivity {
                             });
 
                         }
-                        final String finalOperation = operation;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (result == null || !Result.SUCCESS.equals(result.getStatus())) {
                                     showAlertDialog(result);
                                 } else {
-                                    showAlertForSuccessfulOperation(finalOperation);
+                                    showAlertForSuccessfulOperation(result.getMessage());
                                 }
                             }
                         });
@@ -143,8 +138,7 @@ public class ViewEventActivity extends AppCompatActivity {
         });
     }
 
-    private void showAlertForSuccessfulOperation(String operation) {
-        String message = "Successfully "+ operation + " the event";
+    private void showAlertForSuccessfulOperation(String message) {
         generateAlert("",message,new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 dialog.cancel();
