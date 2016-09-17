@@ -5,18 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.accedia.thearm.R;
-import com.accedia.thearm.helpers.ObjectsHelper;
-import com.accedia.thearm.models.Event;
-import com.accedia.thearm.models.Resource;
 import com.accedia.thearm.models.User;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

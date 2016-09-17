@@ -3,9 +3,9 @@ package com.accedia.thearm;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -28,9 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import org.json.JSONException;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class CreateEventActivity extends AppCompatActivity {

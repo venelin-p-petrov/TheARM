@@ -1,8 +1,5 @@
 package com.accedia.thearm.helpers;
 
-import android.net.Uri;
-import android.util.Pair;
-
 import com.accedia.thearm.models.ARMModel;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
@@ -19,7 +16,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.accedia.thearm.helpers.RequestTask.RequestMethod.*;
+import static com.accedia.thearm.helpers.RequestTask.RequestMethod.DELETE;
+import static com.accedia.thearm.helpers.RequestTask.RequestMethod.GET;
+import static com.accedia.thearm.helpers.RequestTask.RequestMethod.POST;
 
 /**
  * Created by venelin.petrov on 1.11.2015 г..
