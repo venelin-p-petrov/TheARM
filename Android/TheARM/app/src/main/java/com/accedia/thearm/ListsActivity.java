@@ -51,7 +51,7 @@ public class ListsActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private SlidingMenu menu;
-    public static EventListAdapter eventListAdapter;
+    private static EventListAdapter eventListAdapter;
 
     private static FloatingActionButton fabNewEvent;
 
