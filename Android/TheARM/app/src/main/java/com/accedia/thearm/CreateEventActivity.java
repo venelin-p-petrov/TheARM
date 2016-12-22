@@ -150,6 +150,7 @@ public class CreateEventActivity extends AppCompatActivity {
                             );
 
                             if (eventCreate.getClass().equals(Event.class)) {
+
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {

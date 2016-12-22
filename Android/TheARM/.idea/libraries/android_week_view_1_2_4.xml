@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="android-week-view-1.2.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.alamkanak/android-week-view/1.2.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.alamkanak/android-week-view/1.2.4/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.alamkanak/android-week-view/1.2.4/fc7488e76c901634221a73b85692d7bf99ac3ae3/android-week-view-1.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
