@@ -256,7 +256,6 @@ public class ListsActivity extends AppCompatActivity {
 
         public PlaceholderFragment() {
         }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -268,6 +267,7 @@ public class ListsActivity extends AppCompatActivity {
 
                 ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
                 eventListAdapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
+                eventListAdapter.updateEvents(listEvents);
                 listEvents.setAdapter(eventListAdapter);
                 listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -278,10 +278,8 @@ public class ListsActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
             } else if (sectionNumber == 2) {
                 rootView = inflater.inflate(R.layout.fragment_resources, container, false);
-
                 ListView listResources = (ListView) rootView.findViewById(R.id.list_resources);
                 BaseAdapter adapter = new ResourceListAdapter(getContext(), ObjectsHelper.getInstance().getResources());
                 listResources.setAdapter(adapter);
@@ -297,6 +295,8 @@ public class ListsActivity extends AppCompatActivity {
             }
             return rootView;
         }
+
+
 
         @Override
         public void onResume() {

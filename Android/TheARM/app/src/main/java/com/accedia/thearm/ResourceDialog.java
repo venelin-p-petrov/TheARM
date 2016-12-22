@@ -20,6 +20,7 @@ public class ResourceDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final ArrayList<Resource> resources = ObjectsHelper.getInstance().getResources();
         ArrayList<String> resourceTitles = new ArrayList<String>();
@@ -40,4 +41,6 @@ public class ResourceDialog extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
+
 }
