@@ -23,6 +23,8 @@ import com.accedia.thearm.adapters.EventListAdapter;
 import com.accedia.thearm.adapters.ResourceListAdapter;
 import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
+import com.accedia.thearm.helpers.Refreshable;
+import com.accedia.thearm.helpers.UpdateEvents;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -34,7 +36,7 @@ import org.json.JSONException;
 import java.text.ParseException;
 import java.util.concurrent.ExecutionException;
 
-public class ListsActivity extends AppCompatActivity {
+public class ListsActivity extends AppCompatActivity implements Refreshable {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -64,6 +66,8 @@ public class ListsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lists);
+
+        UpdateEvents.getInstance().registerForUpdate(this);
 
         setupSlidingMenu();
 
@@ -197,6 +201,22 @@ public class ListsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UpdateEvents.getInstance().unregisterForUpdate(this);
+    }
+
+    @Override
+    public void refresh() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((BaseAdapter) eventListAdapter).notifyDataSetChanged();
+            }
+        });
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -268,7 +288,8 @@ public class ListsActivity extends AppCompatActivity {
 
                 ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
                 eventListAdapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
-                eventListAdapter.updateEvents(listEvents);
+                //eventListAdapter.updateEvents(listEvents);
+                UpdateEvents.getInstance().updateEvents();
                 listEvents.setAdapter(eventListAdapter);
                 listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

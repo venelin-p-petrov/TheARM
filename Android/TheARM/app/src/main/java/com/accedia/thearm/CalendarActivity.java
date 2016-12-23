@@ -9,8 +9,11 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.accedia.thearm.adapters.ResourceListAdapter;
 import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
+import com.accedia.thearm.helpers.Refreshable;
+import com.accedia.thearm.helpers.UpdateEvents;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.Resource;
 import com.alamkanak.weekview.MonthLoader;
@@ -26,11 +29,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements Refreshable {
 
     private int resourceId;
     public static final String EXTRA_RESOURCE_ID = "com.accedia.thearm.ViewEventActivity.EXTRA_EVENT_ID";
     private WeekView weekView;
+    private ResourceListAdapter resourceListAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -82,6 +86,9 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        resourceListAdapter = new ResourceListAdapter(this, ObjectsHelper.getInstance().getResources());
+        UpdateEvents.getInstance().registerForUpdate(this);
+
     }
 
     private List<WeekViewEvent> generateEvents() {
@@ -142,5 +149,21 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         weekView.notifyDatasetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UpdateEvents.getInstance().unregisterForUpdate(this);
+    }
+
+    @Override
+    public void refresh() {
+        ((CalendarActivity) weekView.getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                weekView.notifyDatasetChanged();
+            }
+        });
     }
 }
