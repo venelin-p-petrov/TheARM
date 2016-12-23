@@ -268,6 +268,7 @@ public class ListsActivity extends AppCompatActivity {
 
                 ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
                 eventListAdapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
+                eventListAdapter.updateEvents(listEvents);
                 listEvents.setAdapter(eventListAdapter);
                 listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

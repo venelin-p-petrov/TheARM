@@ -1,12 +1,11 @@
 package com.accedia.thearm;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,10 +17,6 @@ import com.accedia.thearm.models.ARMModel;
 import com.accedia.thearm.models.Result;
 import com.accedia.thearm.models.User;
 
-import org.json.JSONException;
-
-import java.util.concurrent.ExecutionException;
-
 public class RegisterActivity extends AppCompatActivity {
 
     private Button buttonRegister;
@@ -31,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editDisplayName;
     private EditText editConfirmPassword;
     private ProgressDialog dialog;
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 
     public void hideSoftKeyboard(View view) {
 //        View view = this.getCurrentFocus();
@@ -157,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
     //TODO: change validation method for email.
     private boolean checkTexts(String username, String email, String password, String confirmPassword, String displayName) {
         boolean isValid = true;
-        if (email == null || email.length() < 5 ){
+        if (email == null || email.length() < 5 || !email.matches(EMAIL_REGEX)){
             isValid = false;
             Toast.makeText(RegisterActivity.this.getApplicationContext(), "Please add valid email address.", Toast.LENGTH_SHORT).show();
         } else if (password == null || password.length() < 6) {
