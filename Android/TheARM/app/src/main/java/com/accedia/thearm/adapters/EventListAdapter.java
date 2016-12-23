@@ -36,17 +36,17 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
 
     private Context context;
     private List<Event> items = new ArrayList<Event>();
-    private int countJoinedUsersFlag = countJoinedUsers(ObjectsHelper.getInstance().getEvents());
     private ArrayList<EventInfo> eventsInfo = initEventInfo(ObjectsHelper.getInstance().getEvents());
 
     private ArrayList<EventInfo> initEventInfo(ArrayList<Event> events) {
         ArrayList<EventInfo> eventsInfo = new ArrayList<EventInfo>();
 
-        for (Event event : events) {
-            EventInfo eventInformation = new EventInfo(event.getEventId(), event.getUsers());
-            eventsInfo.add(eventInformation);
+        if(events != null) {
+            for (Event event : events) {
+                EventInfo eventInformation = new EventInfo(event.getEventId(), event.getUsers());
+                eventsInfo.add(eventInformation);
+            }
         }
-
         return eventsInfo;
     }
 
@@ -59,14 +59,6 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         this.items = items;
     }
 
-    private int countJoinedUsers(ArrayList<Event> events){
-        int counter = 0;
-        for (Event event : events) {
-            counter += event.getUsers().size();
-        }
-
-        return counter;
-    }
     public  boolean equalLists(ArrayList<EventInfo> one, ArrayList<Event> two){
         if (one == null && two == null){
             return true;
@@ -81,7 +73,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         for(EventInfo eventInfo : one) {
             boolean foundEvent = false;
             for(Event event : two) {
-                if(eventInfo.getId()  == event.getEventId()) {
+                if(eventInfo.getId()  == event.getEventId() && eventInfo.getUsers().size() == event.getUsers().size()) {
                     for (User user : eventInfo.getUsers()) {
                         for (User user1 : event.getUsers()) {
                             if(user.getUserId() == user1.getUserId()){
@@ -166,7 +158,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
             public void run() {
                 while(true) {
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -181,10 +173,8 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if(countJoinedUsersFlag != countJoinedUsers(ObjectsHelper.getInstance().getEvents())
-                            || !equalLists(eventsInfo, ObjectsHelper.getInstance().getEvents())) {
+                    if(!equalLists(eventsInfo, ObjectsHelper.getInstance().getEvents())) {
                         final EventListAdapter adapter = (EventListAdapter) listEvents.getAdapter();
-                        countJoinedUsersFlag = countJoinedUsers(ObjectsHelper.getInstance().getEvents());
                         eventsInfo = initEventInfo(ObjectsHelper.getInstance().getEvents());
                         ((ListsActivity) context).runOnUiThread(new Runnable() {
                             @Override
