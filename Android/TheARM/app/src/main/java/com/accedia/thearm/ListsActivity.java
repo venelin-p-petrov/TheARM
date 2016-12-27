@@ -288,7 +288,6 @@ public class ListsActivity extends AppCompatActivity implements Refreshable {
 
                 ListView listEvents = (ListView) rootView.findViewById(R.id.list_events);
                 eventListAdapter = new EventListAdapter(getContext(), ObjectsHelper.getInstance().getEvents());
-                //eventListAdapter.updateEvents(listEvents);
                 UpdateEvents.getInstance().updateEvents();
                 listEvents.setAdapter(eventListAdapter);
                 listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {

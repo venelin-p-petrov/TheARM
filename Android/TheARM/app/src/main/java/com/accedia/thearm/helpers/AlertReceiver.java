@@ -19,7 +19,7 @@ public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        createNotification(context, "TheARM", "It's time for " + intent.getStringExtra("eventDesc"), "|TheARM");
+        createNotification(context, "TheARM", "It's time for " + intent.getStringExtra("eventDesc"), "TheARM");
     }
 
     public void createNotification(Context context, String msg, String msgText, String msgAlert) {

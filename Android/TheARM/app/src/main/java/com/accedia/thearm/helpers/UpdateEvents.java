@@ -1,6 +1,7 @@
 package com.accedia.thearm.helpers;
 
 import com.accedia.thearm.adapters.EventListAdapter;
+import com.accedia.thearm.models.Event;
 
 import org.json.JSONException;
 
@@ -15,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 public class UpdateEvents {
 
+    private static final int ONE_MINUTE = 1000;
     public static List<Refreshable> items;
     private static UpdateEvents instance;
 
@@ -45,7 +47,7 @@ public class UpdateEvents {
             public void run() {
                 while(true) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(5 * ONE_MINUTE);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -61,8 +63,11 @@ public class UpdateEvents {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if(!EventListAdapter.equalLists(EventListAdapter.eventsInfo, ObjectsHelper.getInstance().getEvents())) {
-                        EventListAdapter.eventsInfo = EventListAdapter.initEventInfo(ObjectsHelper.getInstance().getEvents());
+
+                    ArrayList<Event> events = ObjectsHelper.getInstance().getEvents();
+
+                    if(!EventListAdapter.equalLists(EventListAdapter.eventsInfo, events)) {
+                        EventListAdapter.eventsInfo = EventListAdapter.initEventInfo(events);
 
                         for (Refreshable item : items) {
                             item.refresh();
