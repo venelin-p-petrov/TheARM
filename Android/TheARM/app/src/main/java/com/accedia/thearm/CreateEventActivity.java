@@ -1,7 +1,11 @@
 package com.accedia.thearm;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -16,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.accedia.thearm.helpers.AlertReceiver;
 import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.helpers.WaitingDialog;
@@ -35,6 +40,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
     public static final String START_DATE = "com.accedia.thearm.START_DATE";
     public static final String EXTRA_RESOURCE_ID = "EXTRA_RESOURCE_ID";
+    private static final int ONE_MINUTE = 60 * 1000;
 
     private TimePicker startTimePicker;
     private Button createEventButton;
@@ -153,6 +159,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        setAlarm(finalStartTime.getTimeInMillis(), eventDescriptionEditText.getText().toString());
                                         dialog.dismiss();
                                         finish();
                                     }
@@ -186,6 +193,20 @@ public class CreateEventActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void setAlarm(long time, String eventDesc){
+        Long alertTime = time - 5 * ONE_MINUTE;
+
+        Intent alertIntent = new Intent(this, AlertReceiver.class);
+        alertIntent.putExtra("eventDesc", eventDesc);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
+                PendingIntent.getBroadcast(this, 1, alertIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT));
+
     }
 
     private void addCloseTextListeners() {

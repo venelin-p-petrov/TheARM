@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.accedia.thearm.ListsActivity;
 import com.accedia.thearm.R;
-import com.accedia.thearm.helpers.ApiHelper;
 import com.accedia.thearm.helpers.ObjectsHelper;
 import com.accedia.thearm.models.Event;
 import com.accedia.thearm.models.EventInfo;
@@ -21,13 +18,9 @@ import com.accedia.thearm.models.Resource;
 import com.accedia.thearm.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by venelin.petrov on 1.11.2015 г..
@@ -36,9 +29,9 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
 
     private Context context;
     private List<Event> items = new ArrayList<Event>();
-    private ArrayList<EventInfo> eventsInfo = initEventInfo(ObjectsHelper.getInstance().getEvents());
+    public static ArrayList<EventInfo> eventsInfo = initEventInfo(ObjectsHelper.getInstance().getEvents());
 
-    private ArrayList<EventInfo> initEventInfo(ArrayList<Event> events) {
+    public static ArrayList<EventInfo> initEventInfo(ArrayList<Event> events) {
         ArrayList<EventInfo> eventsInfo = new ArrayList<EventInfo>();
 
         if(events != null) {
@@ -50,7 +43,6 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         return eventsInfo;
     }
 
-
     public EventListAdapter(Context context, List<Event> items) {
         if(items == null) {
             items = new ArrayList<Event>();
@@ -59,7 +51,7 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
         this.items = items;
     }
 
-    public  boolean equalLists(ArrayList<EventInfo> one, ArrayList<Event> two){
+    public static boolean equalLists(ArrayList<EventInfo> one, ArrayList<Event> two){
         if (one == null && two == null){
             return true;
         }
@@ -151,43 +143,4 @@ public class EventListAdapter extends BaseAdapter implements ListAdapter {
 
         return convertView;
     }
-
-    public void updateEvents(final ListView listEvents) {
-        final Runnable thread = new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        ApiHelper.getEvents(1);
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if(!equalLists(eventsInfo, ObjectsHelper.getInstance().getEvents())) {
-                        final EventListAdapter adapter = (EventListAdapter) listEvents.getAdapter();
-                        eventsInfo = initEventInfo(ObjectsHelper.getInstance().getEvents());
-                        ((ListsActivity) context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((BaseAdapter) adapter).notifyDataSetChanged();
-                            }
-                        });
-                    }
-                }
-            }
-        };
-        Thread update = new Thread(thread);
-        update.start();
-    }
-
 }
